@@ -1,0 +1,779 @@
+<title>ITS Python 證照｜自學與自測 Hub</title>
+<style>
+  :root{
+    --bg:#f6f8fb; --surface:#ffffff; --surface-2:#eef1f7; --code-bg:#f0f3f9;
+    --text:#171c28; --muted:#59637a; --border:#dde3ee;
+    --accent:#3b57d6; --accent-soft:#e6ebfd; --amber:#c9760a;
+    --good:#1f8a4c; --good-soft:#e3f4e9; --good-bd:#a8dcbb;
+    --bad:#cf3d3d; --bad-soft:#fbe7e7; --bad-bd:#f0b6b6;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans TC","PingFang TC",sans-serif;
+    --maxw:960px; --radius:12px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0e1218; --surface:#151b25; --surface-2:#1d2531; --code-bg:#10151d;
+      --text:#e7eaf2; --muted:#94a0b8; --border:#28303d;
+      --accent:#8098f7; --accent-soft:#1a2440; --amber:#eaa54a;
+      --good:#54cf78; --good-soft:#132c1c; --good-bd:#255f39;
+      --bad:#ef8888; --bad-soft:#301718; --bad-bd:#5e2a2b;
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#f6f8fb; --surface:#ffffff; --surface-2:#eef1f7; --code-bg:#f0f3f9;
+    --text:#171c28; --muted:#59637a; --border:#dde3ee;
+    --accent:#3b57d6; --accent-soft:#e6ebfd; --amber:#c9760a;
+    --good:#1f8a4c; --good-soft:#e3f4e9; --good-bd:#a8dcbb;
+    --bad:#cf3d3d; --bad-soft:#fbe7e7; --bad-bd:#f0b6b6;
+  }
+  :root[data-theme="dark"]{
+    --bg:#0e1218; --surface:#151b25; --surface-2:#1d2531; --code-bg:#10151d;
+    --text:#e7eaf2; --muted:#94a0b8; --border:#28303d;
+    --accent:#8098f7; --accent-soft:#1a2440; --amber:#eaa54a;
+    --good:#54cf78; --good-soft:#132c1c; --good-bd:#255f39;
+    --bad:#ef8888; --bad-soft:#301718; --bad-bd:#5e2a2b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.65;
+    -webkit-font-smoothing:antialiased;font-size:16px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code{font-family:var(--mono);font-size:.92em;background:var(--surface-2);padding:.08em .35em;border-radius:5px}
+  pre{font-family:var(--mono);font-size:.86rem;line-height:1.55;background:var(--code-bg);
+    border:1px solid var(--border);border-radius:9px;padding:12px 14px;overflow-x:auto;margin:.6rem 0;
+    tab-size:4}
+  .eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);font-weight:600}
+  h2{font-size:1.6rem;letter-spacing:-.02em;margin:.2rem 0 .1rem;text-wrap:balance}
+  h3{font-size:1.1rem;margin:1.4rem 0 .3rem}
+
+  /* header */
+  header.bar{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--surface) 88%,transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .bar .wrap{display:flex;align-items:center;gap:16px;height:56px}
+  .brand{font-family:var(--mono);font-weight:700;font-size:.95rem;letter-spacing:-.01em;white-space:nowrap}
+  .brand .dot{color:var(--amber)}
+  nav.toc{display:flex;gap:4px;margin-left:auto;overflow-x:auto}
+  nav.toc a{font-size:.8rem;color:var(--muted);padding:6px 10px;border-radius:7px;white-space:nowrap}
+  nav.toc a:hover{color:var(--text);background:var(--surface-2);text-decoration:none}
+  .toggle{flex:0 0 auto;width:38px;height:32px;border:1px solid var(--border);background:var(--surface);
+    border-radius:8px;color:var(--text);cursor:pointer;font-size:1rem;display:grid;place-items:center}
+  .toggle:hover{border-color:var(--accent)}
+
+  /* hero */
+  .hero{padding:52px 0 34px}
+  .hero .kick{color:var(--amber)}
+  .hero h1{font-size:clamp(2rem,5vw,3rem);line-height:1.08;letter-spacing:-.03em;margin:.5rem 0 .6rem;
+    text-wrap:balance}
+  .hero p.lead{font-size:1.08rem;color:var(--muted);max-width:60ch;margin:0}
+  .hero .stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .chip{font-family:var(--mono);font-size:.78rem;background:var(--surface);border:1px solid var(--border);
+    padding:7px 11px;border-radius:8px}
+  .chip b{color:var(--accent)}
+  .term{margin-top:26px;background:var(--code-bg);border:1px solid var(--border);border-radius:12px;
+    overflow:hidden;box-shadow:0 10px 30px -18px rgba(20,30,60,.5)}
+  .term .top{display:flex;gap:7px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border);
+    background:var(--surface-2)}
+  .term .top i{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .term .top .t{font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-left:8px}
+  .term pre{margin:0;border:0;border-radius:0;background:transparent;font-size:.82rem;padding:15px 16px}
+  .cur{display:inline-block;width:8px;height:1.05em;background:var(--accent);vertical-align:-2px;
+    animation:blink 1.1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  @media (prefers-reduced-motion:reduce){.cur{animation:none}}
+
+  section{padding:34px 0;border-top:1px solid var(--border)}
+  .lede{color:var(--muted);max-width:64ch}
+
+  /* domain weight bars */
+  .dom{display:grid;gap:12px;margin-top:20px}
+  .dom .row{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:13px 15px}
+  .dom .h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .dom .n{font-family:var(--mono);font-size:.72rem;color:var(--accent);font-weight:700}
+  .dom .name{font-weight:600}
+  .dom .w{margin-left:auto;font-family:var(--mono);font-size:.82rem;color:var(--muted);
+    font-variant-numeric:tabular-nums}
+  .dom .track{height:7px;background:var(--surface-2);border-radius:4px;margin-top:9px;overflow:hidden}
+  .dom .fill{height:100%;background:linear-gradient(90deg,var(--accent),color-mix(in srgb,var(--accent) 55%,var(--amber)));
+    border-radius:4px}
+  .dom .sub{font-size:.85rem;color:var(--muted);margin-top:8px}
+
+  /* resource cards */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:18px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:14px 15px}
+  .card .tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+    padding:2px 7px;border-radius:5px;font-weight:700}
+  .tag.t1{background:var(--good-soft);color:var(--good);border:1px solid var(--good-bd)}
+  .tag.t2{background:var(--accent-soft);color:var(--accent)}
+  .tag.t3{background:var(--bad-soft);color:var(--bad);border:1px solid var(--bad-bd)}
+  .card h4{margin:9px 0 4px;font-size:.98rem}
+  .card p{margin:0;font-size:.85rem;color:var(--muted)}
+
+  /* quiz */
+  .quizhead{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;justify-content:space-between}
+  .filters{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+  .fbtn{font-family:var(--mono);font-size:.78rem;padding:6px 11px;border-radius:8px;cursor:pointer;
+    background:var(--surface);border:1px solid var(--border);color:var(--muted)}
+  .fbtn:hover{border-color:var(--accent);color:var(--text)}
+  .fbtn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+  :root[data-theme="dark"] .fbtn[aria-pressed="true"]{color:#0e1218}
+  @media (prefers-color-scheme:dark){.fbtn[aria-pressed="true"]{color:#0e1218}}
+
+  .scorebar{position:sticky;top:56px;z-index:40;margin-top:18px;
+    background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(8px);
+    border:1px solid var(--border);border-radius:11px;padding:11px 15px;
+    display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+  .scorebar .m{font-family:var(--mono);font-size:.82rem;font-variant-numeric:tabular-nums}
+  .scorebar .m b{font-size:1.05rem}
+  .scorebar .m span{color:var(--muted)}
+  .scorebar .pct{color:var(--accent)}
+  .scorebar .reset{margin-left:auto;font-family:var(--mono);font-size:.76rem;background:none;
+    border:1px solid var(--border);color:var(--muted);padding:5px 10px;border-radius:7px;cursor:pointer}
+  .scorebar .reset:hover{border-color:var(--bad);color:var(--bad)}
+
+  .q{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 17px;margin-top:14px}
+  .q.hidden{display:none}
+  .q .meta{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+  .q .qid{font-family:var(--mono);font-size:.72rem;color:var(--accent);font-weight:700}
+  .q .dl{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);background:var(--surface-2);padding:2px 7px;border-radius:5px}
+  .q .multi{font-family:var(--mono);font-size:.66rem;color:var(--amber);border:1px solid var(--amber);
+    padding:1px 6px;border-radius:5px}
+  .q .stem{font-weight:500;margin-bottom:4px}
+  .opts{display:grid;gap:8px;margin-top:11px}
+  .opt{display:flex;gap:10px;align-items:flex-start;text-align:left;width:100%;cursor:pointer;
+    background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:10px 12px;
+    color:var(--text);font-family:inherit;font-size:.93rem;line-height:1.5}
+  .opt:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft)}
+  .opt:disabled{cursor:default}
+  .opt .k{font-family:var(--mono);font-weight:700;color:var(--muted);flex:0 0 auto}
+  .opt .tx{flex:1}
+  .opt .tx code,.opt .tx{font-family:var(--mono);font-size:.9rem}
+  .opt.correct{background:var(--good-soft);border-color:var(--good-bd)}
+  .opt.correct .k{color:var(--good)}
+  .opt.wrong{background:var(--bad-soft);border-color:var(--bad-bd)}
+  .opt.wrong .k{color:var(--bad)}
+  .opt .mark{margin-left:auto;font-family:var(--mono);font-weight:700}
+  .opt.correct .mark{color:var(--good)}
+  .opt.wrong .mark{color:var(--bad)}
+  .submit{margin-top:11px;font-family:var(--mono);font-size:.82rem;background:var(--accent);color:#fff;
+    border:0;padding:8px 16px;border-radius:8px;cursor:pointer}
+  :root[data-theme="dark"] .submit{color:#0e1218}
+  @media (prefers-color-scheme:dark){.submit{color:#0e1218}}
+  .submit:disabled{opacity:.5;cursor:default}
+  .exp{margin-top:11px;padding:11px 13px;border-radius:9px;background:var(--surface-2);
+    border-left:3px solid var(--accent);font-size:.88rem}
+  .exp.hidden{display:none}
+  .exp b{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+  /* result */
+  .result{margin-top:18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:20px;display:none}
+  .result.show{display:block}
+  .result .verdict{font-size:1.4rem;font-weight:700;letter-spacing:-.02em}
+  .result .pass{color:var(--good)}
+  .result .fail{color:var(--bad)}
+  .result .big{font-family:var(--mono);font-size:2.6rem;font-weight:700;line-height:1;
+    font-variant-numeric:tabular-nums;margin:6px 0}
+  .rdom{display:grid;gap:8px;margin-top:16px}
+  .rdom .r{display:flex;align-items:center;gap:10px;font-size:.85rem}
+  .rdom .r .lab{font-family:var(--mono);color:var(--muted);flex:0 0 168px}
+  .rdom .r .bar{flex:1;height:8px;background:var(--surface-2);border-radius:4px;overflow:hidden}
+  .rdom .r .bar i{display:block;height:100%;background:var(--good);border-radius:4px}
+  .rdom .r .v{font-family:var(--mono);font-variant-numeric:tabular-nums;flex:0 0 auto}
+
+  footer{padding:34px 0 60px;color:var(--muted);font-size:.82rem;border-top:1px solid var(--border)}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:6px 18px}
+  .note{font-size:.8rem;color:var(--muted);background:var(--surface-2);border-radius:9px;padding:10px 13px;
+    margin-top:14px;border-left:3px solid var(--amber)}
+
+  /* mode bar */
+  .modebar{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+  .mbtn{font-family:var(--mono);font-size:.84rem;padding:9px 15px;border-radius:9px;cursor:pointer;
+    background:var(--surface);border:1px solid var(--border);color:var(--muted)}
+  .mbtn:hover{border-color:var(--accent);color:var(--text)}
+  .mbtn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+  :root[data-theme="dark"] .mbtn[aria-pressed="true"]{color:#0e1218}
+  @media (prefers-color-scheme:dark){.mbtn[aria-pressed="true"]{color:#0e1218}}
+
+  /* mock */
+  .mockbar .mktime{color:var(--amber)}
+  .mockbar .mktime b{font-size:1.15rem;font-variant-numeric:tabular-nums}
+  .mockbar.warn{border-color:var(--bad)}
+  .mockbar.warn .mktime{color:var(--bad)}
+  .mockbar #mkSubmit{margin-left:auto;padding:6px 14px}
+  .intro{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;margin-top:14px}
+  .intro h3{margin:0 0 6px}
+  .intro ul{margin:10px 0 16px;padding-left:20px;color:var(--muted);font-size:.9rem;line-height:1.9}
+  .intro .go{font-family:var(--mono);font-size:.9rem;background:var(--accent);color:#fff;border:0;
+    padding:11px 22px;border-radius:9px;cursor:pointer}
+  :root[data-theme="dark"] .intro .go{color:#0e1218}
+  @media (prefers-color-scheme:dark){.intro .go{color:#0e1218}}
+  .opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+  .opt.sel .k{color:var(--accent)}
+  .q .num{margin-left:auto;font-family:var(--mono);font-size:.7rem;color:var(--muted)}
+
+  /* 一次一題：題號跳格 + 上/下一題 */
+  .pager{display:flex;flex-wrap:wrap;gap:5px;margin-top:14px}
+  .pnum{font-family:var(--mono);font-size:.72rem;min-width:28px;height:28px;padding:0 4px;border-radius:7px;
+    border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+  .pnum:hover{border-color:var(--accent);color:var(--text)}
+  .pnum.ans{border-color:var(--accent);color:var(--accent)}
+  .pnum.correct{background:var(--good-soft);border-color:var(--good-bd);color:var(--good)}
+  .pnum.wrong{background:var(--bad-soft);border-color:var(--bad-bd);color:var(--bad)}
+  .pnum.cur{outline:2px solid var(--accent);outline-offset:1px;font-weight:700;color:var(--text)}
+  .nav{display:flex;align-items:center;gap:12px;margin-top:16px}
+  .navbtn{font-family:var(--mono);font-size:.85rem;padding:9px 16px;border-radius:9px;cursor:pointer;
+    background:var(--surface);border:1px solid var(--border);color:var(--text)}
+  .navbtn:hover:not(:disabled){border-color:var(--accent)}
+  .navbtn:disabled{opacity:.4;cursor:default}
+  .navbtn.primary{margin-left:auto;background:var(--accent);color:#fff;border-color:var(--accent)}
+  :root[data-theme="dark"] .navbtn.primary:not(:disabled){color:#0e1218}
+  @media (prefers-color-scheme:dark){.navbtn.primary:not(:disabled){color:#0e1218}}
+  .navbtn.primary:disabled{background:var(--surface);color:var(--text)}
+  .pos{font-family:var(--mono);font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+</style>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="brand">ITS<span class="dot">·</span>Python</span>
+    <nav class="toc">
+      <a href="#overview">總覽</a>
+      <a href="#domains">六大領域</a>
+      <a href="#resources">備考資源</a>
+      <a href="#quiz">線上自測</a>
+    </nav>
+    <button class="toggle" id="themeBtn" aria-label="切換深淺色">◐</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <span class="eyebrow kick">Certiport IT Specialist · Python</span>
+    <h1>讀懂程式，<br>比會寫更重要。</h1>
+    <p class="lead">ITS Python 是入門級國際認證，考的是「辨識、預測、除錯」程式碼的能力。這份 Hub 幫你對齊六大考試領域、篩選可信資源，並用 50 題互動測驗即時檢測實力。</p>
+    <div class="stats">
+      <span class="chip">題數 <b>36–43</b> 題</span>
+      <span class="chip">時間 <b>50</b> 分鐘</span>
+      <span class="chip">通過 <b>700</b>/1000</span>
+      <span class="chip">本站題庫 <b>168</b> 題</span>
+    </div>
+    <div class="term" aria-hidden="true">
+      <div class="top">
+        <i style="background:#e0665e"></i><i style="background:#e6b34d"></i><i style="background:#5bbf6a"></i>
+        <span class="t">python3 — its_prep.py</span>
+      </div>
+<pre>&gt;&gt;&gt; score = 0
+&gt;&gt;&gt; for domain in exam.domains:      <span style="color:var(--muted)"># 六大領域</span>
+...     score += study(domain)
+&gt;&gt;&gt; print("PASS" if score &gt;= 700 else "RETRY")
+PASS<span class="cur"></span></pre>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section id="overview">
+    <span class="eyebrow">Overview</span>
+    <h2>這張證照在考什麼</h2>
+    <p class="lede">ITS Python（前身 Microsoft 98-381）屬入門級，重點在<strong>讀懂與除錯</strong>而非即席開發。題型包含單選、複選、拖曳、排序、下拉等；台灣由碁峰資訊總代理，考場提供中文介面。</p>
+    <div class="note">⚠️ 官方不公開歷屆真題（受 NDA 保護）。最接近真題手感的合法管道是官方授權的 <b>GMetrix / CertPREP</b> 模擬；本站 50 題為<strong>原創且經 Python 實跑驗證</strong>，無版權疑慮。</div>
+  </section>
+
+  <section id="domains">
+    <span class="eyebrow">Objective Domains</span>
+    <h2>六大考試領域與權重</h2>
+    <p class="lede">權重來自官方 Objective Domains，並與 CodeHS 15 項標準交叉驗證。<strong>領域 2（流程控制）</strong>權重最高又最難，是拉分關鍵。</p>
+    <div class="dom" id="domList"></div>
+  </section>
+
+  <section id="resources">
+    <span class="eyebrow">Study Resources</span>
+    <h2>備考資源（依可信度分級）</h2>
+    <p class="lede">🟢 官方／授權 → 🟡 教材／課程 → 🟠 社群／回憶題（僅供熟悉題型，勿當標準答案）。</p>
+    <div class="cards">
+      <div class="card"><span class="tag t1">官方授權</span><h4>GMetrix / CertPREP</h4><p>官方指定模擬平台，題型與介面貼近正式考試。備考首選，建議完成 1–2 回全真計時模擬。</p></div>
+      <div class="card"><span class="tag t1">官方</span><h4>Objective Domains + CodeHS</h4><p>官方考綱文件與 15 項標準框架，對齊「考什麼」的權威依據。</p></div>
+      <div class="card"><span class="tag t2">中文主教材</span><h4>碁峰《ITS Python 應考攻略》</h4><p>台灣總代理出版，內容對齊考綱、含範例與練習。</p></div>
+      <div class="card"><span class="tag t2">線上課程</span><h4>uCertify / Career Smarter</h4><p>互動課程 + 模擬測驗，按資料型別、控制、函式、模組編排。</p></div>
+      <div class="card"><span class="tag t3">社群免費</span><h4>GitHub 開源筆記 · Quizlet</h4><p>免費入門地圖與字卡，答案需用官方考綱覆核，切勿死背。</p></div>
+      <div class="card"><span class="tag t3">避免</span><h4>「100% Pass 真題」販售站</h4><p>可能侵權、答案未必正確、違反考試誠信，不建議使用。</p></div>
+    </div>
+  </section>
+
+  <section id="quiz">
+    <div class="quizhead">
+      <div>
+        <span class="eyebrow">Self Test · 168 題</span>
+        <h2>線上自測</h2>
+        <p class="lede" style="margin:0"><b>練習模式</b>：選答即時對答看解析。<b>計時模擬考</b>：隨機抽 20 題、限時 25 分鐘、一次交卷評分（模擬真實考試）。</p>
+      </div>
+    </div>
+
+    <div class="modebar" id="modebar">
+      <button class="mbtn" data-mode="practice" aria-pressed="true">✎ 練習模式</button>
+      <button class="mbtn" data-mode="mock" aria-pressed="false">⏱ 計時模擬考（隨機 20 題）</button>
+    </div>
+
+    <div id="practicePane">
+      <div class="filters" id="filters"></div>
+      <div class="scorebar">
+        <span class="m"><span>已答</span> <b id="mDone">0</b><span>/<span id="mTotal">168</span></span></span>
+        <span class="m"><span>答對</span> <b id="mRight">0</b></span>
+        <span class="m pct"><span>正確率</span> <b id="mPct">—</b></span>
+        <button class="reset" id="resetBtn">↺ 重置</button>
+      </div>
+    </div>
+
+    <div id="mockPane" style="display:none">
+      <div class="scorebar mockbar" id="mockbar" style="display:none">
+        <span class="m mktime">⏱ <b id="mkTime">25:00</b></span>
+        <span class="m"><span>已答</span> <b id="mkDone">0</b><span>/20</span></span>
+        <button class="submit" id="mkSubmit">交卷評分</button>
+        <button class="reset" id="mkExit">結束模擬</button>
+      </div>
+    </div>
+
+    <div id="quizList"></div>
+    <div class="result" id="result"></div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>ITS Python 自學 Hub · 資料調研 2026-07</span>
+    <span>· 題目經 Python 實跑驗證</span>
+    <span>· 規格以報考當下 Certiport 官方 Objective Domains 為準</span>
+  </div>
+</footer>
+
+<script>
+// ---------- 主題切換 ----------
+const root=document.documentElement, tbtn=document.getElementById('themeBtn');
+tbtn.onclick=()=>{
+  const cur=root.getAttribute('data-theme')
+    || (matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
+  root.setAttribute('data-theme',cur==='dark'?'light':'dark');
+};
+
+// ---------- 六大領域 ----------
+const domains=[
+  {n:1,name:'資料型別與運算子操作',w:'20–25%',pct:23,sub:'型別判讀、運算子優先序、字串與序列操作'},
+  {n:2,name:'流程控制（判斷與迴圈）',w:'25–30%',pct:28,sub:'if/elif/else、for/while、break/continue、巢狀'},
+  {n:3,name:'輸入與輸出操作',w:'20–25%',pct:23,sub:'input/print、檔案 I/O 與 with 區塊'},
+  {n:4,name:'程式文件、結構與函式',w:'15–20%',pct:18,sub:'def、參數與作用域、註解與可讀性'},
+  {n:5,name:'除錯與錯誤處理',w:'5–10%',pct:9,sub:'找錯修正、try/except、單元測試'},
+  {n:6,name:'模組與工具的使用',w:'1–5%',pct:5,sub:'import、math / random / datetime'},
+];
+document.getElementById('domList').innerHTML=domains.map(d=>`
+  <div class="row">
+    <div class="h"><span class="n">D${d.n}</span><span class="name">${d.name}</span><span class="w">${d.w}</span></div>
+    <div class="track"><div class="fill" style="width:${d.pct*3.4}%"></div></div>
+    <div class="sub">${d.sub}</div>
+  </div>`).join('');
+
+// ---------- 題庫（答案經 Python 實跑驗證） ----------
+// a: 正確答案鍵陣列；multi: 複選
+const Q=[
+ {id:1,d:1,stem:"執行下列程式，輸出為何？",code:"print(type(7 / 2))",o:{A:"<class 'int'>",B:"<class 'float'>",C:"<class 'str'>",D:"<class 'double'>"},a:["B"],e:"/ 為真除法，結果一律 float；若用 // 才是 int。"},
+ {id:2,d:1,stem:"輸出為何？",code:"print(7 // 2, 7 % 2, 2 ** 3)",o:{A:"3 1 8",B:"3.5 1 6",C:"3 1 6",D:"4 0 8"},a:["A"],e:"7//2=3（整除）、7%2=1（餘數）、2**3=8（次方）。"},
+ {id:3,d:1,stem:"s = \"Python\"，print(s[1:4]) 輸出？",o:{A:"Pyt",B:"yth",C:"ytho",D:"yt"},a:["B"],e:"切片 [1:4] 取索引 1,2,3（不含 4）→ y,t,h。"},
+ {id:4,d:1,stem:"輸出為何？",code:'print("Py" + "thon" * 2)',o:{A:"Python2",B:"PythonPython",C:"Pythonthon",D:"執行錯誤"},a:["C"],e:"* 優先於 +：\"thon\"*2=\"thonthon\"，再接 \"Py\"。"},
+ {id:5,d:1,multi:true,stem:"（複選）下列哪些運算式為 True？",o:{A:"3 < 5 and 2 == 2",B:"not (1 > 2)",C:'"a" in "banana"',D:'5 == "5"'},a:["A","B","C"],e:"D 錯：整數 5 與字串 \"5\" 不相等。"},
+ {id:6,d:1,stem:"依運算子優先順序，結果為何？",code:"print(2 + 3 * 4 ** 2)",o:{A:"80",B:"400",C:"50",D:"2500"},a:["C"],e:"先 4**2=16，再 3*16=48，再 2+48=50。"},
+ {id:7,d:2,stem:"輸出為何？",code:'x = 10\nif x > 15:\n    print("A")\nelif x > 5:\n    print("B")\nelse:\n    print("C")',o:{A:"A",B:"B",C:"C",D:"無輸出"},a:["B"],e:"x=10 不 >15，但 >5 → B。"},
+ {id:8,d:2,stem:"輸出為何？",code:'for i in range(2, 10, 3):\n    print(i, end=" ")',o:{A:"2 5 8",B:"2 4 6 8",C:"2 5 8 11",D:"3 6 9"},a:["A"],e:"range(2,10,3)=2,5,8（步長 3、不含 10）。"},
+ {id:9,d:2,stem:"輸出為何？",code:"total = 0\nfor n in range(1, 6):\n    if n == 3:\n        continue\n    total += n\nprint(total)",o:{A:"15",B:"12",C:"10",D:"6"},a:["B"],e:"1+2+4+5=12（n==3 被 continue 跳過）。"},
+ {id:10,d:2,stem:"輸出為何？",code:"i = 0\nwhile i < 5:\n    i += 1\n    if i == 3:\n        break\n    print(i, end=' ')",o:{A:"1 2",B:"1 2 3",C:"1 2 3 4",D:"0 1 2"},a:["A"],e:"i=3 時先 break，故 3 不印 → 1 2。"},
+ {id:11,d:2,stem:"要印出 1 4 9（1~3 的平方），正確順序為？①print(i**2,end=' ') ②for i in range(1,4): ③迴圈結束",o:{A:"② → ① → ③",B:"① → ② → ③",C:"② → ③ → ①",D:"① → ③ → ②"},a:["A"],e:"先寫 for，迴圈內 print，再結束。"},
+ {id:12,d:2,stem:"count 最終為何？",code:"count = 0\nfor a in range(3):\n    for b in range(2):\n        count += 1\nprint(count)",o:{A:"5",B:"6",C:"3",D:"2"},a:["B"],e:"外 3 × 內 2 = 6 次。"},
+ {id:13,d:2,stem:"輸出為何？",code:'for i in range(3):\n    print(i)\nelse:\n    print("done")',o:{A:"0 1 2（不含 done）",B:"0、1、2、done 各一行",C:"只印 done",D:"語法錯誤"},a:["B"],e:"迴圈正常結束（未 break）會執行 for...else。"},
+ {id:14,d:3,stem:"使用者輸入 5，輸出為何？",code:'x = input("num: ")\nprint(x * 2)',o:{A:"10",B:"55",C:"25",D:"執行錯誤"},a:["B"],e:"input() 回傳字串 \"5\"，\"5\"*2=\"55\"。"},
+ {id:15,d:3,stem:"承上，要得到數字相加結果，正確寫法為？",o:{A:"print(input() + input())",B:"print(int(input()) * 2)",C:"print(input() * 2)",D:"print(str(input()) + 5)"},a:["B"],e:"需先 int() 轉型再運算。"},
+ {id:16,d:3,stem:"輸出為何？",code:'print("a", "b", "c", sep="-")',o:{A:"a b c",B:"a-b-c",C:"abc",D:"a - b - c"},a:["B"],e:"sep=\"-\" 以連字號分隔。"},
+ {id:17,d:3,multi:true,stem:"（複選）下列關於檔案操作，哪些正確？",o:{A:'open("f.txt","w") 檔案不存在時會建立新檔',B:'"a" 模式會覆蓋原有內容',C:"with open(...) 區塊結束會自動關檔",D:"f.read() 回傳整個檔案內容的字串"},a:["A","C","D"],e:"B 錯：\"a\" 是附加不覆蓋，覆蓋的是 \"w\"。"},
+ {id:18,d:3,stem:"哪個模式用於「附加到檔尾且不清空原內容」？",o:{A:'"r"',B:'"w"',C:'"a"',D:'"x"'},a:["C"],e:"\"a\"（append）附加末端；\"w\" 會清空重寫。"},
+ {id:19,d:4,stem:"輸出為何？",code:'def greet(name, greeting="Hi"):\n    return greeting + ", " + name\nprint(greet("Amy"))',o:{A:"Hi, Amy",B:"Amy, Hi",C:"greeting, Amy",D:"錯誤：缺少參數"},a:["A"],e:"使用預設參數 greeting=\"Hi\"。"},
+ {id:20,d:4,stem:"關於註解／docstring，下列何者【錯誤】？",o:{A:"單行註解以 # 開頭",B:'""" ... """ 可作 docstring',C:"直譯器會執行 # 後面的內容",D:"良好縮排與命名有助可讀性"},a:["C"],e:"# 後為註解，直譯器不會執行。"},
+ {id:21,d:4,stem:"輸出為何？（作用域）",code:"x = 5\ndef f():\n    x = 10\n    return x\nprint(f(), x)",o:{A:"10 10",B:"10 5",C:"5 5",D:"5 10"},a:["B"],e:"函式內 x 為區域變數；全域 x 仍為 5。"},
+ {id:22,d:5,stem:"輸出為何？",code:'try:\n    print(10 / 0)\nexcept ZeroDivisionError:\n    print("cannot divide by zero")\nfinally:\n    print("done")',o:{A:"只有 done",B:"cannot divide by zero",C:"cannot divide by zero 換行 done",D:"崩潰顯示 Traceback"},a:["C"],e:"除以 0 被攔截印訊息；finally 一定執行。"},
+ {id:23,d:5,stem:"執行 int(\"abc\") 會引發哪種例外？",o:{A:"TypeError",B:"ValueError",C:"IndexError",D:"KeyError"},a:["B"],e:"字串無法轉整數 → ValueError。"},
+ {id:24,d:6,stem:"輸出為何？",code:"import math\nprint(math.sqrt(16), math.floor(3.7))",o:{A:"4.0 3",B:"4 4",C:"4.0 4",D:"8 3"},a:["A"],e:"sqrt(16)=4.0（float）、floor(3.7)=3。"},
+ {id:25,d:6,stem:"關於 import，下列何者正確？",o:{A:"from math import sqrt 後可直接寫 sqrt(9)",B:"import math 後可直接寫 sqrt(9)",C:"random.randint(1,6) 可能回傳 7",D:"import 只能放第一行"},a:["A"],e:"from...import 後可直接呼叫；import math 需前綴 math."},
+ {id:26,d:1,stem:"輸出為何？",code:"print(10 % 3 + 2 * 2)",o:{A:"5",B:"9",C:"6",D:"1"},a:["A"],e:"10%3=1、2*2=4，1+4=5。"},
+ {id:27,d:1,stem:"輸出為何？",code:'print(bool(0), bool(""), bool("0"))',o:{A:"False False False",B:"False False True",C:"True True True",D:"False True True"},a:["B"],e:"0 與空字串為假；非空字串 \"0\" 為真。"},
+ {id:28,d:1,stem:"輸出為何？",code:"x = [1, 2, 3]\nprint(len(x), x[-1])",o:{A:"3 3",B:"3 1",C:"2 3",D:"3 -1"},a:["A"],e:"長度 3；x[-1] 取最後元素 3。"},
+ {id:29,d:1,stem:'print("Hello".upper()) 輸出？',o:{A:"hello",B:"HELLO",C:"Hello",D:"HELLO()"},a:["B"],e:".upper() 轉大寫。"},
+ {id:30,d:1,stem:"print(3 == 3.0) 輸出？",o:{A:"True",B:"False",C:"錯誤",D:"None"},a:["A"],e:"int 與 float 數值相等為 True。"},
+ {id:31,d:1,stem:'print("abc"[::-1]) 輸出？',o:{A:"abc",B:"cba",C:"cb",D:"錯誤"},a:["B"],e:"[::-1] 反轉字串。"},
+ {id:32,d:2,stem:"輸出為何？",code:'n = 4\nif n % 2 == 0 and n > 3:\n    print("yes")\nelse:\n    print("no")',o:{A:"yes",B:"no",C:"無輸出",D:"錯誤"},a:["A"],e:"4 是偶數且 >3，兩條件皆真。"},
+ {id:33,d:2,stem:"print(sum(range(1, 5))) 輸出？",o:{A:"15",B:"10",C:"5",D:"4"},a:["B"],e:"range(1,5)=1,2,3,4，總和 10。"},
+ {id:34,d:2,stem:"輸出幾個星號？",code:'result = ""\nfor i in range(1, 4):\n    for j in range(i):\n        result += "*"\nprint(result)',o:{A:"***（3 個）",B:"******（6 個）",C:"*********（9 個）",D:"*（1 個）"},a:["B"],e:"1+2+3=6 個。"},
+ {id:35,d:2,stem:"輸出為何？",code:'i = 5\nwhile i > 0:\n    print(i, end="")\n    i -= 2',o:{A:"531",B:"54321",C:"5432",D:"543210"},a:["A"],e:"5→3→1（每次 -2）。"},
+ {id:36,d:2,stem:"輸出為何？",code:'for x in "abc":\n    if x == "b":\n        break\n    print(x, end="")',o:{A:"a",B:"abc",C:"ab",D:"ac"},a:["A"],e:"遇 b 前只印了 a 就 break。"},
+ {id:37,d:2,stem:'y = 10；print("big" if y > 5 else "small") 輸出？',o:{A:"small",B:"big",C:"10",D:"錯誤"},a:["B"],e:"三元運算：y>5 為真 → big。"},
+ {id:38,d:2,stem:"count 最終為何？",code:"count = 0\nfor i in range(10):\n    if i % 3 == 0:\n        count += 1\nprint(count)",o:{A:"3",B:"4",C:"2",D:"10"},a:["B"],e:"0,3,6,9 共 4 個（0 也可被 3 整除）。"},
+ {id:39,d:3,stem:"使用者輸入 hello，print(len(input())) 輸出？",o:{A:"4",B:"5",C:"hello",D:"錯誤"},a:["B"],e:"\"hello\" 長度 5。"},
+ {id:40,d:3,stem:"輸出為何？",code:'print("A", "B", sep="", end="!")',o:{A:"A B!",B:"AB!",C:"AB",D:"A B !"},a:["B"],e:"sep=\"\" 不分隔、end=\"!\" 收尾。"},
+ {id:41,d:3,stem:"哪個模式為【唯讀】開檔？",o:{A:'"w"',B:'"a"',C:'"r"',D:'"x"'},a:["C"],e:"\"r\" 唯讀；w 覆寫、a 附加、x 建新檔。"},
+ {id:42,d:3,stem:"f.readlines() 回傳什麼？",o:{A:"單一字串",B:"每行為元素的串列",C:"整數",D:"檔案物件"},a:["B"],e:"readlines() 回傳每行為元素的串列。"},
+ {id:43,d:3,stem:"輸入 3、4，print(int(input()) + int(input())) 輸出？",o:{A:"34",B:"7",C:"12",D:"錯誤"},a:["B"],e:"兩次轉 int 相加 3+4=7。"},
+ {id:44,d:4,stem:"輸出為何？",code:"def add(a, b=5):\n    return a + b\nprint(add(3), add(3, 10))",o:{A:"8 13",B:"8 8",C:"3 10",D:"錯誤"},a:["A"],e:"add(3) 用預設 b=5 → 8；add(3,10) → 13。"},
+ {id:45,d:4,stem:"輸出為何？",code:"def total(*nums):\n    return sum(nums)\nprint(total(1, 2, 3, 4))",o:{A:"4",B:"10",C:"1234",D:"錯誤"},a:["B"],e:"*nums 收集成 tuple，sum=10。"},
+ {id:46,d:4,stem:"def f(): pass 後 print(f()) 輸出？",o:{A:"pass",B:"0",C:"None",D:"錯誤"},a:["C"],e:"函式無 return，預設回傳 None。"},
+ {id:47,d:5,stem:"輸出為何？",code:'try:\n    x = [1, 2, 3]\n    print(x[5])\nexcept IndexError:\n    print("out of range")',o:{A:"out of range",B:"3",C:"崩潰",D:"無輸出"},a:["A"],e:"索引 5 越界觸發 IndexError，被攔截。"},
+ {id:48,d:5,stem:"d = {}；d[\"k\"] 會引發？",o:{A:"IndexError",B:"ValueError",C:"KeyError",D:"無錯誤"},a:["C"],e:"存取不存在的鍵 → KeyError。"},
+ {id:49,d:6,stem:"random.randint(1, 6) 可能的最大值為？",o:{A:"5",B:"6",C:"7",D:"1"},a:["B"],e:"randint(a,b) 含兩端，最大為 6。"},
+ {id:50,d:6,stem:"輸出為何？",code:"import math\nprint(math.pi > 3, math.ceil(4.1))",o:{A:"True 4",B:"False 5",C:"True 5",D:"True 4.1"},a:["C"],e:"pi≈3.14>3 為 True；ceil(4.1)=5。"},
+ {id:51,d:1,stem:"print(2 ** 3 ** 2) 輸出？",o:{A:"64",B:"512",C:"18",D:"36"},a:["B"],e:"** 右結合：先 3**2=9，再 2**9=512。"},
+ {id:52,d:1,stem:"print(17 // 5, 17 % 5) 輸出？",o:{A:"3 2",B:"3.4 2",C:"2 3",D:"3 3"},a:["A"],e:"17//5=3、17%5=2。"},
+ {id:53,d:1,stem:'print("5" + str(3)) 輸出？',o:{A:"8",B:"53",C:'"53"',D:"錯誤"},a:["B"],e:'str(3)="3"，字串串接為 53。'},
+ {id:54,d:1,stem:'print(len("Python")) 輸出？',o:{A:"5",B:"6",C:"7",D:"錯誤"},a:["B"],e:"Python 有 6 個字元。"},
+ {id:55,d:1,stem:"x = 3.14；print(int(x)) 輸出？",o:{A:"3",B:"4",C:"3.0",D:"錯誤"},a:["A"],e:"int() 截斷小數（非四捨五入）。"},
+ {id:56,d:1,stem:'print("Hi" * 3) 輸出？',o:{A:"Hi3",B:"HiHiHi",C:"Hi Hi Hi",D:"錯誤"},a:["B"],e:"字串 × 整數 = 重複。"},
+ {id:57,d:1,stem:"print(bool([]), bool([0])) 輸出？",o:{A:"False False",B:"False True",C:"True True",D:"True False"},a:["B"],e:"空串列為假；[0] 非空為真。"},
+ {id:58,d:1,stem:"a = [1,2,3]；a.append(4)；print(len(a)) 輸出？",o:{A:"3",B:"4",C:"5",D:"錯誤"},a:["B"],e:"append 後長度變 4。"},
+ {id:59,d:1,stem:'print("banana".count("a")) 輸出？',o:{A:"2",B:"3",C:"1",D:"6"},a:["B"],e:"banana 有 3 個 a。"},
+ {id:60,d:1,stem:"print(3 + 2 * 2 ** 2) 輸出？",o:{A:"11",B:"20",C:"28",D:"13"},a:["A"],e:"2**2=4、2*4=8、3+8=11。"},
+ {id:61,d:1,stem:"print(9 % 2, 8 % 2) 輸出？",o:{A:"1 0",B:"0 1",C:"4 4",D:"1 1"},a:["A"],e:"9 餘 1、8 餘 0。"},
+ {id:62,d:1,stem:'print("Python".find("t")) 輸出？',o:{A:"1",B:"2",C:"3",D:"-1"},a:["B"],e:"t 的索引為 2（P0 y1 t2）。"},
+ {id:63,d:2,stem:"輸出為何？",code:'x = 7\nif x < 5:\n    print("a")\nelif x < 10:\n    print("b")\nelse:\n    print("c")',o:{A:"a",B:"b",C:"c",D:"無輸出"},a:["B"],e:"7 不 <5，但 <10 → b。"},
+ {id:64,d:2,stem:"s 最終為何？",code:"s = 0\nfor i in range(1, 4):\n    for j in range(1, 4):\n        s += 1\nprint(s)",o:{A:"6",B:"9",C:"3",D:"12"},a:["B"],e:"3 × 3 = 9 次。"},
+ {id:65,d:2,stem:'for n in range(3): print(n, end="") 輸出？',o:{A:"123",B:"012",C:"0123",D:"12"},a:["B"],e:"range(3)=0,1,2。"},
+ {id:66,d:2,stem:'for i in range(5, 0, -1): print(i, end="") 輸出？',o:{A:"54321",B:"50",C:"12345",D:"5432"},a:["A"],e:"從 5 遞減到 1（不含 0）。"},
+ {id:67,d:2,stem:"total 最終為何？",code:"total = 0\nfor i in range(1, 11):\n    if i % 2 == 0:\n        total += i\nprint(total)",o:{A:"25",B:"30",C:"55",D:"20"},a:["B"],e:"2+4+6+8+10=30。"},
+ {id:68,d:2,stem:"x 最終為何？",code:"x = 0\nfor i in range(3):\n    for j in range(3):\n        if i == j:\n            x += 1\nprint(x)",o:{A:"3",B:"9",C:"6",D:"1"},a:["A"],e:"i==j 只在對角線成立 3 次。"},
+ {id:69,d:2,stem:"輸出為何？",code:"found = False\nfor i in range(3):\n    for j in range(3):\n        if i + j == 3:\n            found = True\n            break\nprint(found)",o:{A:"True",B:"False",C:"3",D:"錯誤"},a:["A"],e:"i=1,j=2 時 i+j==3 → True。"},
+ {id:70,d:2,stem:"count 最終為何？",code:"count = 0\ni = 1\nwhile i <= 100:\n    count += 1\n    i *= 2\nprint(count)",o:{A:"6",B:"7",C:"8",D:"100"},a:["B"],e:"1,2,4,8,16,32,64 共 7 次。"},
+ {id:71,d:2,stem:"輸出為何？",code:"result = []\nfor x in range(3):\n    result.append(x * x)\nprint(result)",o:{A:"[0, 1, 4]",B:"[1, 4, 9]",C:"[0, 1, 2]",D:"[1, 2, 3]"},a:["A"],e:"0²,1²,2² = 0,1,4。"},
+ {id:72,d:2,stem:"輸出為何？",code:'s = ""\nfor c in "hello":\n    if c == "l":\n        continue\n    s += c\nprint(s)',o:{A:"hello",B:"heo",C:"hell",D:"hel"},a:["B"],e:"跳過所有 l → heo。"},
+ {id:73,d:2,stem:"輸出為何？",code:"x = 10\nwhile x > 0:\n    x -= 3\nprint(x)",o:{A:"0",B:"1",C:"-2",D:"-1"},a:["C"],e:"10→7→4→1→-2 才停。"},
+ {id:74,d:2,stem:"輸出為何？",code:'for i in range(5):\n    if i == 10:\n        break\nelse:\n    print("no break")',o:{A:"no break",B:"無輸出",C:"0 1 2 3 4",D:"錯誤"},a:["A"],e:"未觸發 break，執行 else。"},
+ {id:75,d:2,stem:'for i in range(1,4): print("even" if i%2==0 else "odd", end=" ") 輸出？',o:{A:"odd even odd",B:"even odd even",C:"odd odd odd",D:"even even even"},a:["A"],e:"1 奇 2 偶 3 奇。"},
+ {id:76,d:2,stem:"grid 最終為何？",code:"grid = 0\nfor row in range(2):\n    for col in range(3):\n        grid += 1\nprint(grid)",o:{A:"5",B:"6",C:"9",D:"2"},a:["B"],e:"2 × 3 = 6。"},
+ {id:77,d:3,stem:"輸入 3.5，print(float(input()) + 1) 輸出？",o:{A:"4.5",B:"3.51",C:"4",D:"錯誤"},a:["A"],e:'float("3.5")+1=4.5。'},
+ {id:78,d:3,stem:'print(1, 2, 3, sep=", ") 輸出？',o:{A:"1 2 3",B:"1, 2, 3",C:"123",D:"1,2,3,"},a:["B"],e:'sep=", " 以逗號空格分隔。'},
+ {id:79,d:3,stem:"從已開啟檔案讀取【單一行】用哪個方法？",o:{A:"read()",B:"readline()",C:"readlines()",D:"line()"},a:["B"],e:"readline() 讀單一行。"},
+ {id:80,d:3,stem:"要在檔案末端新增內容而不清空，開檔模式為？",o:{A:'"r"',B:'"w"',C:'"a"',D:'"r+"'},a:["C"],e:'"a" 附加不清空。'},
+ {id:81,d:3,stem:"input() 的回傳型別是？",o:{A:"int",B:"str",C:"float",D:"依輸入內容而定"},a:["B"],e:"input() 一律回傳字串。"},
+ {id:82,d:3,stem:"print(*[1, 2, 3]) 輸出？",o:{A:"[1, 2, 3]",B:"1 2 3",C:"123",D:"錯誤"},a:["B"],e:"* 解包為多個引數，print 以空格分隔。"},
+ {id:83,d:3,stem:"輸入 42，n = input()；print(type(n)) 輸出？",o:{A:"<class 'int'>",B:"<class 'str'>",C:"<class 'float'>",D:"42"},a:["B"],e:"input 回傳 str。"},
+ {id:84,d:3,stem:'print("A\\nB") 的輸出為？',o:{A:"A\\nB",B:"AnB",C:"A 換行 B（兩行）",D:"AB"},a:["C"],e:"\\n 是換行字元。"},
+ {id:85,d:3,stem:'f = open("x.txt") 未指定模式時，預設模式為？',o:{A:'"w"',B:'"a"',C:'"r"',D:'"x"'},a:["C"],e:"open() 預設為唯讀 r。"},
+ {id:86,d:3,stem:'print("{}-{}".format(1, 2)) 輸出？',o:{A:"{}-{}",B:"1-2",C:"12",D:"錯誤"},a:["B"],e:".format 依序填入。"},
+ {id:87,d:3,stem:"要一次讀取檔案所有行成串列用哪個方法？",o:{A:"read()",B:"readline()",C:"readlines()",D:"readall()"},a:["C"],e:"readlines() 回傳串列。"},
+ {id:88,d:4,stem:"輸出為何？",code:"def sq(n):\n    return n * n\nprint(sq(sq(2)))",o:{A:"8",B:"16",C:"4",D:"2"},a:["B"],e:"sq(2)=4，sq(4)=16。"},
+ {id:89,d:4,stem:"輸出為何？",code:'def info(name, age):\n    return f"{name}:{age}"\nprint(info(age=5, name="Bob"))',o:{A:"5:Bob",B:"Bob:5",C:"name:age",D:"錯誤"},a:["B"],e:"關鍵字引數依名稱對應，順序不影響。"},
+ {id:90,d:4,stem:"count 最終為何？",code:"count = 0\ndef inc():\n    global count\n    count += 1\ninc()\ninc()\nprint(count)",o:{A:"0",B:"1",C:"2",D:"錯誤"},a:["C"],e:"global 讓函式修改全域變數，呼叫兩次 → 2。"},
+ {id:91,d:4,stem:"輸出為何？",code:"def f(a, b, c=0):\n    return a + b + c\nprint(f(1, 2))",o:{A:"3",B:"錯誤：缺參數",C:"0",D:"12"},a:["A"],e:"c 用預設 0 → 3。"},
+ {id:92,d:4,stem:"下列何者是函式 docstring（說明文件）的正確寫法？",o:{A:"函式內第一行的三引號字串",B:"函式外的 # 註解",C:"print() 說明文字",D:"變數名稱"},a:["A"],e:"docstring 為函式內第一行的字串。"},
+ {id:93,d:4,stem:"輸出（兩行）為何？",code:'def greet():\n    print("hi")\nx = greet()\nprint(x)',o:{A:"hi 然後 None",B:"hi 然後 hi",C:"只有 hi",D:"只有 None"},a:["A"],e:"函式印 hi、無 return 回傳 None。"},
+ {id:94,d:5,stem:"輸出為何？",code:'try:\n    n = int("12")\n    print(n + 1)\nexcept ValueError:\n    print("bad")',o:{A:"bad",B:"13",C:"12",D:"錯誤"},a:["B"],e:'int("12")=12 無例外，印 13。'},
+ {id:95,d:5,stem:"print(1 / 0) 會引發哪種例外？",o:{A:"ValueError",B:"ZeroDivisionError",C:"TypeError",D:"無錯誤"},a:["B"],e:"除以 0 → ZeroDivisionError。"},
+ {id:96,d:5,stem:"輸出為何？",code:'def test():\n    assert 2 + 2 == 4\n    return "ok"\nprint(test())',o:{A:"ok",B:"AssertionError",C:"True",D:"無輸出"},a:["A"],e:"assert 通過，回傳 ok。"},
+ {id:97,d:5,stem:"輸出為何？",code:'try:\n    x = int("abc")\nexcept ValueError:\n    x = -1\nprint(x)',o:{A:"abc",B:"0",C:"-1",D:"崩潰"},a:["C"],e:"轉型失敗被攔截，x=-1。"},
+ {id:98,d:6,stem:"輸出為何？",code:"import math\nprint(math.pow(2, 3))",o:{A:"8",B:"8.0",C:"6",D:"9"},a:["B"],e:"math.pow 一律回傳 float → 8.0。"},
+ {id:99,d:6,stem:"from random import randint 後，print(randint(1, 1)) 輸出？",o:{A:"0",B:"1",C:"2",D:"隨機"},a:["B"],e:"上下限相同必為 1。"},
+ {id:100,d:6,stem:"import math；print(math.gcd(12, 8)) 輸出？",o:{A:"2",B:"4",C:"24",D:"96"},a:["B"],e:"12 與 8 的最大公因數為 4。"},
+ {id:101,d:1,stem:"print(abs(-7)) 輸出？",o:{A:"7",B:"-7",C:"0",D:"錯誤"},a:["A"],e:"abs() 取絕對值。"},
+ {id:102,d:1,stem:"print(round(3.14159, 2)) 輸出？",o:{A:"3.14",B:"3.1",C:"3.142",D:"3"},a:["A"],e:"round(x,2) 四捨五入到小數 2 位。"},
+ {id:103,d:1,stem:'print(5 == 5.0, 5 != "5") 輸出？',o:{A:"True True",B:"False True",C:"True False",D:"False False"},a:["A"],e:"5==5.0 為 True；整數 5≠字串 '5' 為 True。"},
+ {id:104,d:1,stem:'print("Hello"[0], "Hello"[-1]) 輸出？',o:{A:"H o",B:"H l",C:"He o",D:"P n"},a:["A"],e:"索引 0 為 H、-1 為最後字元 o。"},
+ {id:105,d:3,stem:'print("A", end=" ") 後接 print("B")，輸出為？',o:{A:"A B（同一行）",B:"A 換行 B",C:"AB",D:"A  B"},a:["A"],e:'end=" " 不換行，接著印 B。'},
+ {id:106,d:3,stem:'print(3, 4, 5, sep="+") 輸出？',o:{A:"3 4 5",B:"3+4+5",C:"345",D:"12"},a:["B"],e:'sep="+" 以加號分隔。'},
+ {id:107,d:3,stem:"輸入 hello，x = input()；print(x.upper()) 輸出？",o:{A:"hello",B:"HELLO",C:"Hello",D:"錯誤"},a:["B"],e:".upper() 轉大寫。"},
+ {id:108,d:3,stem:'開檔模式 "w"：若檔案已存在，會？',o:{A:"附加到末端",B:"清空原內容重新寫入",C:"唯讀不可寫",D:"引發錯誤"},a:["B"],e:'"w" 會清空(truncate)原內容再寫入。'},
+ {id:109,d:3,stem:'with open("f.txt", "r") as f: 區塊結束後，檔案狀態？',o:{A:"仍開啟需手動 close",B:"自動關閉",C:"被刪除",D:"被清空"},a:["B"],e:"with 區塊結束會自動關檔。"},
+ {id:110,d:3,stem:"readline() 與 readlines() 的差異？",o:{A:"兩者相同",B:"前者讀一行(字串)、後者讀全部(串列)",C:"前者讀全部、後者讀一行",D:"後者回傳整數"},a:["B"],e:"readline 讀單一行；readlines 讀全部成串列。"},
+ {id:111,d:3,stem:'開檔模式 "x"（獨佔建立），當檔案已存在時？',o:{A:"覆寫",B:"附加",C:"引發 FileExistsError",D:"自動改名"},a:["C"],e:'"x" 檔案已存在會引發 FileExistsError。'},
+ {id:112,d:4,stem:"輸出為何？",code:"def add(*a):\n    return sum(a)\nprint(add(1, 2, 3, 4, 5))",o:{A:"15",B:"12345",C:"5",D:"錯誤"},a:["A"],e:"*a 收集為 tuple，sum=15。"},
+ {id:113,d:4,stem:"輸出為何？",code:"def f(x):\n    return x + 1\nprint(f(f(f(0))))",o:{A:"1",B:"2",C:"3",D:"0"},a:["C"],e:"0→1→2→3。"},
+ {id:114,d:4,stem:"輸出為何？",code:"def g(a, b):\n    return a - b\nprint(g(b=3, a=10))",o:{A:"-7",B:"7",C:"13",D:"錯誤"},a:["B"],e:"關鍵字引數對應 a=10,b=3 → 7。"},
+ {id:115,d:4,stem:"輸出為何？",code:"def h():\n    return 1, 2\nprint(h())",o:{A:"1 2",B:"(1, 2)",C:"[1, 2]",D:"12"},a:["B"],e:"回傳多值為 tuple。"},
+ {id:116,d:4,stem:"輸出為何？",code:"def k(n):\n    if n <= 1:\n        return 1\n    return n * k(n - 1)\nprint(k(4))",o:{A:"24",B:"12",C:"4",D:"10"},a:["A"],e:"遞迴階乘 4! = 24。"},
+ {id:117,d:4,stem:"輸出為何？",code:'x = "global"\ndef f():\n    x = "local"\nf()\nprint(x)',o:{A:"local",B:"global",C:"錯誤",D:"None"},a:["B"],e:"函式內指派為區域變數，不影響全域。"},
+ {id:118,d:4,stem:"輸出為何？",code:"def f(a, b=2, c=3):\n    return a + b + c\nprint(f(1, c=10))",o:{A:"6",B:"13",C:"14",D:"錯誤"},a:["B"],e:"b 用預設 2、c=10 → 1+2+10=13。"},
+ {id:119,d:4,stem:"輸出為何？",code:"def outer():\n    def inner():\n        return 5\n    return inner()\nprint(outer())",o:{A:"5",B:"inner",C:"None",D:"錯誤"},a:["A"],e:"巢狀函式呼叫 inner 回傳 5。"},
+ {id:120,d:4,stem:"輸出為何？",code:"def area(w, h):\n    return w * h\nprint(area(h=3, w=4))",o:{A:"7",B:"12",C:"43",D:"錯誤"},a:["B"],e:"關鍵字引數 w=4,h=3 → 12。"},
+ {id:121,d:4,stem:"輸出為何？",code:"def f():\n    return\nprint(f())",o:{A:"0",B:"空白",C:"None",D:"錯誤"},a:["C"],e:"空 return 回傳 None。"},
+ {id:122,d:4,stem:"輸出為何？",code:"def total(lst):\n    s = 0\n    for n in lst:\n        s += n\n    return s\nprint(total([1, 2, 3, 4]))",o:{A:"10",B:"4",C:"1234",D:"24"},a:["A"],e:"累加 1+2+3+4=10。"},
+ {id:123,d:4,stem:"輸出為何？",code:'def greet(name="World"):\n    return "Hello, " + name\nprint(greet())',o:{A:"Hello, name",B:"Hello, World",C:"Hello, ",D:"錯誤"},a:["B"],e:"使用預設參數 name='World'。"},
+ {id:124,d:4,stem:"輸出為何？",code:"def swap(a, b):\n    return b, a\nx, y = swap(1, 2)\nprint(x, y)",o:{A:"1 2",B:"2 1",C:"(2, 1)",D:"錯誤"},a:["B"],e:"回傳 b,a 拆解為 x=2,y=1。"},
+ {id:125,d:4,stem:"輸出為何？",code:"def f(a, b, c):\n    return a * 100 + b * 10 + c\nprint(f(1, 2, 3))",o:{A:"6",B:"123",C:"15",D:"132"},a:["B"],e:"1×100+2×10+3=123。"},
+ {id:126,d:4,stem:"輸出為何？",code:"count = 10\ndef show():\n    return count + 5\nprint(show())",o:{A:"5",B:"15",C:"錯誤(NameError)",D:"None"},a:["B"],e:"函式可讀取全域變數 → 15。"},
+ {id:127,d:4,stem:"輸出為何？",code:"def power(base, exp=2):\n    return base ** exp\nprint(power(3), power(3, 3))",o:{A:"9 27",B:"6 9",C:"9 9",D:"27 27"},a:["A"],e:"3²=9；3³=27。"},
+ {id:128,d:5,stem:"輸出為何？",code:'try:\n    print(int("10"))\nexcept:\n    print("e")',o:{A:"10",B:"e",C:'"10"',D:"錯誤"},a:["A"],e:'int("10")=10 無例外。'},
+ {id:129,d:5,stem:"輸出為何？",code:'try:\n    y = [1, 2]\n    print(y[10])\nexcept IndexError:\n    print("idx")',o:{A:"idx",B:"2",C:"崩潰",D:"無輸出"},a:["A"],e:"索引越界被 IndexError 攔截。"},
+ {id:130,d:5,stem:"輸出為何？",code:'try:\n    d = {"a": 1}\n    print(d["b"])\nexcept KeyError:\n    print("key")',o:{A:"key",B:"1",C:"崩潰",D:"None"},a:["A"],e:"存取不存在的鍵被 KeyError 攔截。"},
+ {id:131,d:5,stem:"輸出為何？",code:'try:\n    print(1 / 0)\nexcept ZeroDivisionError:\n    print("zero")\nfinally:\n    print("end")',o:{A:"zero",B:"zero 換行 end",C:"end",D:"崩潰"},a:["B"],e:"除以 0 印 zero，finally 一定印 end。"},
+ {id:132,d:5,stem:'"2" + 2 會引發哪種例外？',o:{A:"ValueError",B:"TypeError",C:"SyntaxError",D:"無錯誤"},a:["B"],e:"字串與整數不能相加 → TypeError。"},
+ {id:133,d:5,stem:'int("3.5") 的結果？',o:{A:"3",B:"3.5",C:"ValueError",D:"TypeError"},a:["C"],e:"含小數點的字串無法直接轉 int → ValueError。"},
+ {id:134,d:5,stem:"存取未定義的變數 undefined_var 會引發？",o:{A:"ValueError",B:"NameError",C:"KeyError",D:"無錯誤"},a:["B"],e:"未定義變數 → NameError。"},
+ {id:135,d:5,stem:"輸出為何？",code:'try:\n    n = int("abc")\nexcept ValueError:\n    n = 0\nexcept:\n    n = -1\nprint(n)',o:{A:"0",B:"-1",C:"abc",D:"崩潰"},a:["A"],e:"ValueError 先被對應的 except 攔截，n=0。"},
+ {id:136,d:5,stem:"輸出為何？",code:'try:\n    raise ValueError("bad")\nexcept ValueError as e:\n    print(e)',o:{A:"ValueError",B:"bad",C:"e",D:"無輸出"},a:["B"],e:"as e 取得例外物件，print(e) 印訊息 bad。"},
+ {id:137,d:5,stem:"輸出為何？",code:'try:\n    print("try")\nexcept:\n    print("except")\nelse:\n    print("else")',o:{A:"try",B:"try 換行 else",C:"try 換行 except",D:"else"},a:["B"],e:"無例外時 else 會執行。"},
+ {id:138,d:5,stem:"輸出為何？",code:"try:\n    print(1)\nfinally:\n    print(2)",o:{A:"只有 1",B:"1 換行 2",C:"只有 2",D:"錯誤"},a:["B"],e:"finally 一定執行。"},
+ {id:139,d:5,stem:"輸出為何？",code:'try:\n    m = [[1, 2], [3, 4]]\n    print(m[2][0])\nexcept IndexError:\n    print("oob")',o:{A:"oob",B:"3",C:"1",D:"崩潰"},a:["A"],e:"m[2] 索引越界 → IndexError 被攔截。"},
+ {id:140,d:5,stem:"輸出為何？",code:'try:\n    assert 1 == 2, "no"\nexcept AssertionError:\n    print("failed")',o:{A:"no",B:"failed",C:"True",D:"無輸出"},a:["B"],e:"斷言失敗 → AssertionError 被攔截。"},
+ {id:141,d:5,stem:"len(None) 會？",o:{A:"回傳 0",B:"TypeError",C:"ValueError",D:"回傳 None"},a:["B"],e:"None 沒有長度 → TypeError。"},
+ {id:142,d:5,stem:'"abc".index("z") 會？',o:{A:"回傳 -1",B:"ValueError",C:"KeyError",D:"回傳 None"},a:["B"],e:"index 找不到子字串 → ValueError（find 才回 -1）。"},
+ {id:143,d:5,stem:"[1, 2, 3].remove(9) 會？",o:{A:"無事發生",B:"ValueError",C:"IndexError",D:"回傳 False"},a:["B"],e:"remove 不存在的值 → ValueError。"},
+ {id:144,d:5,stem:'{"x": 1}.pop("y") 會？',o:{A:"回傳 None",B:"KeyError",C:"ValueError",D:"無事發生"},a:["B"],e:"pop 不存在的鍵且無預設 → KeyError。"},
+ {id:145,d:5,stem:'float("abc") 會？',o:{A:"0.0",B:"ValueError",C:"TypeError",D:"None"},a:["B"],e:"非數字字串轉 float → ValueError。"},
+ {id:146,d:5,stem:"輸出為何？",code:'try:\n    result = 10 + "5"\nexcept TypeError:\n    result = "型別錯誤"\nprint(result)',o:{A:"15",B:"105",C:"型別錯誤",D:"崩潰"},a:["C"],e:"型別不合被 TypeError 攔截。"},
+ {id:147,d:5,stem:"輸出為何？",code:'try:\n    x = [1][5]\nexcept KeyError:\n    print("k")\nexcept IndexError:\n    print("i")',o:{A:"k",B:"i",C:"兩者都印",D:"崩潰"},a:["B"],e:"清單越界是 IndexError，由對應 except 攔截。"},
+ {id:148,d:6,stem:"輸出為何？",code:"import math\nprint(math.factorial(5))",o:{A:"120",B:"25",C:"15",D:"5"},a:["A"],e:"5! = 120。"},
+ {id:149,d:6,stem:"輸出為何？",code:"import math\nprint(math.floor(2.9), math.ceil(2.1))",o:{A:"2 3",B:"3 2",C:"3 3",D:"2 2"},a:["A"],e:"floor(2.9)=2、ceil(2.1)=3。"},
+ {id:150,d:6,stem:"輸出為何？",code:"import math\nprint(math.fabs(-4.5))",o:{A:"-4.5",B:"4.5",C:"4",D:"5"},a:["B"],e:"fabs 取絕對值（回傳 float）。"},
+ {id:151,d:6,stem:"輸出為何？",code:"import math\nprint(math.gcd(18, 24))",o:{A:"6",B:"12",C:"2",D:"72"},a:["A"],e:"18 與 24 的最大公因數 6。"},
+ {id:152,d:6,stem:"輸出為何？",code:"import math\nprint(round(math.pi, 3))",o:{A:"3.14",B:"3.142",C:"3.141",D:"3.1416"},a:["B"],e:"round(π,3)=3.142。"},
+ {id:153,d:6,stem:"輸出為何？",code:"import math\nprint(math.pow(3, 2))",o:{A:"9",B:"9.0",C:"6",D:"8"},a:["B"],e:"math.pow 回傳 float → 9.0。"},
+ {id:154,d:6,stem:"輸出為何？",code:"import math\nprint(math.sqrt(81))",o:{A:"9",B:"9.0",C:"81",D:"錯誤"},a:["B"],e:"sqrt(81)=9.0（float）。"},
+ {id:155,d:6,stem:"輸出為何？",code:"import math\nprint(math.trunc(3.99))",o:{A:"4",B:"3",C:"3.9",D:"3.99"},a:["B"],e:"trunc 截斷小數 → 3。"},
+ {id:156,d:6,stem:"輸出為何？",code:"from math import pi\nprint(int(pi))",o:{A:"3",B:"4",C:"3.14",D:"錯誤"},a:["A"],e:"int(3.14159...)=3。"},
+ {id:157,d:6,stem:"輸出為何？",code:"import random\nprint(random.randint(5, 5))",o:{A:"0",B:"5",C:"隨機",D:"錯誤"},a:["B"],e:"上下限相同必為 5。"},
+ {id:158,d:6,stem:"輸出為何？",code:'import random\nprint(random.choice(["only"]))',o:{A:"only",B:"隨機",C:'["only"]',D:"錯誤"},a:["A"],e:"單一元素清單必選中它。"},
+ {id:159,d:6,stem:"輸出為何？",code:"import random\nnums = [7]\nprint(random.choice(nums))",o:{A:"0",B:"7",C:"隨機",D:"錯誤"},a:["B"],e:"單一元素必為 7。"},
+ {id:160,d:6,stem:"輸出為何？",code:"from random import randrange\nprint(randrange(1, 2))",o:{A:"1",B:"2",C:"隨機 1 或 2",D:"錯誤"},a:["A"],e:"randrange 不含上界，只有 1 可選。"},
+ {id:161,d:6,stem:"輸出為何？",code:"import math\nprint(math.isqrt(17))",o:{A:"4",B:"5",C:"4.12",D:"8"},a:["A"],e:"isqrt 整數平方根（向下取整）。"},
+ {id:162,d:6,stem:"只匯入 math 的 sqrt 函式，正確寫法為？",o:{A:"from math import sqrt",B:"import sqrt from math",C:"import math.sqrt",D:"using math.sqrt"},a:["A"],e:"from 模組 import 函式。"},
+ {id:163,d:6,stem:"輸出為何？",code:"import math\nprint(math.ceil(-1.2))",o:{A:"-1",B:"-2",C:"1",D:"2"},a:["A"],e:"ceil 向上（往 +∞）取整。"},
+ {id:164,d:6,stem:"輸出為何？",code:"import math\nprint(math.floor(-1.2))",o:{A:"-1",B:"-2",C:"1",D:"錯誤"},a:["B"],e:"floor 向下（往 -∞）取整。"},
+ {id:165,d:6,stem:"輸出為何？",code:"import datetime\nd = datetime.date(2024, 7, 1)\nprint(d.year)",o:{A:"2024",B:"7",C:"1",D:"錯誤"},a:["A"],e:"date 物件的 year 屬性。"},
+ {id:166,d:6,stem:"輸出為何？",code:"from datetime import date\nd = date(2024, 12, 25)\nprint(d.month)",o:{A:"25",B:"12",C:"2024",D:"錯誤"},a:["B"],e:"month 屬性為 12。"},
+ {id:167,d:6,stem:"輸出為何？",code:"import math\nprint(math.pow(5, 0))",o:{A:"0",B:"1",C:"1.0",D:"5"},a:["C"],e:"任何數 0 次方為 1；math.pow 回 float → 1.0。"},
+ {id:168,d:6,stem:"輸出為何？",code:"import math\nprint(2 ** 0.5 == math.sqrt(2))",o:{A:"True",B:"False",C:"錯誤",D:"1.414"},a:["A"],e:"兩種算平方根方式結果相同 → True。"},
+];
+
+// ---------- 共用 ----------
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const list=document.getElementById('quizList');
+const resultBox=document.getElementById('result');
+let mode='practice';
+const eq=(sel,ans)=>sel.length===ans.length && sel.every(k=>ans.includes(k));
+
+function optHTML(q,{chosen=[],graded=false,selected=[]}){
+  return Object.entries(q.o).map(([k,t])=>{
+    let cls='opt',mark='';
+    if(graded){
+      if(q.a.includes(k)){cls+=' correct';mark='✓';}
+      else if(chosen.includes(k)){cls+=' wrong';mark='✗';}
+    }else if(selected.includes(k)){cls+=' sel';}
+    const dis=graded?'disabled':'';
+    return `<button class="${cls}" ${dis} data-id="${q.id}" data-k="${k}">
+      <span class="k">${k}</span><span class="tx">${esc(t)}</span>${mark?`<span class="mark">${mark}</span>`:''}</button>`;
+  }).join('');
+}
+function cardHTML(q,body,idx){
+  return `<div class="q" data-q="${q.id}">
+    <div class="meta"><span class="qid">Q${q.id}</span><span class="dl">領域 ${q.d}</span>${q.multi?'<span class="multi">複選</span>':''}${idx!=null?`<span class="num">${idx}</span>`:''}</div>
+    <div class="stem">${esc(q.stem)}</div>
+    ${q.code?`<pre>${esc(q.code)}</pre>`:''}
+    ${body}</div>`;
+}
+let practiceIdx=0, mockIdx=0;
+function navHTML(idx,total,nextOK){
+  return `<div class="nav">
+    <button class="navbtn" data-nav="prev" ${idx<=0?'disabled':''}>← 上一題</button>
+    <span class="pos">${idx+1} / ${total}</span>
+    <button class="navbtn primary" data-nav="next" ${(idx>=total-1||!nextOK)?'disabled':''}>下一題 →</button>
+  </div>`;
+}
+function pagerHTML(qs,curIdx,statusFn){
+  return `<div class="pager">${qs.map((q,i)=>
+    `<button class="pnum ${statusFn(q,i)}${i===curIdx?' cur':''}" data-jump="${i}">${i+1}</button>`).join('')}</div>`;
+}
+function showResult(pool,ans,label){
+  const total=pool.length;
+  const right=pool.filter(q=>ans[q.id]&&ans[q.id].correct).length;
+  const pct=Math.round(right/total*100), pass=pct>=70;
+  const perDom=domains.map(d=>{
+    const qs=pool.filter(q=>q.d===d.n);
+    const r=qs.filter(q=>ans[q.id]&&ans[q.id].correct).length;
+    return {n:d.n,r,t:qs.length,pct:qs.length?Math.round(r/qs.length*100):0};
+  }).filter(d=>d.t>0);
+  resultBox.innerHTML=`
+    <span class="eyebrow">Result · ${label}</span>
+    <div class="verdict ${pass?'pass':'fail'}">${pass?'✓ 達到通過門檻':'✗ 尚未達標'}</div>
+    <div class="big ${pass?'pass':'fail'}">${pct}%</div>
+    <p class="lede" style="margin:0">答對 ${right}/${total} 題 · 通過門檻 70%（正式考試 700/1000）。${pass?'維持手感，建議再做官方 GMetrix 全真模擬。':'加強下方低分領域，重讀考綱後再測。'}</p>
+    <div class="rdom">${perDom.map(d=>`
+      <div class="r"><span class="lab">D${d.n} 領域${d.n}</span>
+        <span class="bar"><i style="width:${d.pct}%;background:${d.pct>=70?'var(--good)':'var(--bad)'}"></i></span>
+        <span class="v">${d.r}/${d.t}</span></div>`).join('')}</div>`;
+}
+
+// ---------- 練習模式 ----------
+const state={};     // id -> {chosen,correct}
+const pending={};   // 複選暫存 id -> [keys]
+let filter=0;
+const fWrap=document.getElementById('filters');
+const fdefs=[{k:0,l:'全部 168'}].concat(domains.map(d=>({k:d.n,l:`D${d.n}·領域${d.n}`})));
+fWrap.innerHTML=fdefs.map(f=>`<button class="fbtn" data-k="${f.k}" aria-pressed="${f.k===0}">${f.l}</button>`).join('');
+fWrap.onclick=e=>{const b=e.target.closest('.fbtn');if(!b)return;
+  filter=+b.dataset.k; practiceIdx=0;
+  [...fWrap.children].forEach(x=>x.setAttribute('aria-pressed',+x.dataset.k===filter));
+  renderPractice();};
+
+function renderPractice(){
+  const qs=Q.filter(q=>filter===0||q.d===filter);
+  if(!qs.length){ list.innerHTML=''; return; }
+  practiceIdx=Math.max(0,Math.min(practiceIdx,qs.length-1));
+  const q=qs[practiceIdx];
+  const st=state[q.id], done=!!st;
+  const sel=done?[]:(pending[q.id]||[]);
+  const opts=optHTML(q,{chosen:done?st.chosen:[],graded:done,selected:sel});
+  const submit=q.multi&&!done?`<button class="submit" data-submit="${q.id}" ${sel.length?'':'disabled'}>確認作答</button>`:'';
+  const exp=done?`<div class="exp"><b>${st.correct?'答對 ✓':'答錯 ✗'}</b><br>${esc(q.e)}</div>`:'';
+  const pager=pagerHTML(qs,practiceIdx,q2=>{const s=state[q2.id];if(s)return s.correct?'correct':'wrong';return (pending[q2.id]||[]).length?'ans':'';});
+  const nav=navHTML(practiceIdx,qs.length,done);
+  list.innerHTML=pager+cardHTML(q,`<div class="opts">${opts}</div>${submit}${exp}`)+nav;
+  const dn=Object.keys(state).length, right=Object.values(state).filter(s=>s.correct).length;
+  document.getElementById('mDone').textContent=dn;
+  document.getElementById('mRight').textContent=right;
+  document.getElementById('mPct').textContent=dn?Math.round(right/dn*100)+'%':'—';
+  if(dn===Q.length){ showResult(Q,state,'練習 168 題'); resultBox.classList.add('show'); }
+  else if(mode==='practice') resultBox.classList.remove('show');
+}
+function commit(id,chosen){
+  const q=Q.find(x=>x.id===id);
+  state[id]={chosen,correct:eq(chosen,q.a)};
+  delete pending[id];
+  renderPractice();
+}
+document.getElementById('resetBtn').onclick=()=>{
+  for(const k in state)delete state[k];
+  for(const k in pending)delete pending[k];
+  practiceIdx=0;
+  resultBox.classList.remove('show');
+  renderPractice();
+  document.getElementById('quiz').scrollIntoView({behavior:'smooth'});
+};
+
+// ---------- 計時模擬考 ----------
+const MOCK_PLAN={1:5,2:6,3:4,4:3,5:1,6:1};   // 各領域抽題數，合計 20
+const MOCK_SECONDS=25*60;
+let mockQs=[], mockSel={}, mockActive=false, mockGraded=false, mockLeft=0, mockTimer=null;
+const mockbar=document.getElementById('mockbar');
+
+function sample(arr,n){
+  const a=arr.slice();
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a.slice(0,n);
+}
+function pickMock(){
+  let picked=[];
+  for(const d in MOCK_PLAN) picked=picked.concat(sample(Q.filter(q=>q.d===+d),MOCK_PLAN[d]));
+  return sample(picked,picked.length);
+}
+function stopTimer(){ if(mockTimer){clearInterval(mockTimer);mockTimer=null;} }
+function mockIntro(){
+  stopTimer(); mockActive=false; mockGraded=false;
+  mockbar.style.display='none'; resultBox.classList.remove('show');
+  list.innerHTML=`<div class="intro">
+    <h3>⏱ 計時模擬考</h3>
+    <ul>
+      <li>從 168 題題庫隨機抽 <b>20 題</b>（依考試權重分配各領域）</li>
+      <li>限時 <b>25 分鐘</b>，時間到自動交卷</li>
+      <li>作答期間<b>不顯示答案</b>，交卷後才評分並揭曉解析</li>
+      <li>通過標準：正確率 ≥ 70%（對應正式考試 700/1000）</li>
+    </ul>
+    <button class="go" id="mkStart">開始模擬考 →</button>
+  </div>`;
+  document.getElementById('mkStart').onclick=startMock;
+}
+function startMock(){
+  mockQs=pickMock(); mockSel={}; mockIdx=0; mockActive=true; mockGraded=false; mockLeft=MOCK_SECONDS;
+  mockbar.style.display=''; mockbar.classList.remove('warn');
+  renderMock(); updateMockTime();
+  mockTimer=setInterval(()=>{
+    mockLeft--; updateMockTime();
+    if(mockLeft<=60) mockbar.classList.add('warn');
+    if(mockLeft<=0) submitMock();
+  },1000);
+}
+function updateMockTime(){
+  const m=Math.max(0,Math.floor(mockLeft/60)), s=Math.max(0,mockLeft%60);
+  document.getElementById('mkTime').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  document.getElementById('mkDone').textContent=Object.keys(mockSel).filter(id=>mockSel[id].length).length;
+}
+function renderMock(){
+  if(!mockQs.length) return;
+  mockIdx=Math.max(0,Math.min(mockIdx,mockQs.length-1));
+  const q=mockQs[mockIdx];
+  const sel=mockSel[q.id]||[];
+  const opts=optHTML(q,{chosen:mockGraded?sel:[],graded:mockGraded,selected:mockGraded?[]:sel});
+  const exp=mockGraded?`<div class="exp"><b>${eq(sel,q.a)?'答對 ✓':'答錯 ✗'}</b><br>${esc(q.e)}</div>`:'';
+  const pager=pagerHTML(mockQs,mockIdx,q2=>{const s2=mockSel[q2.id]||[];if(mockGraded)return eq(s2,q2.a)?'correct':'wrong';return s2.length?'ans':'';});
+  const nav=navHTML(mockIdx,mockQs.length,true);
+  list.innerHTML=pager+cardHTML(q,`<div class="opts">${opts}</div>${exp}`,`${mockIdx+1} / 20`)+nav;
+}
+function submitMock(){
+  if(!mockActive) return;
+  stopTimer(); mockActive=false; mockGraded=true; mockbar.classList.remove('warn');
+  const ans={};
+  mockQs.forEach(q=>{ const sel=mockSel[q.id]||[]; ans[q.id]={chosen:sel,correct:eq(sel,q.a)}; });
+  renderMock();
+  showResult(mockQs,ans,'模擬考 20 題');
+  resultBox.classList.add('show');
+  resultBox.scrollIntoView({behavior:'smooth'});
+}
+document.getElementById('mkSubmit').onclick=submitMock;
+document.getElementById('mkExit').onclick=mockIntro;
+
+// ---------- 作答點擊（委派） ----------
+list.onclick=e=>{
+  const navb=e.target.closest('.navbtn'), jump=e.target.closest('.pnum');
+  if(navb&&!navb.disabled){
+    const step=navb.dataset.nav==='next'?1:-1;
+    if(mode==='practice'){ practiceIdx+=step; renderPractice(); } else { mockIdx+=step; renderMock(); }
+    document.getElementById('quiz').scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  if(jump){
+    const i=+jump.dataset.jump;
+    if(mode==='practice'){ practiceIdx=i; renderPractice(); } else { mockIdx=i; renderMock(); }
+    document.getElementById('quiz').scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  const opt=e.target.closest('.opt'), sub=e.target.closest('.submit');
+  if(mode==='practice'){
+    if(sub){ const id=+sub.dataset.submit; commit(id,[...(pending[id]||[])]); return; }
+    if(opt&&!opt.disabled){
+      const id=+opt.dataset.id,k=opt.dataset.k,q=Q.find(x=>x.id===id);
+      if(q.multi){
+        const set=new Set(pending[id]||[]); set.has(k)?set.delete(k):set.add(k);
+        pending[id]=[...set]; renderPractice();
+      }else commit(id,[k]);
+    }
+    return;
+  }
+  if(mode==='mock'&&mockActive&&!mockGraded&&opt){
+    const id=+opt.dataset.id,k=opt.dataset.k,q=Q.find(x=>x.id===id);
+    if(q.multi){ const set=new Set(mockSel[id]||[]); set.has(k)?set.delete(k):set.add(k); mockSel[id]=[...set]; }
+    else mockSel[id]=[k];
+    renderMock(); updateMockTime();
+  }
+};
+
+// ---------- 模式切換 ----------
+document.getElementById('modebar').onclick=e=>{
+  const b=e.target.closest('.mbtn'); if(!b) return;
+  const m=b.dataset.mode; if(m===mode) return;
+  mode=m;
+  [...document.getElementById('modebar').children].forEach(x=>x.setAttribute('aria-pressed',x.dataset.mode===mode));
+  document.getElementById('practicePane').style.display=mode==='practice'?'':'none';
+  document.getElementById('mockPane').style.display=mode==='mock'?'':'none';
+  resultBox.classList.remove('show');
+  stopTimer();
+  if(mode==='practice'){ mockActive=false; renderPractice(); }
+  else mockIntro();
+};
+
+document.getElementById('mTotal').textContent=Q.length;
+renderPractice();
+</script>
