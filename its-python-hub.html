@@ -166,6 +166,15 @@
     border-left:3px solid var(--accent);font-size:.88rem}
   .exp.hidden{display:none}
   .exp b{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .exp.ok{border-left-color:var(--good)}
+  .exp.bad{border-left-color:var(--bad)}
+  .exp .fb{margin-top:7px;font-size:.86rem;line-height:1.5}
+  .exp .fb .you,.exp .fb .ans{display:inline-block;font-family:var(--mono);font-size:.66rem;letter-spacing:.04em;
+    padding:1px 7px;border-radius:5px;margin-right:7px;font-weight:700;vertical-align:1px}
+  .exp .fb .you{background:var(--bad-soft);color:var(--bad);border:1px solid var(--bad-bd)}
+  .exp .fb .ans{background:var(--good-soft);color:var(--good);border:1px solid var(--good-bd)}
+  .exp .why{margin-top:10px;padding-top:9px;border-top:1px dashed var(--border);font-size:.88rem}
+  .exp .tip{margin-top:8px;font-size:.82rem;color:var(--muted);line-height:1.6}
 
   /* result */
   .result{margin-top:18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;
@@ -607,6 +616,28 @@ function showResult(pool,ans,label){
         <span class="v">${d.r}/${d.t}</span></div>`).join('')}</div>`;
 }
 
+// ---------- 作答回饋（答錯時給更多解釋） ----------
+const DOMAIN_TIP={
+  1:'型別與運算：/ 一律得 float、// 取整、% 取餘、** 右結合且優先最高；型別轉換用 int()/float()/str()。',
+  2:'流程控制：range(start, stop, step) 不含 stop；break 立即跳出整個迴圈、continue 只跳過本次；巢狀迴圈次數＝外×內；for/while 可接 else（未 break 才執行）。',
+  3:'輸入輸出：input() 一律回傳「字串」，要運算前先轉型；print 用 sep 控分隔、end 控結尾；檔案模式 r=唯讀、w=清空覆寫、a=附加、x=獨佔建立。',
+  4:'函式：預設參數寫在後面、關鍵字引數依「名稱」對應與順序無關；函式內指派會建立區域變數；沒有 return（或空 return）時回傳 None。',
+  5:'錯誤處理：ValueError=值不合理、TypeError=型別不合、IndexError=索引越界、KeyError=鍵不存在、ZeroDivisionError=除以 0、NameError=變數未定義；finally 一定執行。',
+  6:'模組：math.pow/sqrt 回傳 float，floor 往 -∞、ceil 往 +∞、trunc 直接截斷；randint(a,b) 含兩端、randrange(a,b) 不含 b；要先 import 才能使用。',
+};
+function feedbackHTML(q,chosen,correct){
+  if(correct) return `<div class="exp ok"><b>答對 ✓</b><br>${esc(q.e)}</div>`;
+  const you=(chosen&&chosen.length)?chosen.map(k=>`${k}「${q.o[k]}」`).join('、'):'（未作答）';
+  const ans=q.a.map(k=>`${k}「${q.o[k]}」`).join('、');
+  const tip=DOMAIN_TIP[q.d];
+  return `<div class="exp bad"><b>答錯 ✗</b>
+    <div class="fb"><span class="you">你選的</span>${esc(you)}</div>
+    <div class="fb"><span class="ans">正解</span>${esc(ans)}</div>
+    <div class="why">💡 解析：${esc(q.e)}</div>
+    ${tip?`<div class="tip">📌 觀念提醒（領域 ${q.d}）：${esc(tip)}</div>`:''}
+  </div>`;
+}
+
 // ---------- 練習模式 ----------
 const state={};     // id -> {chosen,correct}
 const pending={};   // 複選暫存 id -> [keys]
@@ -628,7 +659,7 @@ function renderPractice(){
   const sel=done?[]:(pending[q.id]||[]);
   const opts=optHTML(q,{chosen:done?st.chosen:[],graded:done,selected:sel});
   const submit=q.multi&&!done?`<button class="submit" data-submit="${q.id}" ${sel.length?'':'disabled'}>確認作答</button>`:'';
-  const exp=done?`<div class="exp"><b>${st.correct?'答對 ✓':'答錯 ✗'}</b><br>${esc(q.e)}</div>`:'';
+  const exp=done?feedbackHTML(q,st.chosen,st.correct):'';
   const pager=pagerHTML(qs,practiceIdx,q2=>{const s=state[q2.id];if(s)return s.correct?'correct':'wrong';return (pending[q2.id]||[]).length?'ans':'';});
   const nav=navHTML(practiceIdx,qs.length,done);
   list.innerHTML=pager+cardHTML(q,`<div class="opts">${opts}</div>${submit}${exp}`)+nav;
@@ -707,7 +738,7 @@ function renderMock(){
   const q=mockQs[mockIdx];
   const sel=mockSel[q.id]||[];
   const opts=optHTML(q,{chosen:mockGraded?sel:[],graded:mockGraded,selected:mockGraded?[]:sel});
-  const exp=mockGraded?`<div class="exp"><b>${eq(sel,q.a)?'答對 ✓':'答錯 ✗'}</b><br>${esc(q.e)}</div>`:'';
+  const exp=mockGraded?feedbackHTML(q,sel,eq(sel,q.a)):'';
   const pager=pagerHTML(mockQs,mockIdx,q2=>{const s2=mockSel[q2.id]||[];if(mockGraded)return eq(s2,q2.a)?'correct':'wrong';return s2.length?'ans':'';});
   const nav=navHTML(mockIdx,mockQs.length,true);
   list.innerHTML=pager+cardHTML(q,`<div class="opts">${opts}</div>${exp}`,`${mockIdx+1} / 20`)+nav;
