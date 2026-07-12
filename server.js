@@ -10,7 +10,7 @@ const os = require('os');
 
 const ROOT = __dirname;                       // 以本檔所在資料夾為根目錄
 const PORT = Number(process.argv[2] || process.env.PORT || 8081);
-const DEFAULT_FILE = 'its-python-hub.html';   // 首頁
+const DEFAULT_FILE = 'index.html';   // 首頁
 
 const MIME = {
   '.html': 'text/html; charset=utf-8',
