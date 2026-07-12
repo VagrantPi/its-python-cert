@@ -1,0 +1,667 @@
+<title>ITS JavaScript 證照｜自學與自測 Hub</title>
+<style>
+  :root{
+    --bg:#f6f8fb; --surface:#ffffff; --surface-2:#eef1f7; --code-bg:#f0f3f9;
+    --text:#171c28; --muted:#59637a; --border:#dde3ee;
+    --accent:#3b57d6; --accent-soft:#e6ebfd; --amber:#c9760a;
+    --good:#1f8a4c; --good-soft:#e3f4e9; --good-bd:#a8dcbb;
+    --bad:#cf3d3d; --bad-soft:#fbe7e7; --bad-bd:#f0b6b6;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans TC","PingFang TC",sans-serif;
+    --maxw:960px; --radius:12px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0e1218; --surface:#151b25; --surface-2:#1d2531; --code-bg:#10151d;
+      --text:#e7eaf2; --muted:#94a0b8; --border:#28303d;
+      --accent:#8098f7; --accent-soft:#1a2440; --amber:#eaa54a;
+      --good:#54cf78; --good-soft:#132c1c; --good-bd:#255f39;
+      --bad:#ef8888; --bad-soft:#301718; --bad-bd:#5e2a2b;
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#f6f8fb; --surface:#ffffff; --surface-2:#eef1f7; --code-bg:#f0f3f9;
+    --text:#171c28; --muted:#59637a; --border:#dde3ee;
+    --accent:#3b57d6; --accent-soft:#e6ebfd; --amber:#c9760a;
+    --good:#1f8a4c; --good-soft:#e3f4e9; --good-bd:#a8dcbb;
+    --bad:#cf3d3d; --bad-soft:#fbe7e7; --bad-bd:#f0b6b6;
+  }
+  :root[data-theme="dark"]{
+    --bg:#0e1218; --surface:#151b25; --surface-2:#1d2531; --code-bg:#10151d;
+    --text:#e7eaf2; --muted:#94a0b8; --border:#28303d;
+    --accent:#8098f7; --accent-soft:#1a2440; --amber:#eaa54a;
+    --good:#54cf78; --good-soft:#132c1c; --good-bd:#255f39;
+    --bad:#ef8888; --bad-soft:#301718; --bad-bd:#5e2a2b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.65;
+    -webkit-font-smoothing:antialiased;font-size:16px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code{font-family:var(--mono);font-size:.92em;background:var(--surface-2);padding:.08em .35em;border-radius:5px}
+  pre{font-family:var(--mono);font-size:.86rem;line-height:1.55;background:var(--code-bg);
+    border:1px solid var(--border);border-radius:9px;padding:12px 14px;overflow-x:auto;margin:.6rem 0;
+    tab-size:4}
+  .eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);font-weight:600}
+  h2{font-size:1.6rem;letter-spacing:-.02em;margin:.2rem 0 .1rem;text-wrap:balance}
+  h3{font-size:1.1rem;margin:1.4rem 0 .3rem}
+
+  /* header */
+  header.bar{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--surface) 88%,transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .bar .wrap{display:flex;align-items:center;gap:16px;height:56px}
+  .brand{font-family:var(--mono);font-weight:700;font-size:.95rem;letter-spacing:-.01em;white-space:nowrap}
+  .brand .dot{color:var(--amber)}
+  nav.toc{display:flex;gap:4px;margin-left:auto;overflow-x:auto}
+  nav.toc a{font-size:.8rem;color:var(--muted);padding:6px 10px;border-radius:7px;white-space:nowrap}
+  nav.toc a:hover{color:var(--text);background:var(--surface-2);text-decoration:none}
+  .toggle{flex:0 0 auto;width:38px;height:32px;border:1px solid var(--border);background:var(--surface);
+    border-radius:8px;color:var(--text);cursor:pointer;font-size:1rem;display:grid;place-items:center}
+  .toggle:hover{border-color:var(--accent)}
+
+  /* hero */
+  .hero{padding:52px 0 34px}
+  .hero .kick{color:var(--amber)}
+  .hero h1{font-size:clamp(2rem,5vw,3rem);line-height:1.08;letter-spacing:-.03em;margin:.5rem 0 .6rem;
+    text-wrap:balance}
+  .hero p.lead{font-size:1.08rem;color:var(--muted);max-width:60ch;margin:0}
+  .hero .stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .chip{font-family:var(--mono);font-size:.78rem;background:var(--surface);border:1px solid var(--border);
+    padding:7px 11px;border-radius:8px}
+  .chip b{color:var(--accent)}
+  .term{margin-top:26px;background:var(--code-bg);border:1px solid var(--border);border-radius:12px;
+    overflow:hidden;box-shadow:0 10px 30px -18px rgba(20,30,60,.5)}
+  .term .top{display:flex;gap:7px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border);
+    background:var(--surface-2)}
+  .term .top i{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .term .top .t{font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-left:8px}
+  .term pre{margin:0;border:0;border-radius:0;background:transparent;font-size:.82rem;padding:15px 16px}
+  .cur{display:inline-block;width:8px;height:1.05em;background:var(--accent);vertical-align:-2px;
+    animation:blink 1.1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  @media (prefers-reduced-motion:reduce){.cur{animation:none}}
+
+  section{padding:34px 0;border-top:1px solid var(--border)}
+  .lede{color:var(--muted);max-width:64ch}
+
+  /* domain weight bars */
+  .dom{display:grid;gap:12px;margin-top:20px}
+  .dom .row{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:13px 15px}
+  .dom .h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .dom .n{font-family:var(--mono);font-size:.72rem;color:var(--accent);font-weight:700}
+  .dom .name{font-weight:600}
+  .dom .w{margin-left:auto;font-family:var(--mono);font-size:.82rem;color:var(--muted);
+    font-variant-numeric:tabular-nums}
+  .dom .track{height:7px;background:var(--surface-2);border-radius:4px;margin-top:9px;overflow:hidden}
+  .dom .fill{height:100%;background:linear-gradient(90deg,var(--accent),color-mix(in srgb,var(--accent) 55%,var(--amber)));
+    border-radius:4px}
+  .dom .sub{font-size:.85rem;color:var(--muted);margin-top:8px}
+
+  /* resource cards */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:18px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:14px 15px}
+  .card .tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+    padding:2px 7px;border-radius:5px;font-weight:700}
+  .tag.t1{background:var(--good-soft);color:var(--good);border:1px solid var(--good-bd)}
+  .tag.t2{background:var(--accent-soft);color:var(--accent)}
+  .tag.t3{background:var(--bad-soft);color:var(--bad);border:1px solid var(--bad-bd)}
+  .card h4{margin:9px 0 4px;font-size:.98rem}
+  .card p{margin:0;font-size:.85rem;color:var(--muted)}
+
+  /* quiz */
+  .quizhead{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;justify-content:space-between}
+  .filters{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+  .fbtn{font-family:var(--mono);font-size:.78rem;padding:6px 11px;border-radius:8px;cursor:pointer;
+    background:var(--surface);border:1px solid var(--border);color:var(--muted)}
+  .fbtn:hover{border-color:var(--accent);color:var(--text)}
+  .fbtn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+  :root[data-theme="dark"] .fbtn[aria-pressed="true"]{color:#0e1218}
+  @media (prefers-color-scheme:dark){.fbtn[aria-pressed="true"]{color:#0e1218}}
+
+  .scorebar{position:sticky;top:56px;z-index:40;margin-top:18px;
+    background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(8px);
+    border:1px solid var(--border);border-radius:11px;padding:11px 15px;
+    display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+  .scorebar .m{font-family:var(--mono);font-size:.82rem;font-variant-numeric:tabular-nums}
+  .scorebar .m b{font-size:1.05rem}
+  .scorebar .m span{color:var(--muted)}
+  .scorebar .pct{color:var(--accent)}
+  .scorebar .reset{margin-left:auto;font-family:var(--mono);font-size:.76rem;background:none;
+    border:1px solid var(--border);color:var(--muted);padding:5px 10px;border-radius:7px;cursor:pointer}
+  .scorebar .reset:hover{border-color:var(--bad);color:var(--bad)}
+
+  .q{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 17px;margin-top:14px}
+  .q.hidden{display:none}
+  .q .meta{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+  .q .qid{font-family:var(--mono);font-size:.72rem;color:var(--accent);font-weight:700}
+  .q .dl{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);background:var(--surface-2);padding:2px 7px;border-radius:5px}
+  .q .multi{font-family:var(--mono);font-size:.66rem;color:var(--amber);border:1px solid var(--amber);
+    padding:1px 6px;border-radius:5px}
+  .q .stem{font-weight:500;margin-bottom:4px}
+  .opts{display:grid;gap:8px;margin-top:11px}
+  .opt{display:flex;gap:10px;align-items:flex-start;text-align:left;width:100%;cursor:pointer;
+    background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:10px 12px;
+    color:var(--text);font-family:inherit;font-size:.93rem;line-height:1.5}
+  .opt:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft)}
+  .opt:disabled{cursor:default}
+  .opt .k{font-family:var(--mono);font-weight:700;color:var(--muted);flex:0 0 auto}
+  .opt .tx{flex:1}
+  .opt .tx code,.opt .tx{font-family:var(--mono);font-size:.9rem}
+  .opt.correct{background:var(--good-soft);border-color:var(--good-bd)}
+  .opt.correct .k{color:var(--good)}
+  .opt.wrong{background:var(--bad-soft);border-color:var(--bad-bd)}
+  .opt.wrong .k{color:var(--bad)}
+  .opt .mark{margin-left:auto;font-family:var(--mono);font-weight:700}
+  .opt.correct .mark{color:var(--good)}
+  .opt.wrong .mark{color:var(--bad)}
+  .submit{margin-top:11px;font-family:var(--mono);font-size:.82rem;background:var(--accent);color:#fff;
+    border:0;padding:8px 16px;border-radius:8px;cursor:pointer}
+  :root[data-theme="dark"] .submit{color:#0e1218}
+  @media (prefers-color-scheme:dark){.submit{color:#0e1218}}
+  .submit:disabled{opacity:.5;cursor:default}
+  .exp{margin-top:11px;padding:11px 13px;border-radius:9px;background:var(--surface-2);
+    border-left:3px solid var(--accent);font-size:.88rem}
+  .exp.hidden{display:none}
+  .exp b{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .exp.ok{border-left-color:var(--good)}
+  .exp.bad{border-left-color:var(--bad)}
+  .exp .fb{margin-top:7px;font-size:.86rem;line-height:1.5}
+  .exp .fb .you,.exp .fb .ans{display:inline-block;font-family:var(--mono);font-size:.66rem;letter-spacing:.04em;
+    padding:1px 7px;border-radius:5px;margin-right:7px;font-weight:700;vertical-align:1px}
+  .exp .fb .you{background:var(--bad-soft);color:var(--bad);border:1px solid var(--bad-bd)}
+  .exp .fb .ans{background:var(--good-soft);color:var(--good);border:1px solid var(--good-bd)}
+  .exp .why{margin-top:10px;padding-top:9px;border-top:1px dashed var(--border);font-size:.88rem}
+  .exp .tip{margin-top:8px;font-size:.82rem;color:var(--muted);line-height:1.6}
+
+  /* result */
+  .result{margin-top:18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:20px;display:none}
+  .result.show{display:block}
+  .result .verdict{font-size:1.4rem;font-weight:700;letter-spacing:-.02em}
+  .result .pass{color:var(--good)}
+  .result .fail{color:var(--bad)}
+  .result .big{font-family:var(--mono);font-size:2.6rem;font-weight:700;line-height:1;
+    font-variant-numeric:tabular-nums;margin:6px 0}
+  .rdom{display:grid;gap:8px;margin-top:16px}
+  .rdom .r{display:flex;align-items:center;gap:10px;font-size:.85rem}
+  .rdom .r .lab{font-family:var(--mono);color:var(--muted);flex:0 0 168px}
+  .rdom .r .bar{flex:1;height:8px;background:var(--surface-2);border-radius:4px;overflow:hidden}
+  .rdom .r .bar i{display:block;height:100%;background:var(--good);border-radius:4px}
+  .rdom .r .v{font-family:var(--mono);font-variant-numeric:tabular-nums;flex:0 0 auto}
+
+  footer{padding:34px 0 60px;color:var(--muted);font-size:.82rem;border-top:1px solid var(--border)}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:6px 18px}
+  .note{font-size:.8rem;color:var(--muted);background:var(--surface-2);border-radius:9px;padding:10px 13px;
+    margin-top:14px;border-left:3px solid var(--amber)}
+
+  /* mode bar */
+  .modebar{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+  .mbtn{font-family:var(--mono);font-size:.84rem;padding:9px 15px;border-radius:9px;cursor:pointer;
+    background:var(--surface);border:1px solid var(--border);color:var(--muted)}
+  .mbtn:hover{border-color:var(--accent);color:var(--text)}
+  .mbtn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+  :root[data-theme="dark"] .mbtn[aria-pressed="true"]{color:#0e1218}
+  @media (prefers-color-scheme:dark){.mbtn[aria-pressed="true"]{color:#0e1218}}
+
+  /* mock */
+  .mockbar .mktime{color:var(--amber)}
+  .mockbar .mktime b{font-size:1.15rem;font-variant-numeric:tabular-nums}
+  .mockbar.warn{border-color:var(--bad)}
+  .mockbar.warn .mktime{color:var(--bad)}
+  .mockbar #mkSubmit{margin-left:auto;padding:6px 14px}
+  .intro{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;margin-top:14px}
+  .intro h3{margin:0 0 6px}
+  .intro ul{margin:10px 0 16px;padding-left:20px;color:var(--muted);font-size:.9rem;line-height:1.9}
+  .intro .go{font-family:var(--mono);font-size:.9rem;background:var(--accent);color:#fff;border:0;
+    padding:11px 22px;border-radius:9px;cursor:pointer}
+  :root[data-theme="dark"] .intro .go{color:#0e1218}
+  @media (prefers-color-scheme:dark){.intro .go{color:#0e1218}}
+  .opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+  .opt.sel .k{color:var(--accent)}
+  .q .num{margin-left:auto;font-family:var(--mono);font-size:.7rem;color:var(--muted)}
+
+  /* 一次一題：題號跳格 + 上/下一題 */
+  .pager{display:flex;flex-wrap:wrap;gap:5px;margin-top:14px}
+  .pnum{font-family:var(--mono);font-size:.72rem;min-width:28px;height:28px;padding:0 4px;border-radius:7px;
+    border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+  .pnum:hover{border-color:var(--accent);color:var(--text)}
+  .pnum.ans{border-color:var(--accent);color:var(--accent)}
+  .pnum.correct{background:var(--good-soft);border-color:var(--good-bd);color:var(--good)}
+  .pnum.wrong{background:var(--bad-soft);border-color:var(--bad-bd);color:var(--bad)}
+  .pnum.cur{outline:2px solid var(--accent);outline-offset:1px;font-weight:700;color:var(--text)}
+  .nav{display:flex;align-items:center;gap:12px;margin-top:16px}
+  .navbtn{font-family:var(--mono);font-size:.85rem;padding:9px 16px;border-radius:9px;cursor:pointer;
+    background:var(--surface);border:1px solid var(--border);color:var(--text)}
+  .navbtn:hover:not(:disabled){border-color:var(--accent)}
+  .navbtn:disabled{opacity:.4;cursor:default}
+  .navbtn.primary{margin-left:auto;background:var(--accent);color:#fff;border-color:var(--accent)}
+  :root[data-theme="dark"] .navbtn.primary:not(:disabled){color:#0e1218}
+  @media (prefers-color-scheme:dark){.navbtn.primary:not(:disabled){color:#0e1218}}
+  .navbtn.primary:disabled{background:var(--surface);color:var(--text)}
+  .pos{font-family:var(--mono);font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+</style>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="brand">ITS<span class="dot">·</span>JS</span>
+    <nav class="toc">
+      <a href="#overview">總覽</a>
+      <a href="#domains">五大領域</a>
+      <a href="#resources">備考資源</a>
+      <a href="#quiz">線上自測</a>
+    </nav>
+    <button class="toggle" id="themeBtn" aria-label="切換深淺色">◐</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <span class="eyebrow kick">Certiport IT Specialist · JavaScript</span>
+    <h1>讀懂程式，<br>也要玩轉網頁。</h1>
+    <p class="lead">ITS JavaScript（INF-302）是入門級國際認證，考的是「辨識、除錯」程式碼與操作 DOM／事件／表單的能力。這份 Hub 幫你對齊五大考試領域、篩選可信資源，並用 26 題互動測驗即時檢測實力。</p>
+    <div class="stats">
+      <span class="chip">題數 <b>35–45</b> 題</span>
+      <span class="chip">時間 <b>50</b> 分鐘</span>
+      <span class="chip">通過 <b>700</b>/1000</span>
+      <span class="chip">本站題庫 <b>26</b> 題</span>
+    </div>
+    <div class="term" aria-hidden="true">
+      <div class="top">
+        <i style="background:#e0665e"></i><i style="background:#e6b34d"></i><i style="background:#5bbf6a"></i>
+        <span class="t">its_prep.js — node</span>
+      </div>
+<pre>let score = 0;
+for (const domain of exam.domains) {   <span style="color:var(--muted)">// 五大領域</span>
+  score += study(domain);
+}
+console.log(score &gt;= 700 ? "PASS" : "RETRY");
+PASS<span class="cur"></span></pre>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section id="overview">
+    <span class="eyebrow">Overview</span>
+    <h2>這張證照在考什麼</h2>
+    <p class="lede">ITS JavaScript（考科 INF-302，前身 Microsoft 98-382）屬入門級，重點在<strong>讀懂、除錯與網頁互動</strong>（DOM／事件／表單）。題型包含單選、複選、拖曳、排序、下拉等；台灣由碁峰資訊總代理，考場提供中文介面。</p>
+    <div class="note">⚠️ 官方不公開歷屆真題（受 NDA 保護）。最接近真題手感的合法管道是官方授權的 <b>GMetrix / CertPREP / MeasureUp</b> 模擬；本站 26 題為<strong>原創、語法題經 Node.js 實跑驗證</strong>，無版權疑慮。</div>
+  </section>
+
+  <section id="domains">
+    <span class="eyebrow">Objective Domains</span>
+    <h2>五大考試領域與權重</h2>
+    <p class="lede">權重為近似值（依 INF-302 官方練習題分布推估、對齊 CodeHS 21 項標準）。<strong>領域 2（資料型別與函式）與 4（DOM 與事件）</strong>各約 23%、合計近半，是重心。</p>
+    <div class="dom" id="domList"></div>
+  </section>
+
+  <section id="resources">
+    <span class="eyebrow">Study Resources</span>
+    <h2>備考資源（依可信度分級）</h2>
+    <p class="lede">🟢 官方／授權 → 🟡 教材／課程 → 🟠 社群／回憶題（僅供熟悉題型，勿當標準答案）。</p>
+    <div class="cards">
+      <div class="card"><span class="tag t1">官方授權</span><h4>GMetrix / CertPREP / MeasureUp</h4><p>官方指定/合作模擬平台，題型與介面貼近正式考試。備考首選，建議完成 1–2 回全真計時模擬。</p></div>
+      <div class="card"><span class="tag t1">官方</span><h4>Objective Domains + CodeHS</h4><p>官方考綱文件與 21 項標準框架，對齊「考什麼」的權威依據。</p></div>
+      <div class="card"><span class="tag t2">中文主教材</span><h4>《JavaScript 基礎必修課》（含 ITS 模擬題）</h4><p>中文教材，內容對齊考綱並附模擬試題。</p></div>
+      <div class="card"><span class="tag t2">線上課程</span><h4>uCertify / Career Smarter</h4><p>互動課程 + 模擬測驗，按基礎、陣列、函式、物件、DOM、表單編排。</p></div>
+      <div class="card"><span class="tag t3">社群免費</span><h4>Quizlet · CodeHS 框架</h4><p>免費字卡與標準框架，答案需用官方考綱覆核，切勿死背。</p></div>
+      <div class="card"><span class="tag t3">避免</span><h4>INF-302「dumps／真題」販售站</h4><p>可能侵權、答案未必正確、違反考試誠信，不建議使用。</p></div>
+    </div>
+  </section>
+
+  <section id="quiz">
+    <div class="quizhead">
+      <div>
+        <span class="eyebrow">Self Test · 26 題</span>
+        <h2>線上自測</h2>
+        <p class="lede" style="margin:0"><b>練習模式</b>：選答即時對答看解析。<b>計時模擬考</b>：隨機抽 15 題、限時 20 分鐘、一次交卷評分（模擬真實考試）。</p>
+      </div>
+    </div>
+
+    <div class="modebar" id="modebar">
+      <button class="mbtn" data-mode="practice" aria-pressed="true">✎ 練習模式</button>
+      <button class="mbtn" data-mode="mock" aria-pressed="false">⏱ 計時模擬考（隨機 15 題）</button>
+    </div>
+
+    <div id="practicePane">
+      <div class="filters" id="filters"></div>
+      <div class="scorebar">
+        <span class="m"><span>已答</span> <b id="mDone">0</b><span>/<span id="mTotal">26</span></span></span>
+        <span class="m"><span>答對</span> <b id="mRight">0</b></span>
+        <span class="m pct"><span>正確率</span> <b id="mPct">—</b></span>
+        <button class="reset" id="resetBtn">↺ 重置</button>
+      </div>
+    </div>
+
+    <div id="mockPane" style="display:none">
+      <div class="scorebar mockbar" id="mockbar" style="display:none">
+        <span class="m mktime">⏱ <b id="mkTime">25:00</b></span>
+        <span class="m"><span>已答</span> <b id="mkDone">0</b><span>/15</span></span>
+        <button class="submit" id="mkSubmit">交卷評分</button>
+        <button class="reset" id="mkExit">結束模擬</button>
+      </div>
+    </div>
+
+    <div id="quizList"></div>
+    <div class="result" id="result"></div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>ITS JavaScript 自學 Hub · 資料調研 2026-07</span>
+    <span>· 語法題經 Node.js 實跑驗證</span>
+    <span>· 規格以報考當下 Certiport 官方 Objective Domains 為準</span>
+  </div>
+</footer>
+
+<script>
+// ---------- 主題切換 ----------
+const root=document.documentElement, tbtn=document.getElementById('themeBtn');
+tbtn.onclick=()=>{
+  const cur=root.getAttribute('data-theme')
+    || (matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
+  root.setAttribute('data-theme',cur==='dark'?'light':'dark');
+};
+
+// ---------- 六大領域 ----------
+const domains=[
+ {n:1,name:'運算子與最佳實踐',w:'≈21%',pct:21,sub:'運算子、最佳實踐、內外部腳本、例外處理、BOM'},
+ {n:2,name:'資料型別與函式',w:'≈23%',pct:23,sub:'變數與原始型別、陣列、物件、Math、函式'},
+ {n:3,name:'流程控制與邏輯',w:'≈14%',pct:14,sub:'邏輯/比較運算、判斷式、迴圈'},
+ {n:4,name:'DOM 與事件',w:'≈23%',pct:23,sub:'DOM 樹、事件處理、輸出到 HTML、增修元素、監聽器'},
+ {n:5,name:'表單與輸入',w:'≈18%',pct:18,sub:'取值/設值、輸入驗證、表單送出流程'},
+];
+document.getElementById('domList').innerHTML=domains.map(d=>`
+  <div class="row">
+    <div class="h"><span class="n">D${d.n}</span><span class="name">${d.name}</span><span class="w">${d.w}</span></div>
+    <div class="track"><div class="fill" style="width:${d.pct*3.4}%"></div></div>
+    <div class="sub">${d.sub}</div>
+  </div>`).join('');
+
+// ---------- 題庫（語法題答案經 Node.js 實跑驗證） ----------
+// a: 正確答案鍵陣列；multi: 複選
+const Q=[
+ {id:1,d:1,stem:'console.log(typeof "hello") 輸出？',o:{A:"string",B:'"hello"',C:"text",D:"String"},a:["A"],e:"typeof 回傳型別字串，字串型別是 'string'。"},
+ {id:2,d:1,stem:'console.log(5 + "5") 輸出？',o:{A:"10",B:"55",C:'"10"',D:"錯誤"},a:["B"],e:"+ 遇字串會字串串接：數字 5 被轉字串 → '55'。"},
+ {id:3,d:1,stem:'console.log(5 == "5", 5 === "5") 輸出？',o:{A:"true true",B:"true false",C:"false false",D:"false true"},a:["B"],e:"== 會型別轉換後比較(true)；=== 嚴格相等需型別也相同(false)。"},
+ {id:4,d:1,stem:"console.log(10 % 3) 輸出？",o:{A:"3",B:"1",C:"0",D:"3.33"},a:["B"],e:"% 取餘數：10÷3 餘 1。"},
+ {id:5,d:1,stem:"輸出為何？",code:'try {\n  let x = null;\n  x.foo;\n} catch (e) {\n  console.log("caught");\n}',o:{A:"null",B:"caught",C:"undefined",D:"程式崩潰"},a:["B"],e:"存取 null 的屬性會拋 TypeError，被 catch 攔截。"},
+ {id:6,d:1,stem:"console.log(typeof null) 輸出？",o:{A:"null",B:"object",C:"undefined",D:"false"},a:["B"],e:"JS 經典特性：typeof null === 'object'（歷史遺留 bug）。"},
+ {id:7,d:2,stem:"let arr = [1, 2, 3]；console.log(arr.length) 輸出？",o:{A:"2",B:"3",C:"4",D:"undefined"},a:["B"],e:"陣列有 3 個元素，length 為 3。"},
+ {id:8,d:2,stem:"console.log([1, 2, 3].indexOf(2)) 輸出？",o:{A:"0",B:"1",C:"2",D:"-1"},a:["B"],e:"indexOf(2) 回傳值 2 的索引 1（找不到才回 -1）。"},
+ {id:9,d:2,stem:"console.log(Math.max(3, 7, 2)) 輸出？",o:{A:"2",B:"3",C:"7",D:"12"},a:["C"],e:"Math.max 回傳最大值 7。"},
+ {id:10,d:2,stem:"console.log(Math.floor(4.7)) 輸出？",o:{A:"4",B:"5",C:"4.7",D:"5.0"},a:["A"],e:"Math.floor 向下取整 → 4。"},
+ {id:11,d:2,stem:"輸出為何？",code:"function add(a, b) {\n  return a + b;\n}\nconsole.log(add(2, 3));",o:{A:"23",B:"5",C:"undefined",D:"錯誤"},a:["B"],e:"兩個數字相加 2+3=5。"},
+ {id:12,d:2,stem:'const obj = { name: "Amy" }；console.log(obj.name) 輸出？',o:{A:"name",B:"Amy",C:"undefined",D:"錯誤"},a:["B"],e:"以 . 存取物件屬性 name → Amy。"},
+ {id:13,d:3,stem:'let x = 5；console.log(x > 3 ? "big" : "small") 輸出？',o:{A:"big",B:"small",C:"true",D:"5"},a:["A"],e:"三元運算：x>3 為真 → big。"},
+ {id:14,d:3,stem:"輸出為何？",code:"let s = 0;\nfor (let i = 1; i <= 4; i++) {\n  s += i;\n}\nconsole.log(s);",o:{A:"4",B:"10",C:"24",D:"15"},a:["B"],e:"1+2+3+4=10。"},
+ {id:15,d:3,stem:"輸出為何？",code:'let d = 2;\nswitch (d) {\n  case 1: console.log("A"); break;\n  case 2: console.log("B"); break;\n  default: console.log("C");\n}',o:{A:"A",B:"B",C:"C",D:"A B C"},a:["B"],e:"d===2 命中 case 2 → 印 B（有 break 不會往下）。"},
+ {id:16,d:3,stem:"輸出為何？",code:"let n = 3, r = 1;\nwhile (n > 0) {\n  r *= n;\n  n--;\n}\nconsole.log(r);",o:{A:"3",B:"6",C:"9",D:"0"},a:["B"],e:"3×2×1=6（while 迴圈算階乘）。"},
+ {id:17,d:4,stem:"要取得 id 為 box 的元素，正確寫法？",o:{A:'document.getElementById("box")',B:'document.getElement("#box")',C:'document.querySelectorAll("box")',D:'getElementByName("box")'},a:["A"],e:"getElementById 依 id 取單一元素（不加 #）。"},
+ {id:18,d:4,stem:"要同時設定元素的文字與其中的 HTML 標籤，用哪個屬性？",o:{A:"element.text",B:"element.value",C:"element.innerHTML",D:"element.src"},a:["C"],e:"innerHTML 可設含 HTML 標籤的內容；textContent 只設純文字。"},
+ {id:19,d:4,stem:"註冊 click 事件的現代標準做法？",o:{A:"element.click(fn)",B:'element.addEventListener("click", fn)',C:'element.on("click", fn)',D:'element.event("click", fn)'},a:["B"],e:"標準做法 addEventListener('click', 處理函式)。"},
+ {id:20,d:4,stem:"使用者在鍵盤按下按鍵時觸發的事件名稱？",o:{A:"keydown",B:"click",C:"change",D:"mouseover"},a:["A"],e:"按下為 keydown（放開為 keyup）。"},
+ {id:21,d:4,stem:'document.write("Hi") 的作用？',o:{A:"在主控台印出 Hi",B:"將內容寫入 HTML 文件輸出",C:"建立新檔案",D:"顯示彈出視窗"},a:["B"],e:"document.write() 把內容寫進 HTML 文件輸出流。"},
+ {id:22,d:4,stem:"要用 JS 修改元素背景色，正確寫法？",o:{A:'element.color = "red"',B:'element.style.backgroundColor = "red"',C:'element.background("red")',D:'element.css.bg = "red"'},a:["B"],e:"透過 element.style.backgroundColor 改樣式（CSS 的 background-color 對應駝峰）。"},
+ {id:23,d:5,stem:"要取得文字輸入框 input 目前的值，用？",o:{A:"input.text",B:"input.value",C:"input.content",D:"input.innerHTML"},a:["B"],e:"表單欄位用 .value 取／設值。"},
+ {id:24,d:5,stem:"在 submit 事件中，要阻止表單預設送出，用？",o:{A:"event.stop()",B:"event.preventDefault()",C:"return true",D:"form.cancel()"},a:["B"],e:"event.preventDefault() 阻止預設行為（如表單送出、連結跳轉）。"},
+ {id:25,d:5,stem:"「送出前檢查必填欄位是否為空」屬於？",o:{A:"事件冒泡",B:"輸入驗證（input validation）",C:"DOM 建構",D:"例外處理"},a:["B"],e:"檢查欄位內容合法與否＝輸入驗證。"},
+ {id:26,d:5,stem:"表單以「不在網址列顯示送出資料」的方式送出，method 應設為？",o:{A:"GET",B:"POST",C:"PUT",D:"HEAD"},a:["B"],e:"POST 把資料放請求主體，不顯示於網址；GET 附在 URL 查詢字串。"},
+];
+
+// ---------- 共用 ----------
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const list=document.getElementById('quizList');
+const resultBox=document.getElementById('result');
+let mode='practice';
+const eq=(sel,ans)=>sel.length===ans.length && sel.every(k=>ans.includes(k));
+
+function optHTML(q,{chosen=[],graded=false,selected=[]}){
+  return Object.entries(q.o).map(([k,t])=>{
+    let cls='opt',mark='';
+    if(graded){
+      if(q.a.includes(k)){cls+=' correct';mark='✓';}
+      else if(chosen.includes(k)){cls+=' wrong';mark='✗';}
+    }else if(selected.includes(k)){cls+=' sel';}
+    const dis=graded?'disabled':'';
+    return `<button class="${cls}" ${dis} data-id="${q.id}" data-k="${k}">
+      <span class="k">${k}</span><span class="tx">${esc(t)}</span>${mark?`<span class="mark">${mark}</span>`:''}</button>`;
+  }).join('');
+}
+function cardHTML(q,body,idx){
+  return `<div class="q" data-q="${q.id}">
+    <div class="meta"><span class="qid">Q${q.id}</span><span class="dl">領域 ${q.d}</span>${q.multi?'<span class="multi">複選</span>':''}${idx!=null?`<span class="num">${idx}</span>`:''}</div>
+    <div class="stem">${esc(q.stem)}</div>
+    ${q.code?`<pre>${esc(q.code)}</pre>`:''}
+    ${body}</div>`;
+}
+let practiceIdx=0, mockIdx=0;
+function navHTML(idx,total,nextOK){
+  return `<div class="nav">
+    <button class="navbtn" data-nav="prev" ${idx<=0?'disabled':''}>← 上一題</button>
+    <span class="pos">${idx+1} / ${total}</span>
+    <button class="navbtn primary" data-nav="next" ${(idx>=total-1||!nextOK)?'disabled':''}>下一題 →</button>
+  </div>`;
+}
+function pagerHTML(qs,curIdx,statusFn){
+  return `<div class="pager">${qs.map((q,i)=>
+    `<button class="pnum ${statusFn(q,i)}${i===curIdx?' cur':''}" data-jump="${i}">${i+1}</button>`).join('')}</div>`;
+}
+function showResult(pool,ans,label){
+  const total=pool.length;
+  const right=pool.filter(q=>ans[q.id]&&ans[q.id].correct).length;
+  const pct=Math.round(right/total*100), pass=pct>=70;
+  const perDom=domains.map(d=>{
+    const qs=pool.filter(q=>q.d===d.n);
+    const r=qs.filter(q=>ans[q.id]&&ans[q.id].correct).length;
+    return {n:d.n,r,t:qs.length,pct:qs.length?Math.round(r/qs.length*100):0};
+  }).filter(d=>d.t>0);
+  resultBox.innerHTML=`
+    <span class="eyebrow">Result · ${label}</span>
+    <div class="verdict ${pass?'pass':'fail'}">${pass?'✓ 達到通過門檻':'✗ 尚未達標'}</div>
+    <div class="big ${pass?'pass':'fail'}">${pct}%</div>
+    <p class="lede" style="margin:0">答對 ${right}/${total} 題 · 通過門檻 70%（正式考試 700/1000）。${pass?'維持手感，建議再做官方 GMetrix 全真模擬。':'加強下方低分領域，重讀考綱後再測。'}</p>
+    <div class="rdom">${perDom.map(d=>`
+      <div class="r"><span class="lab">D${d.n} 領域${d.n}</span>
+        <span class="bar"><i style="width:${d.pct}%;background:${d.pct>=70?'var(--good)':'var(--bad)'}"></i></span>
+        <span class="v">${d.r}/${d.t}</span></div>`).join('')}</div>`;
+}
+
+// ---------- 作答回饋（答錯時給更多解釋） ----------
+const DOMAIN_TIP={
+  1:'運算子與最佳實踐：+ 遇字串會串接（5+"5"="55"）；== 會轉型比較、=== 需型別也相同；typeof null 是 "object"；例外用 try/catch/finally。',
+  2:'資料型別與函式：typeof 判型別；陣列用 length/indexOf/push；Math.floor 向下取整、Math.max 取最大；函式用 return 回傳，沒有 return 得 undefined。',
+  3:'流程控制與邏輯：if/else、switch（記得 break）、for/while/do-while；三元 ? :；比較盡量用 === 避免型別轉換陷阱。',
+  4:'DOM 與事件：getElementById 依 id 取元素、innerHTML 改含標籤內容、textContent 改純文字；addEventListener("click", fn) 綁事件；element.style.backgroundColor 改樣式。',
+  5:'表單與輸入：input.value 取值、checkbox.checked、select.value；event.preventDefault() 阻止送出；送出前做輸入驗證；GET 顯示於網址、POST 放請求主體。',
+};
+function feedbackHTML(q,chosen,correct){
+  if(correct) return `<div class="exp ok"><b>答對 ✓</b><br>${esc(q.e)}</div>`;
+  const you=(chosen&&chosen.length)?chosen.map(k=>`${k}「${q.o[k]}」`).join('、'):'（未作答）';
+  const ans=q.a.map(k=>`${k}「${q.o[k]}」`).join('、');
+  const tip=DOMAIN_TIP[q.d];
+  return `<div class="exp bad"><b>答錯 ✗</b>
+    <div class="fb"><span class="you">你選的</span>${esc(you)}</div>
+    <div class="fb"><span class="ans">正解</span>${esc(ans)}</div>
+    <div class="why">💡 解析：${esc(q.e)}</div>
+    ${tip?`<div class="tip">📌 觀念提醒（領域 ${q.d}）：${esc(tip)}</div>`:''}
+  </div>`;
+}
+
+// ---------- 練習模式 ----------
+const state={};     // id -> {chosen,correct}
+const pending={};   // 複選暫存 id -> [keys]
+let filter=0;
+const fWrap=document.getElementById('filters');
+const fdefs=[{k:0,l:'全部 26'}].concat(domains.map(d=>({k:d.n,l:`D${d.n}·領域${d.n}`})));
+fWrap.innerHTML=fdefs.map(f=>`<button class="fbtn" data-k="${f.k}" aria-pressed="${f.k===0}">${f.l}</button>`).join('');
+fWrap.onclick=e=>{const b=e.target.closest('.fbtn');if(!b)return;
+  filter=+b.dataset.k; practiceIdx=0;
+  [...fWrap.children].forEach(x=>x.setAttribute('aria-pressed',+x.dataset.k===filter));
+  renderPractice();};
+
+function renderPractice(){
+  const qs=Q.filter(q=>filter===0||q.d===filter);
+  if(!qs.length){ list.innerHTML=''; return; }
+  practiceIdx=Math.max(0,Math.min(practiceIdx,qs.length-1));
+  const q=qs[practiceIdx];
+  const st=state[q.id], done=!!st;
+  const sel=done?[]:(pending[q.id]||[]);
+  const opts=optHTML(q,{chosen:done?st.chosen:[],graded:done,selected:sel});
+  const submit=q.multi&&!done?`<button class="submit" data-submit="${q.id}" ${sel.length?'':'disabled'}>確認作答</button>`:'';
+  const exp=done?feedbackHTML(q,st.chosen,st.correct):'';
+  const pager=pagerHTML(qs,practiceIdx,q2=>{const s=state[q2.id];if(s)return s.correct?'correct':'wrong';return (pending[q2.id]||[]).length?'ans':'';});
+  const nav=navHTML(practiceIdx,qs.length,done);
+  list.innerHTML=pager+cardHTML(q,`<div class="opts">${opts}</div>${submit}${exp}`)+nav;
+  const dn=Object.keys(state).length, right=Object.values(state).filter(s=>s.correct).length;
+  document.getElementById('mDone').textContent=dn;
+  document.getElementById('mRight').textContent=right;
+  document.getElementById('mPct').textContent=dn?Math.round(right/dn*100)+'%':'—';
+  if(dn===Q.length){ showResult(Q,state,'練習 26 題'); resultBox.classList.add('show'); }
+  else if(mode==='practice') resultBox.classList.remove('show');
+}
+function commit(id,chosen){
+  const q=Q.find(x=>x.id===id);
+  state[id]={chosen,correct:eq(chosen,q.a)};
+  delete pending[id];
+  renderPractice();
+}
+document.getElementById('resetBtn').onclick=()=>{
+  for(const k in state)delete state[k];
+  for(const k in pending)delete pending[k];
+  practiceIdx=0;
+  resultBox.classList.remove('show');
+  renderPractice();
+  document.getElementById('quiz').scrollIntoView({behavior:'smooth'});
+};
+
+// ---------- 計時模擬考 ----------
+const MOCK_PLAN={1:3,2:4,3:2,4:3,5:3};   // 各領域抽題數，合計 15
+const MOCK_SECONDS=20*60;
+let mockQs=[], mockSel={}, mockActive=false, mockGraded=false, mockLeft=0, mockTimer=null;
+const mockbar=document.getElementById('mockbar');
+
+function sample(arr,n){
+  const a=arr.slice();
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a.slice(0,n);
+}
+function pickMock(){
+  let picked=[];
+  for(const d in MOCK_PLAN) picked=picked.concat(sample(Q.filter(q=>q.d===+d),MOCK_PLAN[d]));
+  return sample(picked,picked.length);
+}
+function stopTimer(){ if(mockTimer){clearInterval(mockTimer);mockTimer=null;} }
+function mockIntro(){
+  stopTimer(); mockActive=false; mockGraded=false;
+  mockbar.style.display='none'; resultBox.classList.remove('show');
+  list.innerHTML=`<div class="intro">
+    <h3>⏱ 計時模擬考</h3>
+    <ul>
+      <li>從 26 題題庫隨機抽 <b>15 題</b>（依考試權重分配各領域）</li>
+      <li>限時 <b>20 分鐘</b>，時間到自動交卷</li>
+      <li>作答期間<b>不顯示答案</b>，交卷後才評分並揭曉解析</li>
+      <li>通過標準：正確率 ≥ 70%（對應正式考試 700/1000）</li>
+    </ul>
+    <button class="go" id="mkStart">開始模擬考 →</button>
+  </div>`;
+  document.getElementById('mkStart').onclick=startMock;
+}
+function startMock(){
+  mockQs=pickMock(); mockSel={}; mockIdx=0; mockActive=true; mockGraded=false; mockLeft=MOCK_SECONDS;
+  mockbar.style.display=''; mockbar.classList.remove('warn');
+  renderMock(); updateMockTime();
+  mockTimer=setInterval(()=>{
+    mockLeft--; updateMockTime();
+    if(mockLeft<=60) mockbar.classList.add('warn');
+    if(mockLeft<=0) submitMock();
+  },1000);
+}
+function updateMockTime(){
+  const m=Math.max(0,Math.floor(mockLeft/60)), s=Math.max(0,mockLeft%60);
+  document.getElementById('mkTime').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  document.getElementById('mkDone').textContent=Object.keys(mockSel).filter(id=>mockSel[id].length).length;
+}
+function renderMock(){
+  if(!mockQs.length) return;
+  mockIdx=Math.max(0,Math.min(mockIdx,mockQs.length-1));
+  const q=mockQs[mockIdx];
+  const sel=mockSel[q.id]||[];
+  const opts=optHTML(q,{chosen:mockGraded?sel:[],graded:mockGraded,selected:mockGraded?[]:sel});
+  const exp=mockGraded?feedbackHTML(q,sel,eq(sel,q.a)):'';
+  const pager=pagerHTML(mockQs,mockIdx,q2=>{const s2=mockSel[q2.id]||[];if(mockGraded)return eq(s2,q2.a)?'correct':'wrong';return s2.length?'ans':'';});
+  const nav=navHTML(mockIdx,mockQs.length,true);
+  list.innerHTML=pager+cardHTML(q,`<div class="opts">${opts}</div>${exp}`,`${mockIdx+1} / 15`)+nav;
+}
+function submitMock(){
+  if(!mockActive) return;
+  stopTimer(); mockActive=false; mockGraded=true; mockbar.classList.remove('warn');
+  const ans={};
+  mockQs.forEach(q=>{ const sel=mockSel[q.id]||[]; ans[q.id]={chosen:sel,correct:eq(sel,q.a)}; });
+  renderMock();
+  showResult(mockQs,ans,'模擬考 15 題');
+  resultBox.classList.add('show');
+  resultBox.scrollIntoView({behavior:'smooth'});
+}
+document.getElementById('mkSubmit').onclick=submitMock;
+document.getElementById('mkExit').onclick=mockIntro;
+
+// ---------- 作答點擊（委派） ----------
+list.onclick=e=>{
+  const navb=e.target.closest('.navbtn'), jump=e.target.closest('.pnum');
+  if(navb&&!navb.disabled){
+    const step=navb.dataset.nav==='next'?1:-1;
+    if(mode==='practice'){ practiceIdx+=step; renderPractice(); } else { mockIdx+=step; renderMock(); }
+    document.getElementById('quiz').scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  if(jump){
+    const i=+jump.dataset.jump;
+    if(mode==='practice'){ practiceIdx=i; renderPractice(); } else { mockIdx=i; renderMock(); }
+    document.getElementById('quiz').scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  const opt=e.target.closest('.opt'), sub=e.target.closest('.submit');
+  if(mode==='practice'){
+    if(sub){ const id=+sub.dataset.submit; commit(id,[...(pending[id]||[])]); return; }
+    if(opt&&!opt.disabled){
+      const id=+opt.dataset.id,k=opt.dataset.k,q=Q.find(x=>x.id===id);
+      if(q.multi){
+        const set=new Set(pending[id]||[]); set.has(k)?set.delete(k):set.add(k);
+        pending[id]=[...set]; renderPractice();
+      }else commit(id,[k]);
+    }
+    return;
+  }
+  if(mode==='mock'&&mockActive&&!mockGraded&&opt){
+    const id=+opt.dataset.id,k=opt.dataset.k,q=Q.find(x=>x.id===id);
+    if(q.multi){ const set=new Set(mockSel[id]||[]); set.has(k)?set.delete(k):set.add(k); mockSel[id]=[...set]; }
+    else mockSel[id]=[k];
+    renderMock(); updateMockTime();
+  }
+};
+
+// ---------- 模式切換 ----------
+document.getElementById('modebar').onclick=e=>{
+  const b=e.target.closest('.mbtn'); if(!b) return;
+  const m=b.dataset.mode; if(m===mode) return;
+  mode=m;
+  [...document.getElementById('modebar').children].forEach(x=>x.setAttribute('aria-pressed',x.dataset.mode===mode));
+  document.getElementById('practicePane').style.display=mode==='practice'?'':'none';
+  document.getElementById('mockPane').style.display=mode==='mock'?'':'none';
+  resultBox.classList.remove('show');
+  stopTimer();
+  if(mode==='practice'){ mockActive=false; renderPractice(); }
+  else mockIntro();
+};
+
+document.getElementById('mTotal').textContent=Q.length;
+renderPractice();
+</script>
