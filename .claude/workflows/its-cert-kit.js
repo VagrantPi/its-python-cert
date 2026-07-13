@@ -1,7 +1,7 @@
 export const meta = {
   name: 'its-cert-kit',
-  description: '為一個 ITS/Certiport 證照一次產出：調研文件、驗證過的題庫、含計時模擬考的自測網站',
-  whenToUse: '要為某個證照（如 ITS HTML/CSS、ITS Java）比照 its-python-cert 一次生出調研文件＋題庫＋自測網站時。args 傳證照主題字串，或 {topic, slug, lang, perDomain}。',
+  description: '為 ITS/Certiport 證照產出調研文件＋驗證過題庫＋自測網站；或以 expand 模式擴充既有證照題庫',
+  whenToUse: '① 新證照：args 傳主題字串或 {topic, slug, lang, perDomain}，跑完整流程。② 擴充題庫：args={mode:"expand", slug:"javascript", perDomain:20, topic?}，只補題並實跑驗證後併回既有網站，不重跑調研。',
   phases: [
     { title: 'Research' },
     { title: 'Docs' },
@@ -10,6 +10,8 @@ export const meta = {
     { title: 'Assemble' },
     { title: 'Website' },
     { title: 'Report' },
+    { title: 'Load' },
+    { title: 'Rebuild' },
   ],
 }
 
@@ -78,6 +80,68 @@ const Q_ITEM = {
   }, required: ['domain', 'stem', 'options', 'answer', 'explanation', 'explanationWrong'],
 }
 const Q_SCHEMA = { type: 'object', additionalProperties: false, properties: { questions: { type: 'array', items: Q_ITEM } }, required: ['questions'] }
+
+// =====================================================================
+// 擴充模式：args.mode='expand' → 只補題並併回既有網站，不重跑調研
+// 例：args = { mode:'expand', slug:'javascript', perDomain:20, topic:'ITS JavaScript' }
+if (A.mode === 'expand') {
+  if (!A.slug) throw new Error('expand 模式需要 args.slug（要擴充的證照子資料夾，如 "javascript"）')
+  const target = A.perDomain || 20
+  const certDir = `${EDU}/${A.slug}`
+  const xlang = A.lang || (/javascript|js/i.test(A.slug) ? 'javascript' : /java/i.test(A.slug) ? 'java' : /python|py/i.test(A.slug) ? 'python' : lang)
+  log(`擴充模式：${certDir} → 每領域補到 ${target} 題（驗證語言 ${xlang}）`)
+
+  phase('Load')
+  const cur = await agent(
+    `請 Read ${certDir}/index.html，從其 <script> 內的 const domains=[...] 與 const Q=[...] 解析出：\n` +
+    `- domains：每個 {n,name}\n- perDomainCount：各領域現有題數，如 {"1":6,"2":6,...}\n- stems：現有所有題目的 stem 陣列（供避免重複）\n- maxId：目前最大題號。\n只輸出結構化結果。`,
+    { label: 'expand:load', phase: 'Load', schema: {
+      type: 'object', additionalProperties: false, properties: {
+        domains: { type: 'array', items: { type: 'object', additionalProperties: false, properties: { n: { type: 'integer' }, name: { type: 'string' } }, required: ['n', 'name'] } },
+        perDomainCount: { type: 'object', additionalProperties: { type: 'integer' } },
+        stems: { type: 'array', items: { type: 'string' } },
+        maxId: { type: 'integer' },
+      }, required: ['domains', 'perDomainCount', 'maxId'],
+    } }
+  )
+
+  phase('Generate')
+  const need = cur.domains.map(d => ({ d, add: Math.max(0, target - (cur.perDomainCount[String(d.n)] || 0)) })).filter(x => x.add > 0)
+  if (!need.length) { log('各領域已達目標，無需補題'); return { mode: 'expand', slug: A.slug, added: 0, target } }
+  const gen = await parallel(need.map(x => () =>
+    agent(
+      `你是 ${A.topic || A.slug} 命題老師。為「領域 ${x.d.n}：${x.d.name}」再出 ${x.add} 題原創單選/複選題（禁抄真題、勿與現有題重複）。\n` +
+      `現有題幹（避免重複）：${JSON.stringify(cur.stems.slice(0, 400))}\n` +
+      `每題 domain=${x.d.n}；可執行語法題放 code 並 runnable=true；options {A,B,C,D}；answer 正解鍵陣列；multi 複選才 true；explanation 精簡解析；explanationWrong 詳盡（逐一說明誤答為何錯＋帶出觀念，至少 3 句）。\n` +
+      `可用 ToolSearch 載入 Bash 先跑 ${xlang} 自我驗證答案。只輸出 questions。`,
+      { label: `expand:gen:D${x.d.n}`, phase: 'Generate', schema: Q_SCHEMA }
+    ).then(r => ({ d: x.d, questions: (r && r.questions) || [] }))
+  ))
+
+  phase('Verify')
+  const ver = await pipeline(gen.filter(Boolean),
+    g => agent(
+      `你是嚴格的答案驗證官。以下為「領域 ${g.d.n}」的新題，務必用 ToolSearch 載入 Bash 實跑 ${xlang} 核對每題 runnable 的答案，不符就修正（一律以實跑為準）；DOM/表單等不可執行題依官方語法/MDN 核對；強化 explanationWrong（逐一點出誤答為何錯＋觀念，至少 3 句）；刪除歧義或答案不唯一的題。回傳修正後 questions。\n${JSON.stringify(g.questions)}`,
+      { label: `expand:verify:D${g.d.n}`, phase: 'Verify', schema: Q_SCHEMA, effort: 'high' }
+    ).then(r => ({ d: g.d, questions: (r && r.questions) || [] }))
+  )
+  const added = ver.filter(Boolean).flatMap(v => v.questions)
+  log(`新增並驗證 ${added.length} 題`)
+
+  phase('Rebuild')
+  await agent(
+    `把新題併入既有證照網站與題庫。新題（尚未編號）：${JSON.stringify(added)}\n` +
+    `步驟（用 Read/Bash/Write）：\n` +
+    `1) Read ${certDir}/index.html，取出現有 const Q=[...]。\n` +
+    `2) 新題接在現有題目之後、id 從 ${cur.maxId + 1} 連續遞增；欄位轉為 {id,d,stem,code?,o,a,multi?,e}（e 取 explanation）。\n` +
+    `3) 用新的完整 Q 陣列取代 index.html 的 const Q=[...]；更新所有題數文案（本站題庫 / Self Test · N 題 / mTotal / 全部 N / 練習 N 題 / 概覽 note 的 N 題）為新總數；MOCK_PLAN 各領域平均分配、合計 20（維持 mock 20 題文案）。\n` +
+    `4) 產出/更新 ${certDir}/04-模擬題庫擴充.md 列出新題與解析，註明「可執行題經 ${xlang} 實跑驗證」。\n` +
+    `5) 用 Bash 跑 node --check 驗證 index.html 的 <script> 語法，並確認各領域題數均衡、答案鍵合法。回報新舊題數與檔案。`,
+    { label: 'expand:rebuild', phase: 'Rebuild', effort: 'high' }
+  )
+
+  return { mode: 'expand', slug: A.slug, added: added.length, target, note: '新題已實跑驗證並併入網站；請人工抽查 index.html 與擴充題庫。' }
+}
 
 // =====================================================================
 phase('Research')

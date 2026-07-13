@@ -262,12 +262,12 @@
   <div class="hero">
     <span class="eyebrow kick">Certiport IT Specialist · JavaScript</span>
     <h1>讀懂程式，<br>也要玩轉網頁。</h1>
-    <p class="lead">ITS JavaScript（INF-302）是入門級國際認證，考的是「辨識、除錯」程式碼與操作 DOM／事件／表單的能力。這份 Hub 幫你對齊五大考試領域、篩選可信資源，並用 26 題互動測驗即時檢測實力。</p>
+    <p class="lead">ITS JavaScript（INF-302）是入門級國際認證，考的是「辨識、除錯」程式碼與操作 DOM／事件／表單的能力。這份 Hub 幫你對齊五大考試領域、篩選可信資源，並用 100 題互動測驗即時檢測實力。</p>
     <div class="stats">
       <span class="chip">題數 <b>35–45</b> 題</span>
       <span class="chip">時間 <b>50</b> 分鐘</span>
       <span class="chip">通過 <b>700</b>/1000</span>
-      <span class="chip">本站題庫 <b>26</b> 題</span>
+      <span class="chip">本站題庫 <b>100</b> 題</span>
     </div>
     <div class="term" aria-hidden="true">
       <div class="top">
@@ -290,7 +290,7 @@ PASS<span class="cur"></span></pre>
     <span class="eyebrow">Overview</span>
     <h2>這張證照在考什麼</h2>
     <p class="lede">ITS JavaScript（考科 INF-302，前身 Microsoft 98-382）屬入門級，重點在<strong>讀懂、除錯與網頁互動</strong>（DOM／事件／表單）。題型包含單選、複選、拖曳、排序、下拉等；台灣由碁峰資訊總代理，考場提供中文介面。</p>
-    <div class="note">⚠️ 官方不公開歷屆真題（受 NDA 保護）。最接近真題手感的合法管道是官方授權的 <b>GMetrix / CertPREP / MeasureUp</b> 模擬；本站 26 題為<strong>原創、語法題經 Node.js 實跑驗證</strong>，無版權疑慮。</div>
+    <div class="note">⚠️ 官方不公開歷屆真題（受 NDA 保護）。最接近真題手感的合法管道是官方授權的 <b>GMetrix / CertPREP / MeasureUp</b> 模擬；本站 100 題為<strong>原創、語法題經 Node.js 實跑驗證</strong>，無版權疑慮。</div>
   </section>
 
   <section id="domains">
@@ -317,21 +317,21 @@ PASS<span class="cur"></span></pre>
   <section id="quiz">
     <div class="quizhead">
       <div>
-        <span class="eyebrow">Self Test · 26 題</span>
+        <span class="eyebrow">Self Test · 100 題</span>
         <h2>線上自測</h2>
-        <p class="lede" style="margin:0"><b>練習模式</b>：選答即時對答看解析。<b>計時模擬考</b>：隨機抽 15 題、限時 20 分鐘、一次交卷評分（模擬真實考試）。</p>
+        <p class="lede" style="margin:0"><b>練習模式</b>：選答即時對答看解析。<b>計時模擬考</b>：隨機抽 20 題、限時 25 分鐘、一次交卷評分（模擬真實考試）。</p>
       </div>
     </div>
 
     <div class="modebar" id="modebar">
       <button class="mbtn" data-mode="practice" aria-pressed="true">✎ 練習模式</button>
-      <button class="mbtn" data-mode="mock" aria-pressed="false">⏱ 計時模擬考（隨機 15 題）</button>
+      <button class="mbtn" data-mode="mock" aria-pressed="false">⏱ 計時模擬考（隨機 20 題）</button>
     </div>
 
     <div id="practicePane">
       <div class="filters" id="filters"></div>
       <div class="scorebar">
-        <span class="m"><span>已答</span> <b id="mDone">0</b><span>/<span id="mTotal">26</span></span></span>
+        <span class="m"><span>已答</span> <b id="mDone">0</b><span>/<span id="mTotal">100</span></span></span>
         <span class="m"><span>答對</span> <b id="mRight">0</b></span>
         <span class="m pct"><span>正確率</span> <b id="mPct">—</b></span>
         <button class="reset" id="resetBtn">↺ 重置</button>
@@ -341,7 +341,7 @@ PASS<span class="cur"></span></pre>
     <div id="mockPane" style="display:none">
       <div class="scorebar mockbar" id="mockbar" style="display:none">
         <span class="m mktime">⏱ <b id="mkTime">25:00</b></span>
-        <span class="m"><span>已答</span> <b id="mkDone">0</b><span>/15</span></span>
+        <span class="m"><span>已答</span> <b id="mkDone">0</b><span>/20</span></span>
         <button class="submit" id="mkSubmit">交卷評分</button>
         <button class="reset" id="mkExit">結束模擬</button>
       </div>
@@ -414,6 +414,80 @@ const Q=[
  {id:24,d:5,stem:"在 submit 事件中，要阻止表單預設送出，用？",o:{A:"event.stop()",B:"event.preventDefault()",C:"return true",D:"form.cancel()"},a:["B"],e:"event.preventDefault() 阻止預設行為（如表單送出、連結跳轉）。"},
  {id:25,d:5,stem:"「送出前檢查必填欄位是否為空」屬於？",o:{A:"事件冒泡",B:"輸入驗證（input validation）",C:"DOM 建構",D:"例外處理"},a:["B"],e:"檢查欄位內容合法與否＝輸入驗證。"},
  {id:26,d:5,stem:"表單以「不在網址列顯示送出資料」的方式送出，method 應設為？",o:{A:"GET",B:"POST",C:"PUT",D:"HEAD"},a:["B"],e:"POST 把資料放請求主體，不顯示於網址；GET 附在 URL 查詢字串。"},
+ {id:27,d:1,stem:"console.log(2 ** 3) 輸出？",o:{A:"6",B:"8",C:"9",D:"5"},a:["B"],e:"** 是次方：2 的 3 次方 = 8。"},
+ {id:28,d:1,stem:"console.log(7 / 2) 輸出？",o:{A:"3",B:"3.5",C:"3.0",D:"4"},a:["B"],e:"JS 的 / 是浮點除法：7/2 = 3.5。"},
+ {id:29,d:1,stem:'console.log("a" + 1 + 2) 輸出？',o:{A:"a3",B:"a12",C:"3a",D:"a21"},a:["B"],e:"由左而右：'a'+1='a1'，再 +2='a12'（字串串接）。"},
+ {id:30,d:1,stem:'console.log(1 + 2 + "3") 輸出？',o:{A:"33",B:"123",C:"6",D:"15"},a:["A"],e:"由左而右：1+2=3（數字），再 +'3'='33'。"},
+ {id:31,d:1,stem:"console.log(typeof 42) 輸出？",o:{A:"int",B:"number",C:"Number",D:"42"},a:["B"],e:"JS 數字型別為 'number'（不分整數/浮點）。"},
+ {id:32,d:1,stem:"console.log(typeof true) 輸出？",o:{A:"bool",B:"boolean",C:"Boolean",D:"true"},a:["B"],e:"布林型別為 'boolean'。"},
+ {id:33,d:1,stem:"console.log(typeof undefined) 輸出？",o:{A:"null",B:"undefined",C:"object",D:"undef"},a:["B"],e:"未定義值的型別為 'undefined'。"},
+ {id:34,d:1,stem:'console.log(10 === 10, 10 === "10") 輸出？',o:{A:"true true",B:"true false",C:"false false",D:"false true"},a:["B"],e:"=== 需值與型別皆同；10 與字串 '10' 型別不同 → false。"},
+ {id:35,d:1,stem:"console.log(!true) 輸出？",o:{A:"true",B:"false",C:"1",D:"undefined"},a:["B"],e:"! 是邏輯反轉：!true = false。"},
+ {id:36,d:1,stem:"console.log(true && false) 輸出？",o:{A:"true",B:"false",C:"undefined",D:"錯誤"},a:["B"],e:"&& 兩者皆真才真；含 false → false。"},
+ {id:37,d:1,stem:'console.log(false || "hi") 輸出？',o:{A:"false",B:"hi",C:"true",D:"undefined"},a:["B"],e:"|| 回傳第一個為真的值；false 為假 → 回傳 'hi'。"},
+ {id:38,d:1,stem:"let x = 5；x++；console.log(x) 輸出？",o:{A:"5",B:"6",C:"4",D:"55"},a:["B"],e:"x++ 遞增 1 → 6。"},
+ {id:39,d:1,stem:'console.log(Boolean(0), Boolean("a")) 輸出？',o:{A:"false true",B:"true false",C:"false false",D:"true true"},a:["A"],e:"0 為假值；非空字串 'a' 為真值。"},
+ {id:40,d:1,stem:"輸出（兩行）為何？",code:'try {\n  throw new Error("x");\n} catch (e) {\n  console.log("A");\n} finally {\n  console.log("B");\n}',o:{A:"A 然後 B",B:"只有 A",C:"只有 B",D:"B 然後 A"},a:["A"],e:"throw 觸發 catch 印 A；finally 一定執行印 B。"},
+ {id:41,d:2,stem:"let a = [1,2,3]；a.push(4)；console.log(a.length) 輸出？",o:{A:"3",B:"4",C:"5",D:"1"},a:["B"],e:"push 在尾端加一個元素，長度變 4。"},
+ {id:42,d:2,stem:"console.log([3, 1, 2].sort()) 輸出？",o:{A:"[3, 1, 2]",B:"[1, 2, 3]",C:"[3, 2, 1]",D:"[1, 3, 2]"},a:["B"],e:"sort() 預設由小到大排序。"},
+ {id:43,d:2,stem:'console.log(["b", "a"].join("-")) 輸出？',o:{A:"a-b",B:"b-a",C:"ba",D:"b,a"},a:["B"],e:"join 依原順序以 '-' 串接（不會排序）→ 'b-a'。"},
+ {id:44,d:2,stem:"console.log([1, 2, 3].reverse()) 輸出？",o:{A:"[1, 2, 3]",B:"[3, 2, 1]",C:"[2, 1, 3]",D:"錯誤"},a:["B"],e:"reverse 反轉陣列順序。"},
+ {id:45,d:2,stem:'console.log("hello".length) 輸出？',o:{A:"4",B:"5",C:"6",D:"undefined"},a:["B"],e:"字串長度為 5。"},
+ {id:46,d:2,stem:'console.log("hello".toUpperCase()) 輸出？',o:{A:"hello",B:"HELLO",C:"Hello",D:"錯誤"},a:["B"],e:"toUpperCase 轉大寫。"},
+ {id:47,d:2,stem:'console.log("a,b,c".split(",").length) 輸出？',o:{A:"1",B:"3",C:"5",D:"2"},a:["B"],e:"split(',') 切成 ['a','b','c']，長度 3。"},
+ {id:48,d:2,stem:"console.log(Math.round(4.5)) 輸出？",o:{A:"4",B:"5",C:"4.5",D:"6"},a:["B"],e:"round 四捨五入：4.5 → 5。"},
+ {id:49,d:2,stem:"console.log(Math.ceil(4.1)) 輸出？",o:{A:"4",B:"5",C:"4.1",D:"6"},a:["B"],e:"ceil 向上取整 → 5。"},
+ {id:50,d:2,stem:"console.log(Math.abs(-9)) 輸出？",o:{A:"-9",B:"9",C:"0",D:"錯誤"},a:["B"],e:"abs 取絕對值 → 9。"},
+ {id:51,d:2,stem:"輸出為何？",code:"const f = function(x) {\n  return x * x;\n};\nconsole.log(f(4));",o:{A:"8",B:"16",C:"4",D:"錯誤"},a:["B"],e:"函式表達式：4×4=16。"},
+ {id:52,d:2,stem:"輸出為何？",code:"const g = (a, b) => a + b;\nconsole.log(g(3, 4));",o:{A:"34",B:"7",C:"12",D:"錯誤"},a:["B"],e:"箭頭函式回傳 a+b=7。"},
+ {id:53,d:2,stem:"輸出為何？",code:"function h(a, b = 10) {\n  return a + b;\n}\nconsole.log(h(5));",o:{A:"5",B:"15",C:"錯誤",D:"NaN"},a:["B"],e:"b 用預設值 10 → 5+10=15。"},
+ {id:54,d:2,stem:"const o = {x:1, y:2}；console.log(Object.keys(o).length) 輸出？",o:{A:"1",B:"2",C:"3",D:"undefined"},a:["B"],e:"物件有兩個鍵 x、y，長度 2。"},
+ {id:55,d:3,stem:"輸出為何？",code:'let x = 8, r;\nif (x < 5) r = "low";\nelse if (x < 10) r = "mid";\nelse r = "high";\nconsole.log(r);',o:{A:"low",B:"mid",C:"high",D:"undefined"},a:["B"],e:"8 不 <5，但 <10 → 'mid'。"},
+ {id:56,d:3,stem:"輸出為何？",code:"let sum = 0;\nconst a = [10, 20, 30];\nfor (let i = 0; i < a.length; i++) sum += a[i];\nconsole.log(sum);",o:{A:"30",B:"60",C:"0",D:"102030"},a:["B"],e:"10+20+30=60。"},
+ {id:57,d:3,stem:"輸出為何？",code:"let i = 0, c = 0;\nwhile (i < 5) {\n  c++;\n  i++;\n}\nconsole.log(c);",o:{A:"4",B:"5",C:"6",D:"0"},a:["B"],e:"i 從 0 到 4 共執行 5 次。"},
+ {id:58,d:3,stem:"輸出為何？",code:"let n = 0, out = 0;\ndo {\n  out++;\n  n++;\n} while (n < 3);\nconsole.log(out);",o:{A:"2",B:"3",C:"4",D:"0"},a:["B"],e:"do-while 至少執行一次，n=0,1,2 共 3 次。"},
+ {id:59,d:3,stem:"輸出為何？",code:'let s = "";\nfor (const ch of "abc") s += ch + ch;\nconsole.log(s);',o:{A:"abc",B:"aabbcc",C:"abcabc",D:"aaabbbccc"},a:["B"],e:"每個字元重複一次：a→aa、b→bb、c→cc。"},
+ {id:60,d:3,stem:"輸出為何？",code:"let r = 0;\nfor (let i = 0; i < 10; i++) {\n  if (i === 3) break;\n  r++;\n}\nconsole.log(r);",o:{A:"3",B:"4",C:"10",D:"9"},a:["A"],e:"i=3 時 break，r 只累加 i=0,1,2 三次。"},
+ {id:61,d:3,stem:"輸出為何？",code:"let sum = 0;\nfor (let i = 1; i <= 5; i++) {\n  if (i % 2 === 0) continue;\n  sum += i;\n}\nconsole.log(sum);",o:{A:"9",B:"15",C:"6",D:"5"},a:["A"],e:"只加奇數 1+3+5=9（偶數被 continue 跳過）。"},
+ {id:62,d:3,stem:"輸出為何？",code:"let c = 0;\nfor (let i = 0; i < 3; i++)\n  for (let j = 0; j < 3; j++)\n    c++;\nconsole.log(c);",o:{A:"3",B:"6",C:"9",D:"27"},a:["C"],e:"3×3=9 次。"},
+ {id:63,d:3,stem:'let age = 20；console.log(age >= 18 ? "adult" : "minor") 輸出？',o:{A:"adult",B:"minor",C:"true",D:"20"},a:["A"],e:"三元運算：20>=18 為真 → 'adult'。"},
+ {id:64,d:3,stem:"輸出為何？（注意 case 未 break）",code:'let x = 1, o = "";\nswitch (x) {\n  case 1: o += "A";\n  case 2: o += "B"; break;\n  case 3: o += "C";\n}\nconsole.log(o);',o:{A:"A",B:"AB",C:"ABC",D:"B"},a:["B"],e:"case 1 沒 break 會往下執行 case 2 → 'AB'。"},
+ {id:65,d:3,stem:"輸出為何？",code:"let a = 0;\nlet b = a || 5;\nconsole.log(b);",o:{A:"0",B:"5",C:"true",D:"undefined"},a:["B"],e:"|| 前者 0 為假值 → 回傳後者 5。"},
+ {id:66,d:3,stem:"console.log(3 < 5 && 5 < 10) 輸出？",o:{A:"true",B:"false",C:"3",D:"錯誤"},a:["A"],e:"兩個比較皆為真，&& → true。"},
+ {id:67,d:3,stem:"輸出為何？",code:"const nums = [2, 4, 6];\nlet t = 1;\nfor (const n of nums) t *= n;\nconsole.log(t);",o:{A:"12",B:"48",C:"246",D:"0"},a:["B"],e:"2×4×6=48。"},
+ {id:68,d:3,stem:"輸出為何？",code:'let count = 0;\nfor (const ch of "banana") if (ch === "a") count++;\nconsole.log(count);',o:{A:"2",B:"3",C:"1",D:"6"},a:["B"],e:"banana 有 3 個 a。"},
+ {id:69,d:3,stem:"輸出為何？",code:'let out = "";\nfor (let i = 3; i > 0; i--) out += i;\nconsole.log(out);',o:{A:"123",B:"321",C:"3210",D:"3"},a:["B"],e:"從 3 遞減到 1：'321'。"},
+ {id:70,d:3,stem:"輸出為何？",code:"let even = 0;\nfor (let i = 1; i <= 10; i++) if (i % 2 === 0) even++;\nconsole.log(even);",o:{A:"4",B:"5",C:"6",D:"10"},a:["B"],e:"2,4,6,8,10 共 5 個偶數。"},
+ {id:71,d:4,stem:"選取第一個符合 CSS 選擇器 .item 的元素，用？",o:{A:'document.querySelector(".item")',B:'document.querySelectorAll(".item")',C:'document.getElementById(".item")',D:'document.select(".item")'},a:["A"],e:"querySelector 回傳第一個符合的元素。"},
+ {id:72,d:4,stem:"選取所有符合 .item 的元素（NodeList），用？",o:{A:'document.querySelector(".item")',B:'document.querySelectorAll(".item")',C:'document.getElement(".item")',D:'document.all(".item")'},a:["B"],e:"querySelectorAll 回傳所有符合的元素集合。"},
+ {id:73,d:4,stem:"建立一個新的 div 元素，用？",o:{A:'document.newElement("div")',B:'document.createElement("div")',C:'document.addElement("div")',D:'new Element("div")'},a:["B"],e:"document.createElement 建立新元素。"},
+ {id:74,d:4,stem:"把子節點加到父元素的末端，用？",o:{A:"parent.appendChild(child)",B:"parent.addChild(child)",C:"parent.append(child, true)",D:"child.appendTo(parent)"},a:["A"],e:"appendChild 把節點加到父元素子節點末端。"},
+ {id:75,d:4,stem:"移除某個子節點，用？",o:{A:"parent.deleteChild(child)",B:"parent.removeChild(child)",C:"child.remove(parent)",D:"parent.delete(child)"},a:["B"],e:"removeChild 從父元素移除指定子節點。"},
+ {id:76,d:4,stem:"設定元素的 id 屬性，用？",o:{A:'element.setAttribute("id", "x")',B:'element.attr("id", "x")',C:'element.set("id", "x")',D:'element.addAttr("id", "x")'},a:["A"],e:"setAttribute(名稱, 值) 設定屬性。"},
+ {id:77,d:4,stem:"讀取元素的 id 屬性值，用？",o:{A:'element.getAttribute("id")',B:'element.attr("id")',C:'element.readAttribute("id")',D:'element.get("id")'},a:["A"],e:"getAttribute(名稱) 讀取屬性值。"},
+ {id:78,d:4,stem:'為元素加一個 CSS class "active"，用？',o:{A:'element.class += "active"',B:'element.classList.add("active")',C:'element.addClass("active")',D:'element.class.add("active")'},a:["B"],e:"classList.add 新增 class。"},
+ {id:79,d:4,stem:"只設定純文字（不解析 HTML 標籤），用哪個屬性？",o:{A:"innerHTML",B:"textContent",C:"innerHTML 才安全",D:"value"},a:["B"],e:"textContent 只設純文字；innerHTML 會解析 HTML。"},
+ {id:80,d:4,stem:"事件處理函式中，代表「觸發事件的元素」的是？",o:{A:"event.source",B:"event.target",C:"event.element",D:"this.event"},a:["B"],e:"event.target 是實際觸發事件的元素。"},
+ {id:81,d:4,stem:"要為同一元素綁定「多個」click 處理函式，應用？",o:{A:"onclick 屬性",B:"addEventListener",C:"element.click()",D:"onclick 可重複指定"},a:["B"],e:"addEventListener 可綁多個；onclick 屬性只會保留最後一個。"},
+ {id:82,d:4,stem:"要等整份 HTML 的 DOM 載入完成再執行程式，監聽哪個事件？",o:{A:"load",B:"DOMContentLoaded",C:"ready",D:"start"},a:["B"],e:"DOMContentLoaded 在 DOM 解析完成時觸發（早於圖片等資源的 load）。"},
+ {id:83,d:4,stem:"取得某元素底下所有子元素集合，用哪個屬性？",o:{A:"element.children",B:"element.nodes",C:"element.sub",D:"element.child"},a:["A"],e:"element.children 回傳子元素集合。"},
+ {id:84,d:4,stem:"依 class 名稱取得元素集合，用？",o:{A:'document.getElementsByClassName("x")',B:'document.getClass("x")',C:'document.getElementByClass("x")',D:'document.className("x")'},a:["A"],e:"getElementsByClassName 依 class 取得元素集合。"},
+ {id:85,d:5,stem:"取得 checkbox 是否被勾選，讀哪個屬性？",o:{A:"checkbox.value",B:"checkbox.checked",C:"checkbox.selected",D:"checkbox.on"},a:["B"],e:"checked 為布林值，表示是否勾選。"},
+ {id:86,d:5,stem:"取得下拉選單 select 目前選取的值，用？",o:{A:"select.value",B:"select.text",C:"select.option",D:"select.selected"},a:["A"],e:"select.value 是目前選項的 value。"},
+ {id:87,d:5,stem:"取得下拉選單目前選項的索引，用？",o:{A:"select.index",B:"select.selectedIndex",C:"select.currentIndex",D:"select.pos"},a:["B"],e:"selectedIndex 是目前選項的索引。"},
+ {id:88,d:5,stem:"使用者送出表單時觸發的事件是？",o:{A:"click",B:"submit",C:"send",D:"change"},a:["B"],e:"表單送出觸發 submit 事件。"},
+ {id:89,d:5,stem:"讓輸入欄位成為必填的 HTML 屬性是？",o:{A:"needed",B:"required",C:"mustfill",D:"validate"},a:["B"],e:"required 屬性使欄位必填。"},
+ {id:90,d:5,stem:"事件處理中取得觸發輸入框目前的值，用？",o:{A:"event.value",B:"event.target.value",C:"event.input",D:"this.value.get()"},a:["B"],e:"event.target 是該元素，.value 取其值。"},
+ {id:91,d:5,stem:"用 JavaScript 以程式方式送出表單，用？",o:{A:"form.send()",B:"form.submit()",C:"form.post()",D:"form.go()"},a:["B"],e:"form.submit() 送出表單。"},
+ {id:92,d:5,stem:"清空/重設表單所有欄位，用？",o:{A:"form.clear()",B:"form.reset()",C:"form.empty()",D:"form.default()"},a:["B"],e:"form.reset() 重設欄位為初始值。"},
+ {id:93,d:5,stem:"讓某個輸入框自動取得游標焦點，用？",o:{A:"input.focus()",B:"input.active()",C:"input.select()",D:"input.cursor()"},a:["A"],e:"input.focus() 使欄位取得焦點。"},
+ {id:94,d:5,stem:"一組同名 radio 中，如何判斷某顆是否被選？",o:{A:"radio.value",B:"radio.checked",C:"radio.selected",D:"radio.on"},a:["B"],e:"用被選那顆的 checked 為 true 判斷。"},
+ {id:95,d:5,stem:"表單資料附在網址查詢字串送出的 method 是？",o:{A:"GET",B:"POST",C:"PUT",D:"SEND"},a:["A"],e:"GET 把資料放 URL 查詢字串。"},
+ {id:96,d:5,stem:"表單資料放在請求主體、較適合大量或敏感資料的 method 是？",o:{A:"GET",B:"POST",C:"HEAD",D:"VIEW"},a:["B"],e:"POST 放請求主體，不顯示於網址。"},
+ {id:97,d:5,stem:"指定表單送出目的地網址的屬性是？",o:{A:"action",B:"href",C:"target",D:"src"},a:["A"],e:"form 的 action 屬性指定送出目的地。"},
+ {id:98,d:5,stem:"設定輸入框的提示文字（灰字），用哪個屬性？",o:{A:"hint",B:"placeholder",C:"tip",D:"label"},a:["B"],e:"placeholder 顯示提示文字。"},
+ {id:99,d:5,stem:"讓瀏覽器內建驗證 email 格式，input 的 type 應設為？",o:{A:'type="text"',B:'type="email"',C:'type="mail"',D:'type="string"'},a:["B"],e:'type="email" 觸發 HTML5 內建 email 驗證。'},
+ {id:100,d:5,stem:"表單中負責觸發送出的按鈕，type 應為？",o:{A:'"button"',B:'"submit"',C:'"send"',D:'"form"'},a:["B"],e:'type="submit" 的按鈕會送出表單。'},
 ];
 
 // ---------- 共用 ----------
@@ -500,7 +574,7 @@ const state={};     // id -> {chosen,correct}
 const pending={};   // 複選暫存 id -> [keys]
 let filter=0;
 const fWrap=document.getElementById('filters');
-const fdefs=[{k:0,l:'全部 26'}].concat(domains.map(d=>({k:d.n,l:`D${d.n}·領域${d.n}`})));
+const fdefs=[{k:0,l:'全部 100'}].concat(domains.map(d=>({k:d.n,l:`D${d.n}·領域${d.n}`})));
 fWrap.innerHTML=fdefs.map(f=>`<button class="fbtn" data-k="${f.k}" aria-pressed="${f.k===0}">${f.l}</button>`).join('');
 fWrap.onclick=e=>{const b=e.target.closest('.fbtn');if(!b)return;
   filter=+b.dataset.k; practiceIdx=0;
@@ -524,7 +598,7 @@ function renderPractice(){
   document.getElementById('mDone').textContent=dn;
   document.getElementById('mRight').textContent=right;
   document.getElementById('mPct').textContent=dn?Math.round(right/dn*100)+'%':'—';
-  if(dn===Q.length){ showResult(Q,state,'練習 26 題'); resultBox.classList.add('show'); }
+  if(dn===Q.length){ showResult(Q,state,'練習 100 題'); resultBox.classList.add('show'); }
   else if(mode==='practice') resultBox.classList.remove('show');
 }
 function commit(id,chosen){
@@ -543,8 +617,8 @@ document.getElementById('resetBtn').onclick=()=>{
 };
 
 // ---------- 計時模擬考 ----------
-const MOCK_PLAN={1:3,2:4,3:2,4:3,5:3};   // 各領域抽題數，合計 15
-const MOCK_SECONDS=20*60;
+const MOCK_PLAN={1:4,2:4,3:4,4:4,5:4};   // 各領域抽題數，合計 20
+const MOCK_SECONDS=25*60;
 let mockQs=[], mockSel={}, mockActive=false, mockGraded=false, mockLeft=0, mockTimer=null;
 const mockbar=document.getElementById('mockbar');
 
@@ -565,8 +639,8 @@ function mockIntro(){
   list.innerHTML=`<div class="intro">
     <h3>⏱ 計時模擬考</h3>
     <ul>
-      <li>從 26 題題庫隨機抽 <b>15 題</b>（依考試權重分配各領域）</li>
-      <li>限時 <b>20 分鐘</b>，時間到自動交卷</li>
+      <li>從 100 題題庫隨機抽 <b>20 題</b>（依考試權重分配各領域）</li>
+      <li>限時 <b>25 分鐘</b>，時間到自動交卷</li>
       <li>作答期間<b>不顯示答案</b>，交卷後才評分並揭曉解析</li>
       <li>通過標準：正確率 ≥ 70%（對應正式考試 700/1000）</li>
     </ul>
@@ -598,7 +672,7 @@ function renderMock(){
   const exp=mockGraded?feedbackHTML(q,sel,eq(sel,q.a)):'';
   const pager=pagerHTML(mockQs,mockIdx,q2=>{const s2=mockSel[q2.id]||[];if(mockGraded)return eq(s2,q2.a)?'correct':'wrong';return s2.length?'ans':'';});
   const nav=navHTML(mockIdx,mockQs.length,true);
-  list.innerHTML=pager+cardHTML(q,`<div class="opts">${opts}</div>${exp}`,`${mockIdx+1} / 15`)+nav;
+  list.innerHTML=pager+cardHTML(q,`<div class="opts">${opts}</div>${exp}`,`${mockIdx+1} / 20`)+nav;
 }
 function submitMock(){
   if(!mockActive) return;
@@ -606,7 +680,7 @@ function submitMock(){
   const ans={};
   mockQs.forEach(q=>{ const sel=mockSel[q.id]||[]; ans[q.id]={chosen:sel,correct:eq(sel,q.a)}; });
   renderMock();
-  showResult(mockQs,ans,'模擬考 15 題');
+  showResult(mockQs,ans,'模擬考 20 題');
   resultBox.classList.add('show');
   resultBox.scrollIntoView({behavior:'smooth'});
 }

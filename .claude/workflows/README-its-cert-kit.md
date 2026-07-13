@@ -14,7 +14,17 @@
 | Website | 以 `its-python-cert/index.html` 為藍本，換領域與題庫，產 `index.html`＋`server.js` | 2 |
 | Report | 回報產出檔案與題數 | — |
 
-## 怎麼跑
+## 兩種用法
+
+### A. 新證照（完整流程：Research → … → Website）
+### B. 擴充既有證照題庫（expand 模式：Load → Generate → Verify → Rebuild）
+只補題、實跑驗證後併回既有網站，不重跑調研。例：
+```
+args: { "mode": "expand", "slug": "javascript", "perDomain": 20 }
+```
+它會：讀 `<slug>/index.html` 現有題庫 → 各領域補到 `perDomain` 題（避免與現有重複）→ 用 Node/Python 實跑驗證 → 更新 `index.html` 的 Q 陣列、題數文案、MOCK_PLAN，並產出擴充題庫 md。
+
+## 怎麼跑（新證照）
 
 用 Claude 對它下指令即可（它會呼叫 Workflow 工具）。三種傳參：
 
