@@ -1,3 +1,5 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ITS Python 證照｜自學與自測 Hub</title>
 <style>
   :root{
@@ -243,6 +245,36 @@
   @media (prefers-color-scheme:dark){.navbtn.primary:not(:disabled){color:#0e1218}}
   .navbtn.primary:disabled{background:var(--surface);color:var(--text)}
   .pos{font-family:var(--mono);font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+
+  /* ---- RWD：行動裝置斷點 ---- */
+  @media (max-width:640px){
+    body{font-size:15px}
+    .wrap{padding:0 14px}
+    .hero{padding:30px 0 20px}
+    .hero h1{font-size:2rem}
+    .hero .lead{font-size:1rem}
+    section{padding:26px 0}
+    h2{font-size:1.3rem}
+    nav.toc a{padding:6px 7px;font-size:.74rem}
+    .term pre{font-size:.72rem}
+    .scorebar{gap:8px 12px;padding:9px 12px}
+    .scorebar .m{font-size:.78rem}
+    .scorebar .reset{padding:5px 8px}
+    .modebar{gap:6px}
+    .mbtn{font-size:.76rem;padding:8px 10px}
+    .pager{max-height:168px;overflow-y:auto}
+    .pnum{min-width:25px;height:25px;font-size:.66rem}
+    .q{padding:13px 12px}
+    .q .stem{font-size:.96rem}
+    pre{font-size:.8rem}
+    .opt{padding:9px 10px}
+    .opt .tx,.opt .tx code{font-size:.86rem}
+    .navbtn{padding:8px 12px;font-size:.8rem}
+    .exp .fb,.exp .why{font-size:.84rem}
+    .rdom .r .lab{flex:0 0 92px;font-size:.76rem}
+    .result{padding:16px}
+    .result .big{font-size:2.1rem}
+  }
 </style>
 
 <header class="bar">
