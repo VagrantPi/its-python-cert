@@ -16,8 +16,11 @@ export const meta = {
 }
 
 // ---------- 參數 ----------
-const A = (typeof args === 'object' && args) ? args : {}
-const topic = (typeof args === 'string' ? args : A.topic) || 'ITS Python'
+// args 可為物件、或（容錯）JSON 字串、或純主題字串
+let A = {}
+if (args && typeof args === 'object') A = args
+else if (typeof args === 'string') { try { A = JSON.parse(args) } catch { A = { topic: args } } }
+const topic = A.topic || 'ITS Python'
 const lang = A.lang || (/python/i.test(topic) ? 'python' : /java(?!script)/i.test(topic) ? 'java' : 'javascript') // 驗證用的執行語言
 const perDomain = A.perDomain || 28
 const EDU = '/Users/kais/WS/kais/educational/its-python-cert' // 多證照 repo 根
@@ -242,12 +245,6 @@ await agent(
   `- 保留：主題切換、單題導覽（上/下一題＋題號跳格記住狀態）、過關判定（≥70%）與各領域強弱長條。\n` +
   `- 標題與題庫數量換成本證照實際值。務必自我檢查 HTML/JS 可執行（可用 ToolSearch 載入 Bash 跑 node --check 驗證 script 區塊語法）。完成後回報。`,
   { label: 'website', phase: 'Website', effort: 'high' }
-)
-
-// 附上簡易區網伺服器（沿用 Python 版）
-await agent(
-  `請 Read ${REF}/server.js，複製一份到 ${baseDir}/server.js（零依賴靜態伺服器，首頁指向 index.html）。若內容可直接沿用就照抄，確認 DEFAULT_FILE='index.html'。用 Write 寫入後回報。`,
-  { label: 'server', phase: 'Website' }
 )
 
 // =====================================================================

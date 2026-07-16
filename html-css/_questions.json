@@ -1,0 +1,2998 @@
+[
+{
+"id": 1,
+"d": 1,
+"stem": "在 HTML5 文件中，下列哪一個是正確且完整的 DOCTYPE 宣告？",
+"code": "",
+"o": {
+"A": "<!DOCTYPE html>",
+"B": "<!DOCTYPE HTML5>",
+"C": "<DOCTYPE html>",
+"D": "<!doctype html5 PUBLIC>"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "HTML5 的 DOCTYPE 極為精簡，就是 <!DOCTYPE html>，且不分大小寫。",
+"ew": "DOCTYPE 宣告的用途是告訴瀏覽器以標準模式（standards mode）解析文件，必須放在文件最前面。選項 B 寫成 HTML5 是常見誤解，實際上並沒有版本號，正確關鍵字只有 html。選項 C 缺少開頭的驚嘆號，DOCTYPE 前面一定要有 !，否則不是合法宣告。選項 D 加入 html5 與 PUBLIC 屬於舊式 HTML4/XHTML 冗長寫法且拼寫錯誤，HTML5 不需要 PUBLIC 關鍵字或 DTD URL。"
+},
+{
+"id": 2,
+"d": 1,
+"stem": "關於 DOCTYPE 宣告在文件中的位置，下列敘述何者正確？",
+"code": "",
+"o": {
+"A": "必須放在 <head> 元素內",
+"B": "必須放在所有 HTML 標記之前，即文件的第一行",
+"C": "可以放在 <body> 結尾之後",
+"D": "是選用的，放哪裡都不影響瀏覽器解析模式"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "DOCTYPE 必須是文件最開頭，位於 <html> 標籤之前。",
+"ew": "DOCTYPE 的作用是在解析開始前就決定渲染模式，因此它不能被任何內容包住。選項 A 錯在放進 head 內為時已晚，DOCTYPE 需在 <html> 之前，不屬於 head。選項 C 放在 body 之後會導致瀏覽器進入怪異模式（quirks mode），破壞盒模型與版面一致性。選項 D 錯在忽略了缺少或位置錯誤的 DOCTYPE 會觸發 quirks mode，對寬高計算等行為有實質影響。"
+},
+{
+"id": 3,
+"d": 1,
+"stem": "要在 HTML5 中宣告文件使用 UTF-8 編碼，下列哪一個 meta 標籤是正確的寫法？",
+"code": "",
+"o": {
+"A": "<meta encoding=\"UTF-8\">",
+"B": "<meta charset=\"UTF-8\">",
+"C": "<meta name=\"charset\" content=\"UTF-8\">",
+"D": "<meta http-equiv=\"UTF-8\">"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "HTML5 指定字元編碼的簡短寫法是 <meta charset=\"UTF-8\">。",
+"ew": "字元編碼宣告應盡早放在 head 內，讓瀏覽器正確解讀後續位元組。選項 A 的 encoding 不是合法的 meta 屬性，正確屬性名是 charset。選項 C 把 charset 誤用為 name 值，name/content 是給 keywords、description 等中繼資料用的，不能表示編碼。選項 D 的 http-equiv 需搭配 content 使用（如 http-equiv=\"content-type\" content=\"text/html; charset=UTF-8\"），單獨寫 http-equiv=\"UTF-8\" 沒有意義。"
+},
+{
+"id": 4,
+"d": 1,
+"stem": "下列哪一個 meta 標籤能讓網頁在行動裝置上依螢幕寬度正確縮放（響應式設計常用）？",
+"code": "",
+"o": {
+"A": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+"B": "<meta name=\"description\" content=\"width=device-width\">",
+"C": "<meta charset=\"viewport\">",
+"D": "<meta name=\"screen\" content=\"responsive\">"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "viewport 的標準寫法用 name=\"viewport\"，並在 content 設定 width=device-width 與 initial-scale。",
+"ew": "viewport 中繼資料控制行動瀏覽器的視區寬度與初始縮放比例。選項 B 把值放進 description，description 是給搜尋引擎摘要用的，無法影響縮放。選項 C 誤用 charset 屬性，charset 只用於字元編碼且值必須是編碼名稱。選項 D 的 name=\"screen\" 與 content=\"responsive\" 都不是規範定義的中繼資料，瀏覽器不會辨識也不會據以縮放。"
+},
+{
+"id": 5,
+"d": 1,
+"stem": "想提供給搜尋引擎在結果頁顯示的網頁摘要說明，應使用下列哪一個 meta 標籤？",
+"code": "",
+"o": {
+"A": "<meta name=\"keywords\" content=\"一個簡短的網頁摘要\">",
+"B": "<meta name=\"description\" content=\"一個簡短的網頁摘要\">",
+"C": "<meta name=\"summary\" content=\"一個簡短的網頁摘要\">",
+"D": "<title>一個簡短的網頁摘要</title>"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "網頁摘要說明使用 name=\"description\" 的 meta 標籤。",
+"ew": "description 中繼資料常被搜尋引擎用作結果頁的說明文字。選項 A 的 keywords 是列出關鍵字詞（多以逗號分隔），語意與整段摘要不同。選項 C 的 name=\"summary\" 不是標準中繼資料名稱，瀏覽器與搜尋引擎不會特別處理。選項 D 的 title 是顯示於瀏覽器分頁與結果標題列的文字，不是摘要說明，兩者用途不同。"
+},
+{
+"id": 6,
+"d": 1,
+"stem": "下列 meta 標籤用來提供網頁的關鍵字清單，空格處應填入何值？\n<meta name=\"____\" content=\"html, css, web\">",
+"code": "",
+"o": {
+"A": "tags",
+"B": "keywords",
+"C": "words",
+"D": "index"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "提供關鍵字清單用 name=\"keywords\"，多個字詞以逗號分隔。",
+"ew": "keywords 中繼資料以逗號分隔列出網頁相關字詞。選項 A 的 tags 並非規範定義的 meta name 值，瀏覽器不會辨識。選項 C 的 words 同樣不是有效的中繼資料名稱。選項 D 的 index 常與 robots 指令混淆（如 name=\"robots\" content=\"index\"），是控制索引行為的值，與列出關鍵字的用途完全不同。"
+},
+{
+"id": 7,
+"d": 1,
+"stem": "要在 HTML 文件中連結一個外部 CSS 樣式表 styles.css，下列哪一個寫法正確？",
+"code": "",
+"o": {
+"A": "<link rel=\"stylesheet\" href=\"styles.css\">",
+"B": "<link rel=\"style\" src=\"styles.css\">",
+"C": "<style src=\"styles.css\"></style>",
+"D": "<script rel=\"stylesheet\" href=\"styles.css\">"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "外部樣式表用 <link rel=\"stylesheet\" href=\"...\">，放在 head 內。",
+"ew": "link 元素透過 rel 指定關係、href 指定資源位置。選項 B 的 rel 值應為 stylesheet 而非 style，且外部資源用 href 而不是 src。選項 C 的 style 元素是放內嵌 CSS 的地方，它沒有 src 屬性，無法連結外部檔案。選項 D 用 script 元素載入樣式表在語意上錯誤，script 是給 JavaScript 使用的，且沒有 rel 屬性。"
+},
+{
+"id": 8,
+"d": 1,
+"stem": "下列哪一個元素通常放在 <head> 內，用來包含內嵌（inline）的 CSS 規則？",
+"code": "",
+"o": {
+"A": "<css>",
+"B": "<style>",
+"C": "<link>",
+"D": "<script>"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "內嵌 CSS 規則寫在 <style> 元素中。",
+"ew": "style 元素是文件層級撰寫 CSS 的容器，通常置於 head。選項 A 的 <css> 並不存在於 HTML 規範中，瀏覽器會當成未知元素。選項 C 的 link 是用來連結外部樣式表，本身不包含 CSS 規則內容。選項 D 的 script 用於嵌入或連結 JavaScript，不是用來放 CSS 規則。"
+},
+{
+"id": 9,
+"d": 1,
+"stem": "關於 <script> 元素，下列敘述何者正確？",
+"code": "",
+"o": {
+"A": "<script> 只能放在 <head> 內，不能放在 <body>",
+"B": "可用 src 屬性連結外部 JavaScript 檔案，也可直接在標籤內寫程式碼",
+"C": "<script> 是自閉合元素，不需要結尾標籤",
+"D": "<script src=\"app.js\">...</script> 時，標籤內的程式碼會與外部檔一起執行"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "script 可用 src 連結外部檔，或直接在標籤內寫程式碼，二擇一。",
+"ew": "script 元素既能內嵌程式碼也能透過 src 引用外部檔。選項 A 錯在 script 可以放在 body 內，常見放在 body 結尾以加速頁面呈現。選項 C 錯在 script 一定要有結尾標籤 </script>，它不是 void 元素。選項 D 錯在當 script 帶有 src 時，標籤內部的程式碼會被忽略而不會執行。"
+},
+{
+"id": 10,
+"d": 1,
+"stem": "當使用者的瀏覽器停用 JavaScript 時，想顯示一段替代提示文字，應使用下列哪一個元素？",
+"code": "",
+"o": {
+"A": "<noscript>",
+"B": "<script type=\"text/fallback\">",
+"C": "<fallback>",
+"D": "<script disabled>"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "<noscript> 的內容只在瀏覽器不支援或停用 JavaScript 時顯示。",
+"ew": "noscript 專門提供無腳本環境下的替代內容。選項 B 的 type=\"text/fallback\" 不是有效的 script 型別，且 script 內容在停用 JS 時本就不會執行或顯示。選項 C 的 <fallback> 元素在 HTML 規範中不存在。選項 D 的 script disabled 並非用來顯示替代文字，disabled 也不是 script 的標準屬性。"
+},
+{
+"id": 11,
+"d": 1,
+"stem": "下列哪一段標記是「格式良好（well-formed）」的正確 HTML 文件基本骨架？",
+"code": "<!DOCTYPE html>\n<html>\n  <head>\n    <title>My Page</title>\n  </head>\n  <body>\n    <p>Hello</p>\n  </body>\n</html>",
+"o": {
+"A": "符合，DOCTYPE、html、head、body 結構正確且標籤都有正確結尾",
+"B": "不符合，<title> 應該放在 <body> 內",
+"C": "不符合，<p> 不能放在 <body> 內",
+"D": "不符合，缺少 <style> 元素"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "此骨架 DOCTYPE 在最前、head 含 title、body 含內容，結尾標籤齊全，格式良好。",
+"ew": "格式良好的頁面需有正確的巢狀結構與成對標籤。選項 B 錯在 title 屬於中繼資料，必須放在 head 而非 body。選項 C 錯在 p（段落）正是內容元素，本就應放在 body 內。選項 D 錯在 style 元素並非必要，沒有樣式的文件仍然合法且格式良好。"
+},
+{
+"id": 12,
+"d": 1,
+"stem": "在標準 HTML 文件中，<title> 元素應該放在哪裡？",
+"code": "",
+"o": {
+"A": "<body> 內",
+"B": "<head> 內",
+"C": "<html> 之外",
+"D": "<footer> 內"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "title 是中繼資料，必須放在 head 內，每份文件只應有一個。",
+"ew": "title 顯示於瀏覽器分頁與書籤，屬於文件中繼資料。選項 A 錯在 body 放的是可見內容，title 不屬於此。選項 C 錯在所有內容元素都必須在 html 根元素之內。選項 D 錯在 footer 是頁尾內容區塊，位於 body，且不用來放文件標題。"
+},
+{
+"id": 13,
+"d": 1,
+"stem": "下列哪一個是 HTML 中「小於符號 <」的正確字元參照（entity）？",
+"code": "",
+"o": {
+"A": "&lt;",
+"B": "&less;",
+"C": "&<;",
+"D": "&#lt;"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "小於符號在 HTML 中以 &lt; 表示（等同數值參照 &#60;），避免與標籤起始混淆。",
+"ew": "字元參照用來輸出保留字元或特殊符號。選項 B 的 &less; 不是有效的具名參照，瀏覽器會原樣顯示。選項 C 直接寫入 < 反而會被當成標籤開始，正是需要用 entity 避免的問題。選項 D 的 &#lt; 混用了數值參照的 &# 前綴卻接上文字名稱，語法無效；正確的數值參照應為 &#60;。"
+},
+{
+"id": 14,
+"d": 1,
+"stem": "下列哪一個字元參照用來輸出「與符號 &」本身？",
+"code": "",
+"o": {
+"A": "&and;",
+"B": "&amp;",
+"C": "&ampersand;",
+"D": "&&;"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "& 本身是參照的起始字元，要顯示 & 需寫成 &amp;（等同數值參照 &#38;）。",
+"ew": "因為 & 用來開啟字元參照，直接寫會造成解析問題。選項 A 的 &and; 表示邏輯與符號（∧），並非一般的 & 字元。選項 C 的 &ampersand; 拼字並非有效具名參照。選項 D 的 &&; 只是兩個裸露的 & 字元，不是合法的參照語法。"
+},
+{
+"id": 15,
+"d": 1,
+"stem": "想在兩個文字之間插入一個「不換行空格（non-breaking space）」，應使用下列哪一個字元參照？",
+"code": "",
+"o": {
+"A": "&space;",
+"B": "&nbsp;",
+"C": "&ws;",
+"D": "&blank;"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "不換行空格的字元參照是 &nbsp;（等同數值參照 &#160;）。",
+"ew": "&nbsp; 會產生一個不會被折行拆開的空白。選項 A 的 &space; 不是有效的具名參照。選項 C 的 &ws; 並不存在於規範中。選項 D 的 &blank; 同樣不是 HTML 定義的字元參照，無法正確顯示空格。"
+},
+{
+"id": 16,
+"d": 1,
+"stem": "下列哪一個字元參照可顯示版權符號 ©？",
+"code": "",
+"o": {
+"A": "&copy;",
+"B": "&(c);",
+"C": "&copyright;",
+"D": "&cr;"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "版權符號的具名參照是 &copy;（等同數值參照 &#169;）。",
+"ew": "具名字元參照讓特殊符號更易讀寫。選項 B 的 &(c); 不是合法語法，參照名稱不含括號。選項 C 的 &copyright; 雖語意接近但並非規範定義的名稱，正確為 &copy;。選項 D 的 &cr; 不對應版權符號，也非有效的具名參照。"
+},
+{
+"id": 17,
+"d": 1,
+"stem": "下列哪些是 HTML 的 void（空）元素，通常沒有結尾標籤？（複選）",
+"code": "",
+"o": {
+"A": "<br>",
+"B": "<img>",
+"C": "<p>",
+"D": "<div>"
+},
+"a": [
+"A",
+"B"
+],
+"multi": true,
+"e": "br 與 img 是 void 元素，沒有內容也不需要結尾標籤。",
+"ew": "void 元素不能包含內容，因此不使用結尾標籤。選項 C 的 p 是段落元素，會包住文字內容，需要 </p> 結尾。選項 D 的 div 是區塊容器，可包住其他元素，必須有 </div> 結尾。把 p、div 當成 void 元素會導致標記格式不良。"
+},
+{
+"id": 18,
+"d": 1,
+"stem": "下列哪一段標記在巢狀（nesting）上是正確、格式良好的？",
+"code": "A: <b><i>text</b></i>\nB: <b><i>text</i></b>\nC: <p><b>text</p></b>\nD: <ul><p>item</p></ul>",
+"o": {
+"A": "A",
+"B": "B",
+"C": "C",
+"D": "D"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "元素必須以「後開先關」的順序正確巢狀，B 的 <b><i>...</i></b> 正確。",
+"ew": "格式良好要求標籤交錯正確、不重疊。選項 A 的 </b> 在 </i> 之前關閉，造成標籤交錯（overlap），不合法。選項 C 的 </p> 在 </b> 之前關閉，同樣是交錯錯誤。選項 D 中 ul 的直接子元素應為 li，直接放 p 不符合內容模型，格式不良。"
+},
+{
+"id": 19,
+"d": 1,
+"stem": "關於「格式良好」的屬性寫法，下列敘述何者最正確？",
+"code": "<img src=photo.jpg alt=My Photo>",
+"o": {
+"A": "完全正確，屬性值不需要引號",
+"B": "含空白的屬性值（如 alt）應以引號包住，較嚴謹的寫法會將所有屬性值加引號",
+"C": "錯誤，因為 img 需要結尾標籤",
+"D": "錯誤，因為屬性名稱必須大寫"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "含空白的屬性值必須加引號，否則 My 與 Photo 會被解析成不同屬性。",
+"ew": "良好的標記習慣是為屬性值加引號以避免歧義。選項 A 錯在 alt=My Photo 未加引號時，Photo 會被當成另一個屬性名，alt 的值被截斷成 My。選項 C 錯在 img 是 void 元素，本就不需要結尾標籤。選項 D 錯在 HTML 屬性名稱不區分大小寫且慣用小寫，並非必須大寫。"
+},
+{
+"id": 20,
+"d": 1,
+"stem": "下列哪一個屬性應加在 <html> 元素上，用來宣告網頁的主要語言？",
+"code": "",
+"o": {
+"A": "lang",
+"B": "charset",
+"C": "language",
+"D": "locale"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "以 <html lang=\"en\"> 或 lang=\"zh-Hant\" 宣告文件語言，有助無障礙與搜尋。",
+"ew": "lang 屬性告訴瀏覽器與輔助技術文件所用語言。選項 B 的 charset 是字元編碼屬性，用於 meta，與語言無關。選項 C 的 language 不是 html 元素的有效屬性（早期 script 曾有 language 屬性但已廢棄）。選項 D 的 locale 並非 HTML 定義的元素屬性。"
+},
+{
+"id": 21,
+"d": 1,
+"stem": "下列哪一個 link 標籤正確用來為網頁設定分頁圖示（favicon）？",
+"code": "",
+"o": {
+"A": "<link rel=\"icon\" href=\"favicon.ico\">",
+"B": "<link rel=\"stylesheet\" href=\"favicon.ico\">",
+"C": "<img rel=\"icon\" src=\"favicon.ico\">",
+"D": "<meta name=\"icon\" content=\"favicon.ico\">"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "favicon 用 <link rel=\"icon\" href=\"...\"> 宣告，放在 head 內。",
+"ew": "link 元素透過不同 rel 值宣告與外部資源的關係。選項 B 的 rel=\"stylesheet\" 會把圖示當成樣式表載入，語意錯誤且無法顯示圖示。選項 C 的 img 是內容中的圖片元素，沒有 rel 屬性，也不用於 favicon。選項 D 用 meta 設定圖示並非標準做法，圖示關係應由 link 的 rel 表達。"
+},
+{
+"id": 22,
+"d": 1,
+"stem": "下列關於 <head> 與 <body> 內容配置的敘述，何者正確？",
+"code": "",
+"o": {
+"A": "<meta>、<title>、<link> 通常放在 <head>，而 <h1>、<p>、<img> 等可見內容放在 <body>",
+"B": "所有元素都必須放在 <head> 內",
+"C": "<body> 只能包含文字，不能包含圖片",
+"D": "<meta> 標籤應放在 <body> 結尾"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "head 放中繼資料（meta/title/link 等），body 放可見內容（標題、段落、圖片等）。",
+"ew": "head 與 body 各司其職：一個描述文件、一個承載內容。選項 B 錯在可見內容必須放 body，全放 head 不會被呈現。選項 C 錯在 body 可包含圖片、影片等各種內容，不限文字。選項 D 錯在 meta 是中繼資料，應放在 head 內而非 body 結尾。"
+},
+{
+"id": 23,
+"d": 1,
+"stem": "下列哪一份文件結構「不是」格式良好的？",
+"code": "A:\n<!DOCTYPE html>\n<html><head><title>T</title></head><body><p>Hi</p></body></html>\n\nB:\n<!DOCTYPE html>\n<html><head><title>T</title><body><p>Hi</p></head></body></html>",
+"o": {
+"A": "A 不是格式良好",
+"B": "B 不是格式良好",
+"C": "兩者都格式良好",
+"D": "兩者都不是格式良好"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "B 把 body 開在 head 內、head 又在 body 內關閉，結構交錯錯誤。",
+"ew": "格式良好的文件其 head 與 body 應為 html 的兩個並列子元素、彼此不重疊。選項 A 的結構正確，head 與 body 依序關閉，因此並非不良。選項 C 錯在 B 的巢狀明顯交錯，不能說兩者都良好。選項 D 錯在 A 其實完全正確，不能說兩者都不良。"
+},
+{
+"id": 24,
+"d": 1,
+"stem": "下列 script 屬性中，哪一個會讓外部腳本非同步載入、下載完成後立即執行、不保證與其他腳本的執行順序？",
+"code": "",
+"o": {
+"A": "defer",
+"B": "async",
+"C": "sync",
+"D": "onload"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "async 讓腳本非同步下載，下載完立即執行，不保證順序。",
+"ew": "async 與 defer 都能避免解析被阻塞，但行為不同。選項 A 的 defer 會等到 HTML 解析完成後、依文件順序執行，與題述「不保證順序、下載完立即執行」不符。選項 C 的 sync 不是 script 的有效屬性。選項 D 的 onload 是事件處理屬性，用來指定載入完成後呼叫的函式，並非控制下載策略。"
+},
+{
+"id": 25,
+"d": 1,
+"stem": "下列哪一個字元參照用來輸出「大於符號 >」？",
+"code": "",
+"o": {
+"A": "&gt;",
+"B": "&greater;",
+"C": "&>;",
+"D": "&gtr;"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "大於符號的字元參照為 &gt;（等同數值參照 &#62;）。",
+"ew": "雖然 > 不一定總會造成解析錯誤，但用 &gt; 是最安全一致的做法。選項 B 的 &greater; 不是有效具名參照。選項 C 直接寫 > 並非參照語法，且與 &lt; 對應時常需成對使用具名參照。選項 D 的 &gtr; 拼寫不正確，不對應大於符號。"
+},
+{
+"id": 26,
+"d": 1,
+"stem": "關於在 HTML5 中使用 <meta> 標籤，下列哪些敘述正確？（複選）",
+"code": "",
+"o": {
+"A": "<meta charset=\"UTF-8\"> 用來宣告字元編碼",
+"B": "<meta name=\"viewport\" content=\"...\"> 用來控制行動裝置視區",
+"C": "<meta> 需要結尾標籤 </meta>",
+"D": "<meta name=\"description\" content=\"...\"> 提供網頁摘要"
+},
+"a": [
+"A",
+"B",
+"D"
+],
+"multi": true,
+"e": "charset、viewport、description 都是常見 meta 用途；meta 為 void 元素，不需結尾標籤。",
+"ew": "meta 元素以屬性攜帶各種中繼資料。選項 C 是錯誤敘述：meta 是 void（空）元素，沒有內容也不需要 </meta> 結尾標籤，寫結尾反而不當。選項 A、B、D 都是 meta 的正確用途，分別對應編碼、視區與摘要，因此排除 C 才是正確判斷。"
+},
+{
+"id": 27,
+"d": 1,
+"stem": "在 HTML 屬性值或文字中要放入雙引號字元，下列哪一個字元參照最合適用來表示雙引號 \"？",
+"code": "",
+"o": {
+"A": "&quot;",
+"B": "&dquote;",
+"C": "&\";",
+"D": "&quote;"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "雙引號的字元參照為 &quot;（等同數值參照 &#34;），可避免與屬性值的引號界定衝突。",
+"ew": "當屬性值以雙引號界定時，值內的雙引號可用 &quot; 避免提早結束。選項 B 的 &dquote; 不是有效具名參照。選項 C 的 &\"; 只是把裸露的引號接在 & 後，語法無效。選項 D 的 &quote; 少了字母、拼寫錯誤，正確為 &quot;。"
+},
+{
+"id": 28,
+"d": 1,
+"stem": "下列 head 內的標記，哪一處寫法有誤導致格式不良？",
+"code": "<head>\n  <meta charset=\"UTF-8\">\n  <title>Demo<title>\n  <link rel=\"stylesheet\" href=\"main.css\">\n</head>",
+"o": {
+"A": "<meta charset> 少了結尾斜線",
+"B": "<title> 的結尾標籤寫成 <title> 而非 </title>",
+"C": "<link> 應該要有結尾標籤 </link>",
+"D": "這段標記完全正確"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "第二個 <title> 缺少斜線，正確結尾應為 </title>，否則標題無法正常關閉。",
+"ew": "格式良好要求成對標籤的結尾要有斜線。選項 A 錯在 meta 是 void 元素，HTML5 不要求結尾斜線。選項 C 錯在 link 也是 void 元素，不需要 </link> 結尾標籤。選項 D 錯在確實存在缺陷：把結尾寫成 <title> 會被當成又開一個新的 title，屬於明顯錯誤。"
+},
+{
+"id": 29,
+"d": 2,
+"stem": "下列哪一段是「語法正確」的 CSS rule set（規則集）？",
+"code": "",
+"o": {
+"A": "h1 { color: blue; font-size: 20px; }",
+"B": "h1 [ color = blue; font-size = 20px; ]",
+"C": "h1 -> color: blue, font-size: 20px",
+"D": "h1 (color: blue; font-size: 20px)"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "一條 rule set 由『選擇器 + { }』組成，大括號內每條宣告為 property: value;，冒號分隔屬性與值、分號結束宣告。",
+"ew": "CSS 規則集的標準結構是 selector { property: value; }，只有 A 使用了正確的大括號、冒號與分號。B 用了方括號並以等號指定值，這是屬性選擇器或其他語言的語法，不是 CSS 宣告區塊。C 使用箭頭與逗號來分隔，逗號在 CSS 是用來群組多個選擇器、而非分隔同一元素的多條宣告。D 用小括號包住宣告，CSS 的宣告區塊一律使用大括號 { }，小括號在 CSS 只出現在如 rgb() 這類函式中。"
+},
+{
+"id": 30,
+"d": 2,
+"stem": "CSS 中要選取 class 屬性為 \"note\" 的元素，正確的選擇器寫法是？",
+"code": "",
+"o": {
+"A": "#note",
+"B": ".note",
+"C": "note",
+"D": "*note"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "class 選擇器以英文句點（.）開頭，接上 class 名稱。",
+"ew": "class 選擇器必須以句點 . 為前綴，因此 .note 才是正解。A 的 #note 是 id 選擇器，井字號用於選取 id 屬性而非 class。C 的 note 沒有任何前綴，會被當成 element（型別）選擇器，去尋找名為 <note> 的標籤，而不是 class。D 的 *note 語法無效，星號是萬用選擇器且需單獨使用，不能直接黏在名稱前面當作 class 前綴。"
+},
+{
+"id": 31,
+"d": 2,
+"stem": "CSS 中井字號（#）開頭的選擇器是用來選取？",
+"code": "",
+"o": {
+"A": "具有指定 class 的元素",
+"B": "具有指定 id 的元素",
+"C": "所有指定型別的元素",
+"D": "被滑鼠停留的元素"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "# 開頭是 id 選擇器，對應元素的 id 屬性；同一頁面 id 應唯一。",
+"ew": "# 前綴代表 id 選擇器，例如 #header 會選取 id=\"header\" 的元素，因此 B 正確。A 描述的是 class 選擇器，應以句點 . 開頭而非井字號。C 描述的是型別（element）選擇器，直接寫標籤名即可，不加任何符號。D 描述的是 :hover 這類 pseudo-class（偽類），需以冒號連接狀態關鍵字，與 # 無關。"
+},
+{
+"id": 32,
+"d": 2,
+"stem": "下列何者是「pseudo-class（偽類）」選擇器，用來在滑鼠停留在連結上時套用樣式？",
+"code": "",
+"o": {
+"A": "a.hover",
+"B": "a::hover",
+"C": "a:hover",
+"D": "a#hover"
+},
+"a": [
+"C"
+],
+"multi": false,
+"e": ":hover 是偽類，用單冒號連接元素與互動狀態。",
+"ew": "偽類以單一冒號連接，a:hover 表示『滑鼠停留在 a 元素上時』的狀態，故 C 正確。A 的 a.hover 是型別加 class 選擇器，代表帶有 class=\"hover\" 的 a 元素，與互動狀態無關。B 的 a::hover 使用了雙冒號，雙冒號是 pseudo-element（偽元素，如 ::before）的語法，hover 屬於偽類不能用雙冒號。D 的 a#hover 是選取 id=\"hover\" 的 a 元素，也與滑鼠狀態無關。"
+},
+{
+"id": 33,
+"d": 2,
+"stem": "執行以下 JavaScript，會印出哪個選擇器最終套用在該文字上？",
+"code": "// 比較 specificity：回傳 [id, class, element] 三元組，由左到右比大小\nfunction specificity(sel) {\n  const ids = (sel.match(/#[\\w-]+/g) || []).length;\n  const classes = (sel.match(/\\.[\\w-]+/g) || []).length;\n  const elements = (sel.replace(/[#.][\\w-]+/g, ' ')\n                       .match(/[a-zA-Z][\\w-]*/g) || []).length;\n  return [ids, classes, elements];\n}\nconst a = \"#content\";\nconst b = \"div p.text.big\";\nconsole.log(a, \"=>\", specificity(a));   // id 選擇器\nconsole.log(b, \"=>\", specificity(b));   // 兩個 class + 兩個 element\nconsole.log(\"套用者:\", specificity(a) > specificity(b) ? a : b);",
+"o": {
+"A": "#content 勝出，因為 id 的權重高於任何數量的 class 與 element",
+"B": "div p.text.big 勝出，因為它包含較多選擇器",
+"C": "兩者權重相同，由後宣告者決定",
+"D": "element 選擇器一定優先，所以 div 勝出"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "specificity 以 [id, class, element] 由左往右比較；只要 id 數較多就直接勝出，不看後面欄位。",
+"ew": "specificity 比較是分層的：先比 id 欄，較大者直接勝出，不再看 class 或 element 欄，因此含一個 id 的 #content（[1,0,0]）勝過完全沒有 id 的 div p.text.big（[0,2,2]），A 正確。B 誤以為選擇器『數量多』就贏，但權重是分層比較而非單純加總個數。C 說兩者相同並不成立，因為 id 欄一個是 1、一個是 0，並不平手，也就輪不到 source order 決定。D 弄反了層級，element 是最低權重的一層，永遠比不過 id 或 class。"
+},
+{
+"id": 34,
+"d": 2,
+"stem": "執行以下 JavaScript，模擬 inline、id、class 三種來源套在同一段文字的 color，最終誰生效？",
+"code": "// 三種來源套在同一段文字上的 color，數字越大優先\nconst inlineStyle = 1000;  // style=\"\" 行內\nconst idRule      = 100;   // #para\nconst classRule   = 10;    // .para\nconst winner = Math.max(inlineStyle, idRule, classRule);\nconsole.log(\"inline=\", inlineStyle, \"id=\", idRule, \"class=\", classRule);\nconsole.log(\"最終生效權重:\", winner, \"=> 行內樣式勝出\");",
+"o": {
+"A": "class 樣式",
+"B": "id 樣式",
+"C": "行內（inline）樣式",
+"D": "三者互相抵銷，套用瀏覽器預設"
+},
+"a": [
+"C"
+],
+"multi": false,
+"e": "在不使用 !important 的前提下，行內樣式（style 屬性）權重最高，優先於 id 與 class。",
+"ew": "樣式優先順序（在不計 !important 時）由高到低為：行內 > id > class > element，因此行內樣式勝出，C 正確。A 的 class 選擇器權重最低（此三者中），會被 id 與行內覆蓋。B 的 id 雖高於 class，但仍低於直接寫在元素上的行內樣式。D 認為會抵銷並套預設值是錯的，CSS 衝突時是由優先級決出唯一勝者，而非全部作廢回到瀏覽器預設。"
+},
+{
+"id": 35,
+"d": 2,
+"stem": "執行以下 JavaScript，兩條權重相同的規則先後套在 <p> 上，最終 color 為何？",
+"code": "// 同權重時「後宣告者勝出」（source order）\nconst rules = [\n  { order: 1, selector: \"p\", color: \"blue\"  },\n  { order: 2, selector: \"p\", color: \"green\" },\n];\nconst applied = rules.reduce((a, b) => (b.order >= a.order ? b : a));\nconsole.log(\"最終 color:\", applied.color);",
+"o": {
+"A": "blue，先宣告的優先",
+"B": "green，權重相同時後宣告者勝出",
+"C": "兩者混合",
+"D": "報錯，選擇器重複"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "當多條規則權重（specificity）完全相同，依 source order 由後宣告者覆蓋前者。",
+"ew": "當 specificity 相同，CSS 以出現順序（source order）決勝，後面的規則覆蓋前面的，故最終為 green，B 正確。A 認為先宣告優先，方向剛好相反，後者才會蓋掉前者。C 說會混合是錯的，color 是單一值屬性，只會採用一個勝出的值而非把顏色混合。D 認為選擇器重複會報錯，但 CSS 允許同一選擇器出現多次，這是層疊（cascade）機制的一部分，不會產生錯誤。"
+},
+{
+"id": 36,
+"d": 2,
+"stem": "以下程式碼把一條 rule set 拆解成組成部分，關於其輸出的敘述何者正確？",
+"code": "// 解析一條 rule set，取出 selector 與各 declaration\nconst ruleSet = \"h1.title { color: navy; font-size: 24px; }\";\nconst selector = ruleSet.slice(0, ruleSet.indexOf(\"{\")).trim();\nconst body = ruleSet.slice(ruleSet.indexOf(\"{\") + 1, ruleSet.indexOf(\"}\"));\nconst declarations = body.split(\";\")\n  .map(d => d.trim())\n  .filter(Boolean)\n  .map(d => {\n    const [prop, val] = d.split(\":\").map(s => s.trim());\n    return { property: prop, value: val };\n  });\nconsole.log(\"selector:\", selector);\nconsole.log(\"declarations:\", JSON.stringify(declarations));",
+"o": {
+"A": "selector 是 h1.title，且共有 2 條 declaration",
+"B": "selector 是 color，declaration 只有 1 條",
+"C": "h1 與 .title 是兩個不同的 rule set",
+"D": "font-size:24px 因缺少分號而無效"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "選擇器為 h1.title（型別+class），大括號內有 color 與 font-size 兩條 declaration。",
+"ew": "一條 rule set 的組成是『selector { declaration; declaration; }』，此例 selector 為 h1.title，內含兩條宣告，故 A 正確。B 把宣告中的屬性名 color 誤當成 selector，selector 是位於大括號之前的部分。C 認為 h1 與 .title 是兩個規則集，但它們之間沒有空白，h1.title 是複合選擇器，代表『同時是 h1 且 class 含 title』的單一元素。D 認為缺分號無效，實際上每條宣告後面都各有分號，最後一條宣告的分號雖可省略，也不會使其失效。"
+},
+{
+"id": 37,
+"d": 2,
+"stem": "以下程式碼判斷後代選擇器 'ul li a' 是否命中一條祖先鏈，輸出為何意義？",
+"code": "// descendant selector \"ul li a\" 是否命中一條祖先鏈？\nconst chain = [\"ul\", \"li\", \"span\", \"a\"];   // a 在 ul 內、也在 li 內\nconst needed = [\"ul\", \"li\", \"a\"];          // 只要依序出現即可（不必相鄰）\nlet i = 0;\nfor (const node of chain) if (node === needed[i]) i++;\nconsole.log(\"符合 'ul li a'?\", i === needed.length);",
+"o": {
+"A": "true，因為後代選擇器只要祖先依序存在即可，不必是直接父子",
+"B": "false，因為 a 的直接父層是 span 而非 li",
+"C": "true，但僅限 a 是 li 的直接子元素時",
+"D": "false，後代選擇器要求三者互為兄弟"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "後代選擇器（空白分隔）只要求後者位於前者的子孫層級中，不要求直接父子關係。",
+"ew": "後代選擇器以空白分隔，'ul li a' 表示『位於 li 之內、且 li 位於 ul 之內的任何 a』，只要祖先依序存在即成立，不必相鄰，故 A 正確且輸出 true。B、C 把後代選擇器誤解為子選擇器（>），子選擇器才要求直接父子關係，而空白代表的是任意深度的後代。D 說三者要互為兄弟是錯的，後代選擇器描述的是垂直的祖先-後代關係，兄弟關係由 + 或 ~ 這類選擇器表達。"
+},
+{
+"id": 38,
+"d": 2,
+"stem": "關於三種樣式表的「使用時機」，下列敘述何者最正確？",
+"code": "",
+"o": {
+"A": "外部樣式表（external）最適合讓多個網頁共用同一套樣式並集中維護",
+"B": "行內樣式（inline）最適合套用到整個網站所有頁面",
+"C": "內嵌樣式表（internal）只能寫在 <body> 裡",
+"D": "外部樣式表無法被多個 HTML 檔共用"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "外部樣式表放在 .css 檔，透過 <link> 被多頁引用，利於共用與集中維護。",
+"ew": "外部樣式表把 CSS 獨立成 .css 檔，多個 HTML 以 <link> 引用同一檔案，改一處即可全站生效，最利於維護，故 A 正確。B 認為行內樣式適合全站，實際上行內樣式只作用於單一元素，無法跨頁共用，最不利於維護。C 說內嵌樣式表只能寫在 body，正確做法是放在 <head> 內的 <style> 區塊。D 的敘述與 A 矛盾，外部樣式表正是為了跨多檔共用而設計，當然可被多個 HTML 檔引用。"
+},
+{
+"id": 39,
+"d": 2,
+"stem": "在什麼情況下，使用「行內樣式（inline style）」最為恰當？",
+"code": "",
+"o": {
+"A": "需要為整個網站定義一致的主題色時",
+"B": "只想針對單一元素做一次性、局部的樣式微調時",
+"C": "想讓 CSS 便於重複使用與集中維護時",
+"D": "需要定義複雜的 :hover 等互動狀態時"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "行內樣式寫在元素的 style 屬性上，適合單一元素的一次性覆寫，但不利重用與維護。",
+"ew": "行內樣式直接寫在元素的 style 屬性中，只影響該元素，適合臨時或局部覆寫，故 B 正確。A 的全站一致主題應使用外部樣式表，靠一份共用檔案達成一致性，行內樣式無法跨元素共用。C 強調重用與集中維護，這正是外部或內嵌樣式表的長處，行內樣式反而讓樣式分散、難以維護。D 的 :hover 等偽類無法用行內 style 屬性表達，互動狀態必須寫在 <style> 或外部 CSS 的選擇器中。"
+},
+{
+"id": 40,
+"d": 2,
+"stem": "內嵌（internal / embedded）樣式表在 HTML 文件中，慣例上應放在哪裡？",
+"code": "",
+"o": {
+"A": "<head> 內的 <style> 元素中",
+"B": "每個元素的 style 屬性中",
+"C": "獨立的 .css 檔中",
+"D": "<body> 結尾的 <script> 中"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "內嵌樣式表寫在 <head> 裡的 <style>...</style> 區塊，只作用於當前頁面。",
+"ew": "內嵌樣式表使用 <style> 元素，通常放在文件的 <head> 中，作用範圍是整個當前頁面，故 A 正確。B 描述的是行內樣式，寫在元素的 style 屬性上，屬於另一種方式而非內嵌樣式表。C 描述的是外部樣式表，CSS 放在獨立 .css 檔，而非內嵌於 HTML。D 的 <script> 是放 JavaScript 的地方，CSS 不會寫在 script 元素裡。"
+},
+{
+"id": 41,
+"d": 2,
+"stem": "要在 HTML 中連結一個名為 styles.css 的外部樣式表，正確的寫法是？",
+"code": "",
+"o": {
+"A": "<style src=\"styles.css\"></style>",
+"B": "<link rel=\"stylesheet\" href=\"styles.css\">",
+"C": "<css href=\"styles.css\">",
+"D": "<script src=\"styles.css\"></script>"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "外部樣式表以 <link rel=\"stylesheet\" href=\"...\"> 於 <head> 中引入。",
+"ew": "引入外部 CSS 的標準做法是 <link rel=\"stylesheet\" href=\"styles.css\">，rel 標明關係、href 指向檔案，故 B 正確。A 的 <style> 用於內嵌 CSS，且不支援 src 屬性，無法載入外部檔。C 的 <css> 不是有效的 HTML 標籤，瀏覽器不認識。D 的 <script> 是載入 JavaScript 的元素，用它引入 .css 不會被當成樣式表套用。"
+},
+{
+"id": 42,
+"d": 2,
+"stem": "關於「瀏覽器預設樣式（default / user-agent styles）」，下列敘述何者正確？",
+"code": "",
+"o": {
+"A": "在你沒有寫任何 CSS 時，瀏覽器仍會給元素一組內建外觀（例如 h1 較大、a 有底線）",
+"B": "所有瀏覽器對每個元素的預設樣式完全一致，永不需要重設",
+"C": "只有 inline 樣式能覆蓋瀏覽器預設樣式",
+"D": "瀏覽器預設樣式的優先級高於你自己撰寫的 CSS"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "瀏覽器內建 user-agent 樣式，使未加樣式的元素也有基本外觀，作者 CSS 可覆蓋它。",
+"ew": "每個瀏覽器都內建一套 user-agent 樣式，例如標題較大、清單有項目符號、連結帶底線，故 A 正確。B 說各瀏覽器完全一致並不成立，不同瀏覽器的預設值常有差異，這正是常做 CSS reset/normalize 的原因。C 說只有 inline 能覆蓋是錯的，作者撰寫的任何有效 CSS（含 class、id、element 規則）都能覆蓋預設樣式。D 弄反了優先級，作者樣式的優先級高於瀏覽器預設，所以你寫的 CSS 才能改變外觀。"
+},
+{
+"id": 43,
+"d": 2,
+"stem": "在不使用 !important 的情況下，下列樣式來源的優先級由「高到低」正確排序為何？",
+"code": "",
+"o": {
+"A": "element 選擇器 > class 選擇器 > id 選擇器 > 行內樣式",
+"B": "行內樣式 > id 選擇器 > class 選擇器 > element 選擇器",
+"C": "id 選擇器 > 行內樣式 > element 選擇器 > class 選擇器",
+"D": "class 選擇器 > element 選擇器 > 行內樣式 > id 選擇器"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "優先級：行內 > id > class（含屬性、偽類）> element（型別）。",
+"ew": "標準的優先級由高到低是：行內樣式 > id 選擇器 > class 選擇器 > element（型別）選擇器，故 B 正確。A 完全反向排列，把權重最低的 element 放最前、最高的行內放最後。C 誤把 id 放在行內之上，實際上直接寫在元素上的行內樣式權重最高。D 的順序混亂，class 與 element 都被排在行內與 id 之上，與實際權重層級不符。"
+},
+{
+"id": 44,
+"d": 2,
+"stem": "下列哪些是「有效的 CSS 選擇器」寫法？（複選）",
+"code": "",
+"o": {
+"A": ".btn（class 選擇器）",
+"B": "#main（id 選擇器）",
+"C": "nav a（後代選擇器）",
+"D": "p,,span（以連續逗號分隔）"
+},
+"a": [
+"A",
+"B",
+"C"
+],
+"multi": true,
+"e": ".class、#id、以及空白分隔的後代選擇器都是有效寫法；連續逗號則語法錯誤。",
+"ew": "A 的 .btn 是合法的 class 選擇器、B 的 #main 是合法的 id 選擇器、C 的 nav a 以空白分隔為合法的後代選擇器，三者皆有效。D 的 p,,span 使用了連續的空逗號，逗號用來群組選擇器，但每個逗號之間必須有一個有效選擇器，中間的空項會導致整條選擇器清單無效。這題的重點在於分辨：句點代表 class、井字號代表 id、空白代表後代、逗號代表群組，且逗號之間不可留空。"
+},
+{
+"id": 45,
+"d": 2,
+"stem": "想讓 h1、h2、h3 套用完全相同的一組樣式，最精簡且正確的寫法是？",
+"code": "",
+"o": {
+"A": "h1 h2 h3 { color: teal; }",
+"B": "h1, h2, h3 { color: teal; }",
+"C": "h1 + h2 + h3 { color: teal; }",
+"D": "h1 & h2 & h3 { color: teal; }"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "以逗號群組多個選擇器，可讓它們共用同一組宣告。",
+"ew": "逗號用於群組多個選擇器，h1, h2, h3 表示三者各自套用相同宣告，故 B 正確。A 用空白代表後代關係，會被解讀為『h3 在 h2 內、h2 在 h1 內』，這幾乎不可能成立。C 的 + 是相鄰兄弟選擇器，語意變成特定相鄰關係，並非同時選取三種標題。D 的 & 在標準 CSS（非巢狀語法情境）並非分隔多個選擇器的運算子，此寫法無效。"
+},
+{
+"id": 46,
+"d": 2,
+"stem": "下列哪一條 CSS 宣告（declaration）的「標點使用」完全正確？",
+"code": "",
+"o": {
+"A": "color: red;",
+"B": "color; red:",
+"C": "color: red",
+"D": "color, red;"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "宣告格式為 property: value; 冒號分隔屬性與值，分號結束宣告。",
+"ew": "一條宣告的格式是 property: value;，用冒號分隔屬性名與值、用分號結束，故 A 正確。B 的 color; red: 把分號與冒號位置弄反，屬性與值之間應是冒號、結尾才是分號。C 的 color: red 少了結尾分號，雖然單一宣告在區塊最後可省略分號仍能運作，但相較 A 它不是『標點完全正確』的示範，因為題目強調正確使用分號結束宣告。D 用逗號分隔屬性與值是錯的，逗號在 CSS 用於群組選擇器或函式參數，不用於分隔屬性與值。"
+},
+{
+"id": 47,
+"d": 2,
+"stem": "CSS 中的「萬用選擇器（universal selector）」寫作為何，且代表什麼？",
+"code": "",
+"o": {
+"A": "* ，代表選取所有元素",
+"B": "# ，代表選取所有元素",
+"C": "& ，代表選取當前元素",
+"D": ". ，代表選取所有元素"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "星號 * 是萬用選擇器，會匹配頁面上所有元素。",
+"ew": "萬用選擇器寫作星號 *，會匹配所有元素，常用於全域重設，故 A 正確。B 的 # 是 id 選擇器的前綴，只選取具指定 id 的單一元素，並非全部。C 的 & 不是標準 CSS 的萬用選擇器（其在巢狀語法中另有含義），且此處敘述也不正確。D 的句點 . 是 class 選擇器前綴，需接 class 名稱來選取帶該 class 的元素，並非選取所有元素。"
+},
+{
+"id": 48,
+"d": 2,
+"stem": "下列哪些關於「外部樣式表」的敘述為真？（複選）",
+"code": "",
+"o": {
+"A": "可讓多個 HTML 頁面共用一份 CSS，修改一次即全站生效",
+"B": "透過 <link> 於 <head> 中引入",
+"C": "必須把 CSS 直接寫在每個元素的 style 屬性內",
+"D": "有助於內容（HTML）與樣式（CSS）分離"
+},
+"a": [
+"A",
+"B",
+"D"
+],
+"multi": true,
+"e": "外部樣式表以獨立 .css 檔存在，經 <link> 引入，利於共用與結構分離。",
+"ew": "A、B、D 皆為外部樣式表的正確特性：它可跨多頁共用、以 <link> 於 head 引入、並促成內容與樣式分離，利於維護。C 描述的是行內樣式（把 CSS 寫進元素的 style 屬性），與外部樣式表的做法恰好相反，外部樣式表正是為了避免把樣式散落在各元素上而生。本題的觀念是：外部樣式表把 CSS 集中在獨立檔案，透過連結重用，達到關注點分離（separation of concerns）。"
+},
+{
+"id": 49,
+"d": 2,
+"stem": "關於 !important，下列敘述何者正確？",
+"code": "",
+"o": {
+"A": "加了 !important 的宣告會提升其優先級，通常勝過同屬性未加 !important 的宣告",
+"B": "!important 會讓該宣告立即失效",
+"C": "!important 只能用在 id 選擇器上",
+"D": "!important 是用來結束一條宣告的標點，等同分號"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "!important 會提升宣告優先級，覆蓋一般宣告；應謹慎使用。",
+"ew": "!important 標記會將該宣告提升到層疊中最優先，通常能覆蓋同屬性的一般宣告，故 A 正確。B 完全相反，!important 不是讓宣告失效，而是強化其效力。C 說只能用在 id 選擇器是錯的，!important 可加在任何選擇器（class、element 等）的宣告值後面。D 把 !important 誤認為結束宣告的標點，結束宣告用的是分號；!important 是加在值之後、分號之前的特殊旗標。"
+},
+{
+"id": 50,
+"d": 2,
+"stem": "CSS 中撰寫「註解」的正確語法是？",
+"code": "",
+"o": {
+"A": "// 這是註解",
+"B": "<!-- 這是註解 -->",
+"C": "/* 這是註解 */",
+"D": "# 這是註解"
+},
+"a": [
+"C"
+],
+"multi": false,
+"e": "CSS 註解以 /* 開頭、*/ 結尾，可跨行。",
+"ew": "CSS 只支援 /* ... */ 形式的區塊註解，故 C 正確。A 的 // 是 JavaScript 等語言的單行註解，CSS 並不支援此語法，寫了會被當成錯誤。B 的 <!-- --> 是 HTML 的註解語法，用在 CSS 檔或 <style> 內並不會被當成 CSS 註解正確處理。D 的 # 在 CSS 是 id 選擇器前綴，不是註解符號。"
+},
+{
+"id": 51,
+"d": 2,
+"stem": "以下 CSS 中，選擇器 `.card p` 會選取哪些元素？\n\n.card p { color: gray; }",
+"code": "",
+"o": {
+"A": "所有 <p> 元素",
+"B": "所有 class 含 card 的元素",
+"C": "位於 class 含 card 的元素之內（後代）的所有 <p> 元素",
+"D": "class 同時為 card 與 p 的元素"
+},
+"a": [
+"C"
+],
+"multi": false,
+"e": "以空白分隔的後代選擇器：選取位於 .card 元素內部的所有 <p>。",
+"ew": ".card 與 p 之間有空白，構成後代選擇器，代表『在 class 含 card 的元素之內的所有 p』，故 C 正確。A 忽略了 .card 的限定，只有位於 .card 內的 p 才會被選中，而非頁面上所有 p。B 只講到 .card 本身，卻遺漏了空白後的 p，實際被套用樣式的是內部的 p 而非 .card 本身。D 把它誤讀為複合選擇器 .card.p 或 p.card（同一元素同時符合），但選擇器之間有空白代表的是後代關係，而非同一元素的多重條件。"
+},
+{
+"id": 52,
+"d": 2,
+"stem": "以下三條規則同時作用在 <p id=\"lead\" class=\"intro\">，文字最終顏色為何？\n\np { color: black; }\n.intro { color: blue; }\n#lead { color: green; }",
+"code": "",
+"o": {
+"A": "black",
+"B": "blue",
+"C": "green",
+"D": "由後宣告的 #lead 與 .intro 混合"
+},
+"a": [
+"C"
+],
+"multi": false,
+"e": "id 選擇器（#lead）權重高於 class（.intro）與 element（p），故 green 勝出。",
+"ew": "三條規則的權重為：#lead（id，最高）> .intro（class）> p（element，最低），因此 green 勝出，C 正確。A 的 p 是型別選擇器、權重最低，會被 class 與 id 覆蓋。B 的 .intro 是 class，雖高於 element，但仍低於 id 選擇器。D 認為顏色會混合是錯的，color 只會採用權重最高的單一值，此處由 #lead 決定，與 source order 無關，因為它的權重已明確高於其它兩者。"
+},
+{
+"id": 53,
+"d": 2,
+"stem": "型別（element）選擇器 `p { }` 會作用於？",
+"code": "",
+"o": {
+"A": "僅第一個 <p> 元素",
+"B": "頁面上所有 <p> 元素",
+"C": "class 為 p 的元素",
+"D": "id 為 p 的元素"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "型別選擇器依標籤名匹配，作用於該型別的所有元素。",
+"ew": "型別（element）選擇器直接寫標籤名，會匹配頁面上所有該型別的元素，故 p 作用於全部 <p>，B 正確。A 認為只作用第一個是錯的，型別選擇器不會只挑第一個，除非再加上 :first-of-type 這類偽類。C 把它誤認為 class 選擇器，class 需以句點開頭（.p）。D 把它誤認為 id 選擇器，id 需以井字號開頭（#p），單純的 p 是標籤名而非 id。"
+},
+{
+"id": 54,
+"d": 2,
+"stem": "一個元素可否同時擁有多個 class，並各自被不同 class 選擇器套用樣式？",
+"code": "",
+"o": {
+"A": "可以，class 屬性能以空白分隔列出多個 class，每個都能被對應選擇器選中",
+"B": "不行，一個元素只能有一個 class",
+"C": "可以，但只有第一個 class 會生效",
+"D": "不行，多個 class 必須用逗號分隔且僅最後一個有效"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "class 屬性可含多個以空白分隔的 class，各自可被 .name 選擇器命中並疊加樣式。",
+"ew": "HTML 的 class 屬性可放多個以空白分隔的名稱，例如 class=\"btn primary\"，每個 class 都能被對應的 .btn、.primary 選中並疊加樣式，故 A 正確。B 說只能有一個 class 是錯的，多 class 是很常見的做法。C 說只有第一個生效也不對，所有列出的 class 都會被各自的選擇器命中。D 說要用逗號分隔且只有最後一個有效是雙重錯誤：class 之間用空白而非逗號分隔，且全部都有效。"
+},
+{
+"id": 55,
+"d": 2,
+"stem": "當外部樣式表（透過 <link>）與內嵌 <style> 都定義了同一選擇器、同屬性且權重相同，最終由誰決定？",
+"code": "",
+"o": {
+"A": "永遠是外部樣式表勝出",
+"B": "永遠是內嵌 <style> 勝出",
+"C": "由兩者在 HTML 中出現的先後順序決定，後出現者勝出",
+"D": "兩者互相抵銷，套用瀏覽器預設"
+},
+"a": [
+"C"
+],
+"multi": false,
+"e": "權重相同時，依 <head> 中 <link> 與 <style> 的出現順序，後者覆蓋前者。",
+"ew": "當 specificity 相同，層疊改由 source order 決定，位於後面的規則覆蓋前面，因此要看 <link> 與 <style> 在文件中的先後，C 正確。A、B 認為某一方『永遠』勝出都是錯的，勝負取決於誰寫在後面，而非固定偏袒外部或內嵌。D 認為會抵銷回到預設也不成立，衝突時 CSS 一定選出一個勝者，不會作廢兩者。這題強調：權重相同時，順序（cascade 的最後一關）才是決勝點。"
+},
+{
+"id": 56,
+"d": 3,
+"stem": "下列哪一個表格結構是正確的？儲存格資料要放在哪個標籤內？",
+"code": "<table>\n  <tr>\n    <th>Name</th>\n    <th>Age</th>\n  </tr>\n  <tr>\n    <td>Amy</td>\n    <td>18</td>\n  </tr>\n</table>",
+"o": {
+"A": "表格列用 <tr>，標題儲存格用 <th>，資料儲存格用 <td>",
+"B": "表格列用 <td>，資料放在 <tr> 內",
+"C": "每個儲存格都要用 <table> 包起來",
+"D": "標題與資料都必須用 <th>"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "<table> 內以 <tr> 建立列，<th> 為標題儲存格（預設粗體置中），<td> 為一般資料儲存格。",
+"ew": "B 把容器角色弄反了：<tr> 只是「一列」的容器，真正裝資料的是列裡面的 <td>，不能把文字直接塞進 <tr>。C 錯誤，<table> 是整張表最外層的唯一容器，拿它包每一格會造成 table 巢狀 table 的無效結構。D 錯誤，<th> 只給欄或列的標題用（預設粗體、置中並帶語意），一般資料一律用 <td>，全用 <th> 會讓所有內容都被輔助技術當成標題朗讀。正確階層永遠是 table > tr > (th 或 td)。"
+},
+{
+"id": 57,
+"d": 3,
+"stem": "要讓一個儲存格橫向合併，佔據兩欄的寬度，應使用哪個屬性？",
+"code": "<table>\n  <tr>\n    <td colspan=\"2\">Merged header</td>\n  </tr>\n  <tr>\n    <td>A</td>\n    <td>B</td>\n  </tr>\n</table>",
+"o": {
+"A": "rowspan=\"2\"",
+"B": "colspan=\"2\"",
+"C": "span=\"2\"",
+"D": "merge=\"2\""
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "colspan 讓一個 <td> 或 <th> 橫跨多個欄（column）；rowspan 則是縱向跨多列。",
+"ew": "A 的 rowspan 是縱向合併，會讓儲存格往下吃掉多列，方向與題目要的「橫向」相反。C 的 span 屬性只用在 <col> 與 <colgroup> 上（宣告一組欄），不是加在 <td>/<th> 上的合併屬性。D 的 merge 根本不是有效 HTML 屬性，瀏覽器會直接忽略，儲存格不會合併。記住表格合併只有兩種：colspan 跨欄（左右）、rowspan 跨列（上下）。"
+},
+{
+"id": 58,
+"d": 3,
+"stem": "關於 <caption> 標籤，下列敘述何者正確？",
+"code": "<table>\n  <caption>Monthly Sales</caption>\n  <tr><td>Jan</td></tr>\n</table>",
+"o": {
+"A": "<caption> 用來為表格提供標題，且必須是 <table> 的第一個子元素",
+"B": "<caption> 只能放在 <table> 的最後面",
+"C": "<caption> 用來定義表格的欄位標題儲存格",
+"D": "<caption> 必須包在 <tr> 裡"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "<caption> 提供整個表格的標題，且依規範必須緊接在 <table> 開始標籤之後，成為第一個子元素。",
+"ew": "B 錯誤，HTML 規範要求 <caption>（若存在）必須是 <table> 的第一個子元素，不能擺到表格最後。C 混淆了層級：欄位標題儲存格是 <th>，而 <caption> 描述的是「整張表」的標題而非某一格。D 錯誤，<caption> 是 <table> 的直接子元素，把它塞進 <tr> 是無效結構，因為它不屬於任何一列。caption 的定位就是「整表標題、放在最前面」。"
+},
+{
+"id": 59,
+"d": 3,
+"stem": "下列哪些標籤代表 HTML 中的標題（heading）？（複選）",
+"code": "<h1>Title</h1>\n<h2>Subtitle</h2>\n<p>Paragraph</p>\n<h6>Small heading</h6>",
+"o": {
+"A": "<h1>",
+"B": "<h6>",
+"C": "<p>",
+"D": "<head>"
+},
+"a": [
+"A",
+"B"
+],
+"multi": true,
+"e": "HTML 標題共有 <h1> 到 <h6> 六個層級，數字越大字級越小、層級越低。",
+"ew": "C 的 <p> 是段落（paragraph），用來包一整段文字，不具標題語意。D 的 <head> 是文件的中繼資料容器（放 <title>、<meta>、<link> 等），完全不會顯示在頁面上，名稱像 heading 但角色天差地遠。真正的標題只有 h1 到 h6 六個，且應依內容層級由高至低巢狀使用，不要單純為了字變大變小而亂跳層級。"
+},
+{
+"id": 60,
+"d": 3,
+"stem": "下列關於 <br> 與 <hr> 的敘述，何者正確？",
+"code": "<p>Line one<br>Line two</p>\n<hr>\n<p>New section</p>",
+"o": {
+"A": "<br> 產生換行，<hr> 產生一條水平分隔線",
+"B": "<br> 產生水平線，<hr> 產生換行",
+"C": "兩者都需要結束標籤 </br> 與 </hr>",
+"D": "<br> 用來建立段落，<hr> 用來建立標題"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "<br> 是換行（break），<hr> 是主題分隔的水平線（horizontal rule），兩者都是空元素，不需結束標籤。",
+"ew": "B 把兩者功能整個對調了，方向完全相反。C 錯誤，<br> 與 <hr> 都是空元素（void element），本身沒有內容、也自我封閉，寫 </br>、</hr> 是無效的。D 錯誤，段落要用 <p>、標題要用 h1-h6，<br> 只負責在一段文字裡強制換行、<hr> 只負責畫出主題分隔線，兩者都不建立段落或標題。"
+},
+{
+"id": 61,
+"d": 3,
+"stem": "關於 <div> 與 <span>，下列敘述何者正確？",
+"code": "<div>\n  <span>inline text</span> more text\n</div>",
+"o": {
+"A": "<div> 是區塊級（block）容器，<span> 是行內（inline）容器",
+"B": "<div> 是行內元素，<span> 是區塊元素",
+"C": "兩者都是區塊級元素，會各自獨佔一整行",
+"D": "兩者都帶有預設的語意，用來取代 header 與 footer"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "<div> 為區塊級容器，預設獨佔一行；<span> 為行內容器，只包住文字流中的一小段，不換行。",
+"ew": "B 把兩者的顯示層級對調了：div 才是 block、span 才是 inline。C 錯誤，<span> 是 inline，會跟前後文字排在同一行、不獨佔整行，只有 <div> 會自成一行。D 錯誤，<div> 與 <span> 都是「無語意」的通用容器，只為分組與套樣式而生，本身不表達任何角色，因此不能取代帶語意的 <header>/<footer>；需要語意時應改用 HTML5 語意元素。"
+},
+{
+"id": 62,
+"d": 3,
+"stem": "下列程式碼會呈現出幾個項目符號的無序清單項目？",
+"code": "<ul>\n  <li>Apple</li>\n  <li>Banana</li>\n  <li>Cherry</li>\n</ul>",
+"o": {
+"A": "3 個，且預設帶有圓點符號",
+"B": "3 個，且預設帶有數字編號",
+"C": "1 個",
+"D": "0 個，因為 <ul> 不能包 <li>"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "<ul> 是無序清單，內含三個 <li>，預設以圓點（bullet）符號呈現三個項目。",
+"ew": "B 錯誤，數字編號是有序清單 <ol> 的預設樣式，<ul> 預設呈現的是實心圓點而非 1、2、3。C 錯誤，這裡有三個各自獨立的 <li>，會渲染成三個項目，不會合併成一個。D 完全說反了，<li> 正是 <ul>（與 <ol>）唯一合法且必要的直接子元素，清單項目本來就要放進 <li>。口訣：無序用 ul、有序用 ol，項目一律 li。"
+},
+{
+"id": 63,
+"d": 3,
+"stem": "要建立「有數字編號」的清單，應使用哪個標籤？",
+"code": "<ol>\n  <li>First</li>\n  <li>Second</li>\n</ol>",
+"o": {
+"A": "<ul>",
+"B": "<ol>",
+"C": "<dl>",
+"D": "<list>"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "<ol>（ordered list）為有序清單，項目預設以 1、2、3 等數字編號呈現。",
+"ew": "A 的 <ul> 是無序清單，預設顯示圓點而非數字，順序也不具意義。C 的 <dl> 是描述清單（description list），要搭配 <dt>（名詞）與 <dd>（說明）成對使用，用於術語解釋，完全不會自動編號。D 的 <list> 不是有效 HTML 標籤，瀏覽器不認得會當成未知元素。要編號用 ol、要圓點用 ul、要名詞配說明用 dl。"
+},
+{
+"id": 64,
+"d": 3,
+"stem": "下列哪一段標記正確地建立了「巢狀清單」（清單裡再包一個子清單）？",
+"code": "",
+"o": {
+"A": "<ul><li>Item<ul><li>Subitem</li></ul></li></ul>",
+"B": "<ul><li>Item</li><ul><li>Subitem</li></ul></ul>",
+"C": "<ul><ul><li>Subitem</li></ul></ul>",
+"D": "<li><ul>Item</ul></li>"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "子清單必須放在父層的 <li> 內部，才能形成正確的巢狀階層。",
+"ew": "B 錯誤，子 <ul> 被放成外層 <ul> 的直接子元素（跟 li 平行），但 <ul> 的直接子元素只能是 <li>，這是無效巢狀。C 同樣錯誤，<ul> 直接包 <ul>、中間少了 <li>，一樣違反內容模型。D 順序整個顛倒：<li> 必須是 <ul>/<ol> 的子元素而非最外層，且 <ul> 內也不能直接放純文字。唯一正確做法就是把整個子清單放進父項的那個 <li> 裡面。"
+},
+{
+"id": 65,
+"d": 3,
+"stem": "下列哪些是 HTML5 的語意化（semantic）元素？（複選）",
+"code": "",
+"o": {
+"A": "<article>",
+"B": "<nav>",
+"C": "<div>",
+"D": "<figure>"
+},
+"a": [
+"A",
+"B",
+"D"
+],
+"multi": true,
+"e": "<article>、<nav>、<figure> 都是帶語意的 HTML5 元素，能表達內容的用途與結構。",
+"ew": "C 的 <div> 是通用區塊容器，本身不帶任何語意，只用來分組與套樣式，因此不算語意化元素，這正是它與其他三者的關鍵差異。相對地，<article> 表示可獨立散布的完整內容、<nav> 表示主要導覽區、<figure> 表示帶說明的插圖/圖表區塊，三者都向搜尋引擎與螢幕報讀器傳達了明確角色。語意化的目的就是讓機器與人都能理解區塊用途，而這正是 <div> 無法提供的。"
+},
+{
+"id": 66,
+"d": 3,
+"stem": "<details> 與 <summary> 元素的用途是什麼？",
+"code": "<details>\n  <summary>More info</summary>\n  <p>Hidden content here.</p>\n</details>",
+"o": {
+"A": "建立可展開／收合的區塊，<summary> 是永遠可見的標題",
+"B": "建立表格的摘要資訊",
+"C": "定義表單的送出按鈕",
+"D": "為圖片加上說明文字"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "<details> 提供可展開/收合的揭露元件，<summary> 是它永遠可見、可點擊以切換內容顯示的標題。",
+"ew": "B 錯誤，表格的標題是 <caption>，<details> 與表格摘要毫無關係。C 錯誤，表單送出按鈕是 <button type=\"submit\"> 或 <input type=\"submit\">，不是 <details>。D 錯誤，為圖片加說明是 <figure> 搭配 <figcaption> 的工作。<details>/<summary> 的核心是「點擊 summary 就能展開或收合下方詳細內容」的原生互動，不需 JavaScript。"
+},
+{
+"id": 67,
+"d": 3,
+"stem": "要為一張圖片附上說明文字，且讓圖與說明形成一個語意群組，正確的組合是？",
+"code": "<figure>\n  <img src=\"cat.jpg\" alt=\"A cat\">\n  <figcaption>A sleeping cat</figcaption>\n</figure>",
+"o": {
+"A": "<figure> 包住 <img>，並用 <figcaption> 提供說明",
+"B": "<figure> 包住 <img>，並用 <caption> 提供說明",
+"C": "<section> 包住 <img>，並用 <summary> 提供說明",
+"D": "<aside> 包住 <img>，並用 <label> 提供說明"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "<figure> 用來包裹圖片等自成一體的內容，<figcaption> 專門為 <figure> 提供說明文字。",
+"ew": "B 錯誤，<caption> 是表格 <table> 專用的標題，不能拿來當 <figure> 內的圖說。C 錯誤，<summary> 是 <details> 的標題、<section> 是一般主題區段，都不是圖片說明用的元素。D 錯誤，<aside> 表示與主文相關但可抽離的旁註、<label> 是表單控制項的標籤，兩者都不是圖說。圖片配說明的標準組合就是 figure + figcaption。"
+},
+{
+"id": 68,
+"d": 3,
+"stem": "下列哪一個 HTML5 語意元素最適合放置「頁面主要導覽連結列」？",
+"code": "<nav>\n  <a href=\"/home\">Home</a>\n  <a href=\"/about\">About</a>\n</nav>",
+"o": {
+"A": "<footer>",
+"B": "<nav>",
+"C": "<aside>",
+"D": "<article>"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "<nav> 專門用來標示主要的導覽連結區塊，讓輔助技術能辨識這是導覽區。",
+"ew": "A 的 <footer> 是頁尾，通常放版權、聯絡與次要連結，不是頁面主導覽的語意。C 的 <aside> 表示與主內容相關但可分離的旁註（如側邊欄、補充資訊），也不是主導覽。D 的 <article> 表示可獨立發布的完整內容單元（如一篇文章、一則留言），與導覽無關。一組主要導覽連結就該用 <nav> 包起來，螢幕報讀器才能提供「跳到導覽」的地標。"
+},
+{
+"id": 69,
+"d": 3,
+"stem": "關於 <a> 標籤的 target=\"_blank\"，下列敘述何者正確？",
+"code": "<a href=\"https://example.com\" target=\"_blank\">Open</a>",
+"o": {
+"A": "在新的分頁或視窗開啟連結",
+"B": "在目前的分頁開啟連結並取代原頁面",
+"C": "讓連結變成無法點擊",
+"D": "下載連結指向的檔案"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "target=\"_blank\" 會讓連結在新的瀏覽情境（新分頁或新視窗）中開啟。",
+"ew": "B 描述的是預設值 target=\"_self\" 的行為（在同一分頁取代目前頁面），正好和 _blank 相反。C 錯誤，target 只影響「在哪裡開啟」，不會讓連結失效或不可點。D 錯誤，強制下載檔案是 download 屬性的功能，跟 target 無關。要在新分頁開啟就用 target=\"_blank\"（並建議加 rel=\"noopener\" 以策安全）。"
+},
+{
+"id": 70,
+"d": 3,
+"stem": "下列哪一個 href 是「相對連結」（relative link）？",
+"code": "",
+"o": {
+"A": "href=\"https://example.com/page.html\"",
+"B": "href=\"about/team.html\"",
+"C": "href=\"//cdn.example.com/a.js\"",
+"D": "href=\"ftp://files.example.com\""
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "相對連結不含協定與網域，路徑相對於目前文件位置解析，例如 about/team.html。",
+"ew": "A 是絕對連結，帶有完整協定（https）與網域（example.com），指向固定位置。C 是「協定相對 URL」，雖然省略了 http/https，但仍寫死了主機名 cdn.example.com，實際上是絕對定位到某台伺服器。D 也是絕對連結，帶有 ftp 協定與網域。只有 B 這種不含協定、不含主機、僅寫路徑的寫法，才會依當前頁面所在資料夾去解析，屬於真正的相對連結。"
+},
+{
+"id": 71,
+"d": 3,
+"stem": "若目前檔案位於 /docs/guide.html，想連到上一層資料夾的 index.html，正確的相對路徑是？",
+"code": "",
+"o": {
+"A": "href=\"../index.html\"",
+"B": "href=\"./index.html\"",
+"C": "href=\"/docs/index.html\"",
+"D": "href=\"index.html\""
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "../ 代表回到上一層資料夾，因此 ../index.html 會指向 /docs 的上一層目錄中的 index.html。",
+"ew": "B 的 ./ 代表「目前資料夾」（/docs），會解析成 /docs/index.html，仍在同一層而非上層。C 是根路徑起算的絕對路徑，同樣指向 /docs/index.html，也沒有往上跳。D 沒有任何前綴，等同 ./，一樣落在 /docs/index.html。只有 ../ 這個「上一層」符號能離開 /docs 跳到它的父目錄，這是資料夾階層導覽的關鍵。"
+},
+{
+"id": 72,
+"d": 3,
+"stem": "要在同一頁面內建立可跳到特定段落的「頁內書籤（bookmark）」連結，下列做法何者正確？",
+"code": "<a href=\"#section2\">Go to Section 2</a>\n<h2 id=\"section2\">Section 2</h2>",
+"o": {
+"A": "連結用 href=\"#section2\"，目標元素設定 id=\"section2\"",
+"B": "連結用 href=\"section2\"，目標元素設定 name=\"section2\" 且不需 #",
+"C": "連結用 href=\"@section2\"，目標元素設定 class=\"section2\"",
+"D": "連結用 href=\"#section2\"，目標元素設定 class=\"section2\""
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "頁內書籤是以 href=\"#id值\" 指向頁面中具有相同 id 的元素，點擊即捲動至該處。",
+"ew": "B 錯誤，指向頁內錨點時 href 前面必須有 #，少了 # 會被當成連往名為 section2 的檔案；且現代錨點是靠 id 定位，name 已是過時做法。C 錯誤，@ 不是合法的錨點語法，而且錨點是比對 id 而非 class。D 的 href 雖然正確，但目標只設了 class 沒設 id，瀏覽器找不到 id=\"section2\" 就跳不過去。頁內書籤的鐵律就是「# + 相同的 id」配對。"
+},
+{
+"id": 73,
+"d": 3,
+"stem": "關於圖片對應（image map）中的 <map> 與 <area>，下列敘述何者正確？",
+"code": "<img src=\"plan.png\" usemap=\"#rooms\" alt=\"Floor plan\">\n<map name=\"rooms\">\n  <area shape=\"rect\" coords=\"0,0,50,50\" href=\"a.html\" alt=\"Room A\">\n</map>",
+"o": {
+"A": "<img> 用 usemap 指向 <map> 的 name，<area> 定義可點擊區域",
+"B": "<map> 用 usemap 指向 <img>，<area> 定義圖片來源",
+"C": "<area> 必須放在 <img> 內部",
+"D": "<map> 的 name 要對應 <area> 的 href"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "<img usemap=\"#name\"> 連結到同名的 <map name>，<map> 內的 <area> 以 shape 與 coords 定義各個可點擊熱區。",
+"ew": "B 把方向弄反了：usemap 是加在 <img> 上、指向 <map> 的 name，而 <area> 是定義熱區不是圖片來源。C 錯誤，<area> 是 <map> 的子元素，絕不能放進 <img> 裡（img 是空元素、無法有子節點）。D 錯誤，<map> 的 name 是對應 <img> 的 usemap，而 <area> 的 href 是各熱區各自要連去的目標。串接順序是 img.usemap → map.name，再由 map 內各 <area> 定義熱區與連結。"
+},
+{
+"id": 74,
+"d": 3,
+"stem": "表單送出時，<form> 的哪個屬性決定資料要送到哪個網址？",
+"code": "<form action=\"/submit\" method=\"post\">\n  <input type=\"text\" name=\"user\">\n  <button type=\"submit\">Send</button>\n</form>",
+"o": {
+"A": "action",
+"B": "method",
+"C": "name",
+"D": "target"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "action 屬性指定表單資料要提交到的伺服器端網址（URL）。",
+"ew": "B 的 method 決定的是「用哪種 HTTP 方法」（GET 或 POST）送出，而非送去哪個網址。C 的 name 只是替表單命名，方便腳本存取，不影響送出目的地。D 的 target 決定伺服器「回應要顯示在哪個瀏覽情境」（如新分頁 _blank），也不是目的網址。要指定資料送去哪裡，一律看 action。"
+},
+{
+"id": 75,
+"d": 3,
+"stem": "關於表單的 method=\"get\" 與 method=\"post\"，下列敘述何者正確？（複選）",
+"code": "",
+"o": {
+"A": "GET 會把表單資料附加在 URL 的查詢字串中，會顯示在網址列",
+"B": "POST 把資料放在請求主體（body）中，不會出現在網址列",
+"C": "GET 適合送出大量或敏感的資料，如密碼",
+"D": "POST 是唯一能送出表單的方法，GET 無法送表單"
+},
+"a": [
+"A",
+"B"
+],
+"multi": true,
+"e": "GET 將資料編碼在 URL 查詢字串中（可見、可加書籤）；POST 將資料放在請求主體中，適合較大或不宜外露的資料。",
+"ew": "C 說反了：GET 因資料會直接顯示在網址列、又受 URL 長度限制，反而最不適合送密碼或大量資料，那類情境該用 POST。D 也錯，GET 與 POST 都能送出表單，事實上未指定 method 時預設就是 GET。選法要看資料性質：只是查詢、可被書籤且不改變伺服器狀態用 GET；要送出、修改或隱藏資料則用 POST。"
+},
+{
+"id": 76,
+"d": 3,
+"stem": "下列哪一個 input type 會限制使用者只能輸入符合電子郵件格式的內容，並在送出時做基本驗證？",
+"code": "<input type=\"email\" name=\"mail\" required>",
+"o": {
+"A": "type=\"text\"",
+"B": "type=\"email\"",
+"C": "type=\"mail\"",
+"D": "type=\"string\""
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "type=\"email\" 會提供電子郵件格式的基本驗證，若格式不符則在送出時提示錯誤。",
+"ew": "A 的 type=\"text\" 接受任何字元，完全不會檢查 email 格式。C 的 type=\"mail\" 不是有效值，瀏覽器遇到不認得的 type 會退回成一般文字框（等同 text），因此沒有驗證。D 的 type=\"string\" 同樣不存在，也會被當成文字框。要拿到瀏覽器內建的 @ 格式檢查，type 必須正確拼成 email。"
+},
+{
+"id": 77,
+"d": 3,
+"stem": "要讓 <label> 與特定表單欄位建立關聯（點擊標籤即聚焦該欄位），正確做法是？",
+"code": "<label for=\"uname\">Username</label>\n<input type=\"text\" id=\"uname\">",
+"o": {
+"A": "<label> 的 for 屬性值要等於該 <input> 的 id",
+"B": "<label> 的 for 屬性值要等於該 <input> 的 name",
+"C": "<label> 的 id 要等於該 <input> 的 for",
+"D": "只要 <label> 與 <input> 相鄰就會自動關聯，不需任何屬性"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "<label for=\"x\"> 會與 id=\"x\" 的表單控制項關聯，點擊標籤時該控制項會獲得焦點。",
+"ew": "B 錯誤，for 對應的是 input 的 id，不是 name；name 是送出時用的欄位名稱，兩者用途不同。C 把屬性擺反了：for 應在 <label> 上、id 應在 <input> 上，input 並沒有 for 屬性。D 錯誤，單純位置相鄰不會建立可存取的程式關聯（除非把 <input> 直接包在 <label> 內形成隱式關聯）；否則就得用 for 對應 id。for 與 id 配對能提升可用性與無障礙。"
+},
+{
+"id": 78,
+"d": 3,
+"stem": "下列哪一段標記能建立一個下拉選單，且預設選中「Banana」？",
+"code": "",
+"o": {
+"A": "<select><option>Apple</option><option selected>Banana</option></select>",
+"B": "<select><option checked>Banana</option></select>",
+"C": "<input type=\"select\"><option>Banana</option></input>",
+"D": "<dropdown><item selected>Banana</item></dropdown>"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "下拉選單用 <select> 搭配多個 <option>，在要預設選中的 <option> 上加 selected 屬性。",
+"ew": "B 用錯了屬性：預設選中選項要用 selected，checked 是 radio 與 checkbox 專用的，放在 <option> 上無效。C 錯誤，沒有 type=\"select\" 這種輸入，下拉選單是 <select> 元素而非 <input>，且 input 是空元素不能包 <option>。D 錯誤，<dropdown> 與 <item> 都不是有效 HTML 標籤。標準寫法就是 select + option，並用 selected 指定預設值。"
+},
+{
+"id": 79,
+"d": 3,
+"stem": "要建立一個可輸入「多行文字」的欄位，應使用哪個元素？",
+"code": "<textarea name=\"comment\" rows=\"4\" cols=\"30\"></textarea>",
+"o": {
+"A": "<input type=\"text\">",
+"B": "<textarea>",
+"C": "<textbox>",
+"D": "<input type=\"multiline\">"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "<textarea> 提供可換行的多行文字輸入區，可用 rows 與 cols 設定可見大小。",
+"ew": "A 的 <input type=\"text\"> 只能輸入單行，按 Enter 通常是送出而非換行。C 的 <textbox> 不是有效 HTML 元素，瀏覽器不認得。D 的 type=\"multiline\" 不存在，會被退回成一般單行文字框。要多行輸入就用 <textarea>；它是有開始與結束標籤的容器，預設內容要寫在 <textarea>…</textarea> 之間，而不是用 value 屬性。"
+},
+{
+"id": 80,
+"d": 3,
+"stem": "下列哪些 input 的 type 屬性值是有效且常見的？（複選）",
+"code": "",
+"o": {
+"A": "type=\"checkbox\"",
+"B": "type=\"radio\"",
+"C": "type=\"number\"",
+"D": "type=\"paragraph\""
+},
+"a": [
+"A",
+"B",
+"C"
+],
+"multi": true,
+"e": "checkbox、radio、number 都是合法的 input type，分別提供核取方塊、單選鈕與數字輸入。",
+"ew": "D 的 type=\"paragraph\" 不是有效的 input type，瀏覽器無法辨識會退回成一般文字框；而且要呈現一段段落文字本來就該用 <p>，不是 input。相對地 checkbox 可同時勾選多個、同名的一組 radio 只能單選其一、number 提供數字輸入並可加 min/max/step 限制。熟悉常見 input type 才能針對不同資料型別正確蒐集使用者輸入。"
+},
+{
+"id": 81,
+"d": 3,
+"stem": "下列關於 <button> 元素 type 的敘述，何者正確？",
+"code": "<form>\n  <button type=\"submit\">Send</button>\n  <button type=\"button\">Click</button>\n</form>",
+"o": {
+"A": "type=\"submit\" 會送出表單，type=\"button\" 不會送出表單",
+"B": "type=\"submit\" 與 type=\"button\" 都會送出表單",
+"C": "<button> 若省略 type，在表單中預設為 button 不會送出",
+"D": "type=\"reset\" 會送出表單資料"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "type=\"submit\" 的按鈕會提交表單，type=\"button\" 只是一般按鈕、預設不觸發送出（常搭配 JavaScript）。",
+"ew": "B 錯誤，type=\"button\" 不會送出表單，只有 submit 會觸發提交。C 是常見陷阱：<button> 在表單中若省略 type，規範的預設值其實是 submit（會送出），而不是 button，所以省略 type 常導致意外送出。D 錯誤，type=\"reset\" 是把表單欄位重設回初始值，並不會送出資料。要精準控制按鈕行為，就該明確寫出 type。"
+},
+{
+"id": 82,
+"d": 3,
+"stem": "下列哪一組 HTML5 語意元素最適合分別標示「頁首」與「頁尾」？",
+"code": "<header>Site title</header>\n<footer>Copyright 2026</footer>",
+"o": {
+"A": "<header> 與 <footer>",
+"B": "<top> 與 <bottom>",
+"C": "<head> 與 <foot>",
+"D": "<div id=\"header\"> 與 <div id=\"footer\">（唯一正確方式）"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "HTML5 提供語意化的 <header> 與 <footer> 分別標示頁首與頁尾內容。",
+"ew": "B 的 <top> 與 <bottom> 不是有效 HTML 元素。C 的 <head> 是文件的中繼資料容器（放 title/meta，不顯示於畫面），<foot> 更不存在，兩者都不是版面上的頁首頁尾。D 雖然 div 加 id 在視覺上可行，但它不帶語意，且「唯一正確方式」的說法本身就錯——HTML5 已提供帶語意的 <header>/<footer>，應優先採用。語意元素能讓螢幕報讀器與搜尋引擎辨識區塊角色。"
+},
+{
+"id": 83,
+"d": 3,
+"stem": "關於 <section> 與 <article>，下列敘述何者最正確？",
+"code": "<article>\n  <h2>News title</h2>\n  <section><h3>Part 1</h3><p>...</p></section>\n</article>",
+"o": {
+"A": "<article> 表示可獨立、自成一體的內容；<section> 表示文件中一個有主題的區段",
+"B": "<section> 一定要放在 <article> 外面，兩者不可巢狀",
+"C": "<article> 只能用於部落格，其他頁面禁止使用",
+"D": "<section> 與 <article> 完全等同於 <div>，沒有任何語意差異"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "<article> 代表可獨立散布、自成完整意義的內容單元；<section> 代表文件中一個有共同主題的區段，通常含標題。",
+"ew": "B 錯誤，<section> 與 <article> 可以互相巢狀，例如一篇 <article> 內可再切成數個 <section>（如題目的程式碼所示）。C 錯誤，<article> 適用於任何可獨立成立的內容（新聞、留言、產品卡、論壇貼文等），並不限部落格。D 錯誤，兩者都帶語意，與無語意的 <div> 根本不同，能向機器與輔助技術傳達內容結構。實務上依「內容是否能獨立抽出仍成立」來區分：可以就用 article，只是主題分段就用 section。"
+},
+{
+"id": 84,
+"d": 4,
+"stem": "下列哪一個 HTML 屬性用來指定 <img> 要顯示的影像檔案位置（URL）？",
+"code": "",
+"o": {
+"A": "href",
+"B": "src",
+"C": "link",
+"D": "source"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "<img> 使用 src 屬性指向影像檔案的 URL，這是顯示影像所必需的屬性。",
+"ew": "href 是 <a>、<link> 等元素用來指定連結目標的屬性，不是 <img> 用來載入影像的屬性。link 並不是 <img> 的有效屬性，HTML 中沒有這個影像來源屬性。source 也不是 <img> 的屬性；<source> 是一個獨立的元素，用在 <picture>、<video>、<audio> 內部提供多個候選來源，不能拿來當 <img> 的屬性。記住：單一影像用 <img src>。"
+},
+{
+"id": 85,
+"d": 4,
+"stem": "關於 <img> 的 alt 屬性，下列敘述何者正確？",
+"code": "<img src=\"logo.png\" alt=\"公司標誌\">",
+"o": {
+"A": "alt 會在滑鼠停留時顯示為工具提示（tooltip）",
+"B": "alt 提供影像的替代文字，當影像無法載入或給螢幕報讀器使用",
+"C": "alt 用來設定影像的寬度",
+"D": "alt 是選填且對無障礙沒有影響"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "alt 提供影像的替代文字，在影像無法顯示時呈現、並供螢幕報讀器朗讀，是無障礙的核心屬性。",
+"ew": "滑鼠停留時顯示的工具提示是由 title 屬性負責，不是 alt，兩者用途不同。設定影像寬度是 width 屬性的工作，alt 與尺寸無關。alt 對無障礙至關重要，螢幕報讀器依賴它向視障使用者描述影像內容，因此不能說它沒有影響；純裝飾性影像才會使用空的 alt=\"\"。"
+},
+{
+"id": 86,
+"d": 4,
+"stem": "在 <picture> 元素中，若要依據螢幕寬度提供不同的影像（藝術指導 art direction），下列標記何者正確？",
+"code": "<picture>\n  <source media=\"(min-width: 800px)\" srcset=\"large.jpg\">\n  <img src=\"small.jpg\" alt=\"風景\">\n</picture>",
+"o": {
+"A": "用 <source media> 搭配 srcset，並保留 <img> 作為後備",
+"B": "在 <picture> 內直接寫多個 <img>",
+"C": "用 <source src> 而非 srcset",
+"D": "<picture> 內不需要 <img>"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "<picture> 內以 <source media> 搭配 srcset 提供條件式來源，最後一定要有一個 <img> 作為後備與實際渲染的元素。",
+"ew": "在 <picture> 內放多個 <img> 是無效的，<picture> 只會渲染其中唯一的 <img> 後備，且瀏覽器不會從多個 <img> 中挑選。<picture> 內的 <source> 使用的是 srcset 屬性而非 src，src 是給 <video>/<audio> 的 <source> 用的。<picture> 一定需要一個 <img>，它既是後備也是實際顯示與接收 alt 的元素，少了它影像不會顯示。"
+},
+{
+"id": 87,
+"d": 4,
+"stem": "下列 srcset 標記中，'480w' 與 '800w' 這種以 w 結尾的值代表什麼？",
+"code": "<img src=\"a.jpg\"\n     srcset=\"a-480.jpg 480w, a-800.jpg 800w\"\n     sizes=\"(max-width: 600px) 480px, 800px\"\n     alt=\"圖\">",
+"o": {
+"A": "影像的顯示高度",
+"B": "影像檔案的實際像素寬度（寬度描述符）",
+"C": "螢幕的像素密度",
+"D": "影像的載入優先權"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "srcset 中以 w 結尾的是寬度描述符，告訴瀏覽器該候選影像檔的實際像素寬度，配合 sizes 讓瀏覽器挑選最適合的圖。",
+"ew": "w 描述的是影像檔的固有寬度而非高度，srcset 不提供高度資訊。像素密度是以 x 結尾的描述符（例如 2x）來表示，與 w 是兩套不同機制，同一個 srcset 內不可混用。載入優先權是 fetchpriority 屬性負責，與 srcset 的 w 值無關。w 值須搭配 sizes 才能正確運作，sizes 告訴瀏覽器影像在版面上的呈現寬度，瀏覽器才據此換算並挑圖。"
+},
+{
+"id": 88,
+"d": 4,
+"stem": "要讓 <video> 顯示播放/暫停/音量等內建控制列，應加入下列哪個屬性？",
+"code": "<video src=\"clip.mp4\" controls></video>",
+"o": {
+"A": "controls",
+"B": "controllist",
+"C": "player",
+"D": "toolbar"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "controls 是布林屬性，加上後瀏覽器會顯示內建的播放控制列。",
+"ew": "controllist 不是有效屬性名；真正存在的是 controlslist（如 nodownload），它只用來隱藏個別控制項，本身無法「開啟」控制列，前提仍需先有 controls。player 不是 HTML 有效屬性，HTML 沒有這個屬性名稱。toolbar 也不是 <video> 的屬性；若不加 controls，影片預設不會出現任何操作介面。"
+},
+{
+"id": 89,
+"d": 4,
+"stem": "（複選）下列哪些是 HTML <audio> 元素的有效布林屬性？",
+"code": "",
+"o": {
+"A": "loop",
+"B": "muted",
+"C": "repeat",
+"D": "autoplay"
+},
+"a": [
+"A",
+"B",
+"D"
+],
+"multi": true,
+"e": "loop（循環）、muted（靜音）、autoplay（自動播放）都是 <audio> 的有效布林屬性；repeat 不存在。",
+"ew": "repeat 不是 HTML 媒體元素的屬性，要達成重複播放應使用 loop，這是常見的混淆點。loop 讓媒體播完後從頭再播；muted 讓媒體以靜音開始；autoplay 讓媒體在可播放時自動開始，這三者都是合法的媒體布林屬性。要注意許多瀏覽器要求 autoplay 需搭配 muted 才會真正自動播放。"
+},
+{
+"id": 90,
+"d": 4,
+"stem": "在 <video> 內使用多個 <source> 時，type 屬性的作用是什麼？",
+"code": "<video controls>\n  <source src=\"m.webm\" type=\"video/webm\">\n  <source src=\"m.mp4\" type=\"video/mp4\">\n</video>",
+"o": {
+"A": "設定影片的解析度",
+"B": "讓瀏覽器不必下載就能判斷是否支援該格式，挑選可播放的來源",
+"C": "指定字幕語言",
+"D": "控制播放速度"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "type 以 MIME 類型告知瀏覽器來源的媒體格式，瀏覽器據此在不下載檔案的情況下挑選第一個支援的 <source>。",
+"ew": "解析度並非由 type 決定，type 只描述容器/編碼格式（MIME），與畫面尺寸無關。字幕語言是 <track> 的 srclang 屬性負責，與 <source type> 無關。播放速度是透過 JavaScript 的 playbackRate 控制，不是任何 HTML 屬性。瀏覽器會由上而下讀取 <source>，選用第一個它支援的格式，因此 type 有助於效能與相容性。"
+},
+{
+"id": 91,
+"d": 4,
+"stem": "下列關於 <track> 元素的敘述何者正確？",
+"code": "<video controls>\n  <source src=\"v.mp4\" type=\"video/mp4\">\n  <track kind=\"subtitles\" src=\"zh.vtt\" srclang=\"zh\" label=\"中文\">\n</video>",
+"o": {
+"A": "<track> 用來提供第二個影片來源",
+"B": "<track> 為影片提供字幕、說明或章節等時間軸文字",
+"C": "<track> 的檔案格式必須是 .mp4",
+"D": "<track> 只能用於 <audio>"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "<track> 提供與時間軸對齊的文字資料，如字幕（subtitles）、隱藏式字幕（captions）、章節等，常用 WebVTT（.vtt）格式。",
+"ew": "提供第二個影片來源是 <source> 的工作，<track> 不承載影音串流。<track> 使用的是文字軌檔案（通常為 .vtt），而非 .mp4 影片檔。<track> 主要用於 <video>（也可放在 <audio> 提供文字說明），並不限定只用於 <audio>，題目說法過於狹隘。kind 屬性決定文字軌類型，srclang 指定語言。"
+},
+{
+"id": 92,
+"d": 4,
+"stem": "要嵌入另一個網頁或外部內容（例如地圖或影片播放器），應使用哪個元素？",
+"code": "",
+"o": {
+"A": "<embed>",
+"B": "<iframe>",
+"C": "<include>",
+"D": "<frame>"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "<iframe>（inline frame）在頁面中嵌入另一份 HTML 文件或外部內容，是嵌入地圖、YouTube 播放器等的標準做法。",
+"ew": "<embed> 主要用於嵌入外掛內容（如 PDF 或舊式外掛物件），並非嵌入完整網頁的首選。<include> 不是 HTML 有效元素，HTML 沒有這個標籤。<frame> 屬於已淘汰的 framesets，現代 HTML5 已不建議使用，正確且通用的做法是 <iframe>。嵌入時建議加上 title 屬性以利無障礙。"
+},
+{
+"id": 93,
+"d": 4,
+"stem": "下列哪個屬性可為 <video> 指定尚未播放時顯示的預覽（封面）影像？",
+"code": "<video src=\"movie.mp4\" poster=\"cover.jpg\" controls></video>",
+"o": {
+"A": "thumbnail",
+"B": "poster",
+"C": "preview",
+"D": "cover"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "poster 屬性指定影片載入完成但尚未播放時顯示的封面影像。",
+"ew": "thumbnail 不是 <video> 的屬性，HTML 沒有這個屬性名稱。preview 同樣不是有效的 <video> 屬性。cover 是 CSS background-size 或 object-fit 的值，不是 HTML 影片封面屬性。正確答案 poster 接受一個影像 URL，在使用者按下播放前作為佔位畫面。"
+},
+{
+"id": 94,
+"d": 4,
+"stem": "為避免影像載入前後造成版面位移（layout shift），最佳做法是？",
+"code": "<img src=\"banner.jpg\" width=\"1200\" height=\"600\" alt=\"橫幅\">",
+"o": {
+"A": "完全省略尺寸屬性讓瀏覽器自動調整",
+"B": "在 <img> 上明確設定 width 與 height 屬性",
+"C": "只設定 alt",
+"D": "使用 loading=\"eager\""
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "在 <img> 上提供 width 與 height，瀏覽器可據此在影像下載完成前預留正確的長寬比空間，減少版面位移。",
+"ew": "省略尺寸會讓瀏覽器無法預留空間，影像載入時反而更容易造成內容跳動。只設定 alt 與版面尺寸無關，alt 是替代文字而非佈局資訊。loading=\"eager\" 只是控制立即載入而非延遲載入，與預留空間、避免位移無直接關係。設定 width/height（或 CSS aspect-ratio）才是關鍵。"
+},
+{
+"id": 95,
+"d": 4,
+"stem": "下列屬性中，哪一個可讓瀏覽器延遲載入畫面外的影像以提升效能？",
+"code": "<img src=\"far.jpg\" loading=\"lazy\" alt=\"下方圖片\">",
+"o": {
+"A": "loading=\"lazy\"",
+"B": "defer=\"true\"",
+"C": "async=\"image\"",
+"D": "preload=\"none\""
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "loading=\"lazy\" 讓瀏覽器延遲載入尚未接近可視區域的影像，節省頻寬並加快初始渲染。",
+"ew": "defer 是 <script> 的屬性，用於延後執行腳本，不能用在 <img>。async 也是 <script> 的屬性，且沒有 async=\"image\" 這種用法。preload=\"none\" 是媒體元素 <video>/<audio> 的屬性值，不是 <img> 的延遲載入機制。<img> 的原生延遲載入正是 loading=\"lazy\"（相對的立即載入為 eager）。"
+},
+{
+"id": 96,
+"d": 4,
+"stem": "下列關於 <video> 之 autoplay 屬性的敘述，何者最正確？",
+"code": "<video src=\"ad.mp4\" autoplay muted></video>",
+"o": {
+"A": "只要加 autoplay，所有瀏覽器一定會有聲音自動播放",
+"B": "多數瀏覽器要求同時 muted（靜音）才允許自動播放",
+"C": "autoplay 會強制顯示控制列",
+"D": "autoplay 只能用於 <audio>"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "為避免干擾使用者，多數現代瀏覽器封鎖有聲音的自動播放，通常需要加上 muted 才會真正自動播放。",
+"ew": "並非加了 autoplay 就一定有聲自動播放，瀏覽器政策會封鎖非靜音的自動播放。autoplay 不會顯示控制列，控制列由獨立的 controls 屬性負責。autoplay 同時適用於 <video> 與 <audio>，並非只能用於 <audio>。因此實務上常見 autoplay 搭配 muted 才能穩定生效。"
+},
+{
+"id": 97,
+"d": 4,
+"stem": "下列標記使用 <figure> 與 <figcaption> 搭配影像，其主要語意用途為何？",
+"code": "<figure>\n  <img src=\"chart.png\" alt=\"銷售圖\">\n  <figcaption>2025 年銷售額</figcaption>\n</figure>",
+"o": {
+"A": "<figcaption> 取代 alt 的無障礙功能",
+"B": "<figure> 將影像與其標題語意上組成一個自成一體的內容單元",
+"C": "<figure> 會自動置中影像",
+"D": "<figcaption> 必須放在 <figure> 之外"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "<figure> 表示可自成一體的內容（如圖表、插圖），<figcaption> 為其提供標題說明，二者語意相關聯。",
+"ew": "<figcaption> 是可見的標題，並不取代 alt；alt 仍需存在以描述影像本身供報讀器使用，兩者角色不同。<figure> 是語意元素，是否置中取決於 CSS（瀏覽器預設樣式僅給邊界），並非元素自帶置中行為。<figcaption> 必須是 <figure> 的子元素（第一個或最後一個），放在 <figure> 之外會失去關聯語意，題目說法錯誤。"
+},
+{
+"id": 98,
+"d": 4,
+"stem": "下列 srcset 中的 '2x' 代表什麼？",
+"code": "<img src=\"logo.png\"\n     srcset=\"logo.png 1x, logo@2x.png 2x\"\n     alt=\"標誌\">",
+"o": {
+"A": "影像的寬度為 2 像素",
+"B": "針對裝置像素比為 2 的高解析（Retina）螢幕提供的影像",
+"C": "影像放大 2 倍顯示",
+"D": "載入 2 個影像"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "以 x 結尾的是像素密度描述符，2x 表示該候選圖供裝置像素比為 2 的高解析螢幕使用。",
+"ew": "2x 與影像寬度像素數無關，寬度描述符是以 w 結尾（例如 480w）。它也不是把影像放大 2 倍顯示，實際顯示尺寸仍依 CSS/固有尺寸決定。瀏覽器只會挑選並載入一張最合適的影像，而非同時載入 2 張。x 描述符讓高 DPI 螢幕能取得更清晰、更高像素密度的圖。"
+},
+{
+"id": 99,
+"d": 4,
+"stem": "<track> 的哪個屬性可將某條文字軌設為預設啟用？",
+"code": "<track kind=\"captions\" src=\"en.vtt\" srclang=\"en\" label=\"English\" default>",
+"o": {
+"A": "selected",
+"B": "default",
+"C": "active",
+"D": "checked"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "default 是布林屬性，標示在使用者未特別選擇時預設啟用的文字軌。",
+"ew": "selected 是 <option> 的屬性，用於下拉選單的預設選項，不是 <track> 用的。active 不是 HTML 有效屬性，HTML 沒有這個標準屬性。checked 是核取方塊或選項按鈕（radio/checkbox）的屬性，與文字軌無關。<track> 若要在載入時就顯示某軌字幕，正確使用 default。"
+},
+{
+"id": 100,
+"d": 4,
+"stem": "下列哪一組是 <video>／<audio> 之 preload 屬性的有效值？",
+"code": "",
+"o": {
+"A": "none、metadata、auto",
+"B": "true、false",
+"C": "lazy、eager",
+"D": "low、high"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "preload 可取 none、metadata、auto，分別表示不預先載入、只載入中繼資料、以及由瀏覽器決定可預載更多內容。",
+"ew": "true/false 不是 preload 的有效值，preload 使用具語意的關鍵字而非布林字串。lazy/eager 是 <img> 之 loading 屬性的值，不能用在媒體的 preload。low/high 屬於 fetchpriority 屬性的值，與 preload 無關。記住 preload 三個關鍵字：none、metadata、auto。"
+},
+{
+"id": 101,
+"d": 4,
+"stem": "下列關於 CSS object-fit 與 HTML 影像屬性的敘述，何者正確？",
+"code": "",
+"o": {
+"A": "object-fit 是 <img> 的 HTML 屬性",
+"B": "object-fit 是 CSS 屬性，控制影像在其框內如何縮放裁切，而非 HTML 屬性",
+"C": "object-fit 用來設定替代文字",
+"D": "object-fit 只能用於 <video>"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "object-fit 是 CSS 屬性（可取 cover、contain 等值），控制被替換元素在其框中的縮放與裁切方式，不是 HTML 屬性。",
+"ew": "object-fit 不是 <img> 的 HTML 屬性，寫在 HTML 標籤上不會生效，必須在 CSS 中設定。設定替代文字是 HTML 的 alt 屬性負責，與 object-fit 無關。object-fit 適用於被替換元素，包含 <img> 與 <video>，並非只能用於 <video>，題目限制過窄。這是常見的 HTML／CSS 職責混淆點。"
+},
+{
+"id": 102,
+"d": 4,
+"stem": "下列 <picture> 標記為何不正確？",
+"code": "<picture>\n  <img src=\"fallback.jpg\" alt=\"圖\">\n  <source media=\"(min-width: 800px)\" srcset=\"big.jpg\">\n</picture>",
+"o": {
+"A": "<source> 缺少 type 屬性",
+"B": "<img> 必須放在所有 <source> 之後（作為最後的子元素）",
+"C": "<picture> 不能包含 <source>",
+"D": "media 屬性拼錯了"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "在 <picture> 中，<img> 必須是最後一個子元素；瀏覽器由上而下比對 <source>，都不符時才落到 <img>。此例把 <img> 放前面會導致其後的 <source> 失效。",
+"ew": "<source> 並非一定要有 type，藝術指導情境常只用 media 而非 type，缺 type 不是本題的錯誤。<picture> 本來就可以且應該包含 <source>，這是它的核心用途。media 屬性拼寫正確，並非錯字。真正的問題在於元素順序：<img> 必須位於所有 <source> 之後才能正確作為後備並讓 <source> 生效。"
+},
+{
+"id": 103,
+"d": 4,
+"stem": "為提升 <iframe> 的無障礙性，建議加入哪個屬性來描述其內容用途？",
+"code": "<iframe src=\"map.html\" title=\"公司位置地圖\"></iframe>",
+"o": {
+"A": "alt",
+"B": "title",
+"C": "label",
+"D": "caption"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "<iframe> 使用 title 屬性提供內容的簡短描述，供螢幕報讀器朗讀，是重要的無障礙實務。",
+"ew": "alt 是 <img> 的屬性，<iframe> 並不使用 alt。label 不是 <iframe> 的有效屬性（表單相關的是 <label> 元素或 aria-label）。caption 不是 <iframe> 的屬性，<caption> 是表格用的元素。對 <iframe> 而言，title 是官方建議用以描述嵌入內容的無障礙屬性。"
+},
+{
+"id": 104,
+"d": 4,
+"stem": "下列標記想在多數瀏覽器都能播放影片，其設計理由為何？",
+"code": "<video controls width=\"640\">\n  <source src=\"movie.webm\" type=\"video/webm\">\n  <source src=\"movie.mp4\" type=\"video/mp4\">\n  您的瀏覽器不支援影片。\n</video>",
+"o": {
+"A": "提供多種格式以提升跨瀏覽器相容性，並在都不支援時顯示後備文字",
+"B": "同時播放兩部影片",
+"C": "webm 與 mp4 會被合併成一部影片",
+"D": "後備文字會永遠顯示在影片上方"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "提供多個不同格式的 <source>，讓瀏覽器挑選第一個支援者以提升相容性；若都不支援，則顯示 <video> 內的後備文字。",
+"ew": "瀏覽器只會播放它支援的第一個來源，不會同時播放兩部影片。不同格式的檔案不會被合併，它們是彼此的替代來源而非片段拼接。後備文字只有在瀏覽器完全不支援 <video> 或所有來源皆無法播放時才會顯示，並非永遠顯示在影片上方。這是漸進增強與相容性的典型設計。"
+},
+{
+"id": 105,
+"d": 4,
+"stem": "若 <audio> 標籤未加任何屬性，預設會發生什麼？",
+"code": "<audio src=\"song.mp3\"></audio>",
+"o": {
+"A": "自動播放並顯示控制列",
+"B": "不顯示任何控制列，使用者無法操作播放",
+"C": "顯示控制列但靜音",
+"D": "顯示為一個播放按鈕圖示"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "未加 controls 的 <audio> 不會顯示任何可見的播放介面，使用者無法直接操作，除非用 JavaScript 控制。",
+"ew": "未加 autoplay 不會自動播放，未加 controls 也不會顯示控制列，因此第一個選項兩點皆錯。沒有 controls 就沒有控制列，談不上「顯示控制列但靜音」。瀏覽器不會自動放一個播放按鈕圖示，那需要 controls 才會出現內建介面。要讓使用者能操作，必須加上 controls。"
+},
+{
+"id": 106,
+"d": 4,
+"stem": "下列哪個屬性可讓 <iframe> 內的內容進入全螢幕（例如嵌入的影片播放器）？",
+"code": "",
+"o": {
+"A": "fullscreen",
+"B": "allowfullscreen",
+"C": "allow-fullscreen",
+"D": "screenmode"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "allowfullscreen 屬性允許 <iframe> 內的內容請求進入全螢幕模式。",
+"ew": "fullscreen 不是 <iframe> 的屬性名稱，缺少 allow 前綴。allow-fullscreen 帶有連字號的寫法不是正確的屬性名，正確拼法無連字號。screenmode 不是 HTML 有效屬性，HTML 沒有這個名稱。現代也可用 allow=\"fullscreen\" 的權限政策語法，但傳統布林屬性即 allowfullscreen。"
+},
+{
+"id": 107,
+"d": 4,
+"stem": "（複選）下列哪些屬性是用來描述或指定 <img> 影像本身的有效 HTML 屬性？",
+"code": "",
+"o": {
+"A": "src",
+"B": "srcset",
+"C": "controls",
+"D": "alt"
+},
+"a": [
+"A",
+"B",
+"D"
+],
+"multi": true,
+"e": "src、srcset、alt 都是 <img> 的有效屬性，分別提供來源、候選來源集與替代文字；controls 屬於媒體元素。",
+"ew": "controls 是 <video> 與 <audio> 用來顯示播放控制列的屬性，影像 <img> 沒有播放介面，因此不適用。src 指定單一影像來源；srcset 提供多個候選影像供響應式挑選；alt 提供無障礙替代文字，三者都是影像常用且有效的屬性。分辨影像屬性與媒體屬性是本領域的重點。"
+},
+{
+"id": 108,
+"d": 4,
+"stem": "下列標記的 <source> 為何無法運作？請找出問題。",
+"code": "<audio controls>\n  <source href=\"song.ogg\" type=\"audio/ogg\">\n  <source href=\"song.mp3\" type=\"audio/mpeg\">\n</audio>",
+"o": {
+"A": "<source> 應使用 src 而非 href 指定檔案",
+"B": "<audio> 不能有多個 <source>",
+"C": "type 的值寫錯了",
+"D": "controls 應寫成 control"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "媒體元素內的 <source> 使用 src 指定檔案位置，此處誤用了 href，導致來源無法載入。",
+"ew": "<audio> 是可以有多個 <source> 的，這正是提供多格式後備的做法，因此不是錯誤所在。type 的值 audio/ogg 與 audio/mpeg 都是正確的 MIME 類型，並沒有寫錯。屬性名本就是 controls（複數）且此處拼寫正確，真正造成失效的是 href 應改為 src；href 屬於連結類元素，媒體來源一律用 src。"
+},
+{
+"id": 109,
+"d": 4,
+"stem": "下列關於 <img> 之 width 與 height 屬性的敘述，何者正確？",
+"code": "<img src=\"p.jpg\" width=\"300\" height=\"200\" alt=\"照片\">",
+"o": {
+"A": "這兩個屬性的值必須帶上 px 單位，例如 width=\"300px\"",
+"B": "其值為不含單位的像素整數，瀏覽器據此推算長寬比",
+"C": "width 與 height 只能用百分比",
+"D": "設定後就無法再用 CSS 覆寫尺寸"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "<img> 的 width/height 屬性接受不含單位的像素整數，瀏覽器可用它們推算長寬比以預留空間。",
+"ew": "HTML 的 width/height 屬性值不應加 px 單位，直接寫整數即可，加單位反而不符規範。它們也不是只能用百分比；百分比是 CSS 的用法，HTML 屬性用的是像素整數。CSS 仍可覆寫這些呈現尺寸（例如 width:100%），HTML 屬性主要用於提供固有長寬比與後備尺寸，並非鎖死不可改。"
+},
+{
+"id": 110,
+"d": 4,
+"stem": "下列哪個屬性可提示瀏覽器影像的解碼時機，以減少對主執行緒的阻塞？",
+"code": "<img src=\"big.jpg\" decoding=\"async\" alt=\"大圖\">",
+"o": {
+"A": "decode",
+"B": "decoding",
+"C": "render",
+"D": "parse"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "decoding 屬性（可取 sync、async、auto）提示瀏覽器影像的解碼方式，async 可避免解碼阻塞主要內容呈現。",
+"ew": "decode 是 HTMLImageElement 的 JavaScript 方法名稱，不是 HTML 屬性。render 不是 <img> 的有效屬性，HTML 沒有這個屬性。parse 同樣不是影像屬性。正確的 HTML 屬性是 decoding，常見值為 async，用於提示非同步解碼以改善呈現流暢度。"
+},
+{
+"id": 111,
+"d": 5,
+"stem": "下列 CSS 套用後，.box 元素在畫面上實際佔用的總寬度是多少？",
+"code": ".box {\n  width: 200px;\n  padding: 20px;\n  border: 5px solid black;\n  box-sizing: content-box;\n}",
+"o": {
+"A": "200px",
+"B": "230px",
+"C": "250px",
+"D": "260px"
+},
+"a": [
+"C"
+],
+"multi": false,
+"e": "content-box 下總寬 = width + 左右 padding + 左右 border = 200 + 40 + 10 = 250px。",
+"ew": "box-sizing 為 content-box（預設值）時，width 只計算內容區，padding 與 border 會額外加到元素外觀寬度上。A（200px）誤以為 width 就是最終寬度，忽略了左右 padding 各 20px 與左右 border 各 5px 都會撐大盒子。B（230px）只加了左右 padding（40px）卻漏算左右 border（10px）。D（260px）多加了一份 padding 或 border；正確加總為 200+40+10=250px，因此只有 C 正確。若改用 box-sizing: border-box，總寬才會維持 200px。"
+},
+{
+"id": 112,
+"d": 5,
+"stem": "當一個元素設定 position: absolute 時，它會相對於哪個對象定位？",
+"code": "",
+"o": {
+"A": "永遠相對於瀏覽器視窗（viewport）",
+"B": "最近一個 position 不是 static 的祖先元素",
+"C": "永遠相對於 <body> 元素",
+"D": "它自己原本在文件流中的位置"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "absolute 會找最近一個已定位（relative/absolute/fixed）的祖先作為定位基準，若沒有則以初始包含區塊（視窗）為準。",
+"ew": "A 描述的是 position: fixed 的行為，fixed 才固定相對於 viewport。C 只在沒有任何已定位祖先時才近似成立（此時退回初始包含區塊），並非規則本身，敘述過於絕對。D 描述的是 position: relative，relative 是相對於元素自己原本的位置做偏移。absolute 的正確規則是尋找最近的非 static 祖先，這也是為什麼常在父層加 position: relative 來當定位容器。"
+},
+{
+"id": 113,
+"d": 5,
+"stem": "關於 display: none 與 visibility: hidden 的差異，下列敘述正確的是？",
+"code": "",
+"o": {
+"A": "兩者都會讓元素消失且不佔空間",
+"B": "display: none 不佔空間，visibility: hidden 仍佔原本空間",
+"C": "visibility: hidden 不佔空間，display: none 仍佔空間",
+"D": "兩者都會保留元素原本佔用的空間"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "display: none 讓元素完全移出版面不佔空間；visibility: hidden 只是隱形，仍保留原本的版面空間。",
+"ew": "A 錯在說兩者都不佔空間，實際上 visibility: hidden 仍佔原本的版面空間，只是看不見。C 把兩者行為完全顛倒了。D 錯在說兩者都保留空間，實際上 display: none 會讓後續元素往上填補空缺、彷彿該元素不存在。理解重點：display 影響是否參與版面配置，visibility 只影響可見與否。"
+},
+{
+"id": 114,
+"d": 5,
+"stem": "下列哪一個 HTML 元素預設為 block（區塊）層級元素？",
+"code": "",
+"o": {
+"A": "<span>",
+"B": "<a>",
+"C": "<div>",
+"D": "<strong>"
+},
+"a": [
+"C"
+],
+"multi": false,
+"e": "<div> 預設為 block，會獨佔一整行並可設定 width/height；其餘皆為 inline。",
+"ew": "<span>（A）是最典型的 inline 容器，預設不換行也不接受 width/height。<a>（B）超連結預設為 inline，會與周圍文字排在同一行。<strong>（D）表示強調的粗體，也是 inline 元素。只有 <div> 是 block 元素，會從新的一行開始並填滿可用寬度。"
+},
+{
+"id": 115,
+"d": 5,
+"stem": "下列關於 inline 元素的敘述，正確的是？",
+"code": "",
+"o": {
+"A": "設定 width 與 height 會生效",
+"B": "會強制從新的一行開始顯示",
+"C": "width 與 height 無效，寬高由內容決定",
+"D": "上下 margin 一定會推開其他元素"
+},
+"a": [
+"C"
+],
+"multi": false,
+"e": "純 inline 元素忽略明確的 width/height，尺寸由內容撐開，且不會獨佔一行。",
+"ew": "A 錯在純 inline 元素會忽略 width/height 設定（需改為 inline-block 或 block 才會生效）。B 描述的是 block 元素的換行特性，inline 元素會與其他元素排在同一行。D 錯在 inline 元素的上下 margin 不會推開垂直方向的其他內容（只有左右 margin 有效）。要讓元素同時保有 inline 的排列又能設定寬高，可用 display: inline-block。"
+},
+{
+"id": 116,
+"d": 5,
+"stem": "要在 16px 為基準字級的情況下，讓 h1 字級變成 32px，下列哪個宣告會達成相同結果？",
+"code": "body { font-size: 16px; }\nh1 { font-size: /* ? */; }",
+"o": {
+"A": "font-size: 2em;",
+"B": "font-size: 2px;",
+"C": "font-size: 200px;",
+"D": "font-size: 32%;"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "em 相對於父層字級，2em × 16px = 32px。",
+"ew": "B（2px）是絕對的 2 像素，字會極小，並非 32px。C（200px）是固定 200 像素，遠大於 32px。D（32%）相對於父層字級的百分比為 16px × 0.32 = 5.12px，也不是 32px。em 是相對單位，在此情境 2em 恰好等於 2 倍父層字級即 32px。"
+},
+{
+"id": 117,
+"d": 5,
+"stem": "下列哪些是 CSS 中的相對長度單位？（複選）",
+"code": "",
+"o": {
+"A": "px",
+"B": "em",
+"C": "vw",
+"D": "rem"
+},
+"a": [
+"B",
+"C",
+"D"
+],
+"multi": true,
+"e": "em、rem 相對於字級，vw 相對於視窗寬度，皆為相對單位；px 為絕對（裝置像素）單位。",
+"ew": "px（A）是絕對長度單位，代表固定的裝置像素，不會隨字級或視窗縮放而改變，因此不屬於相對單位。em（B）相對於當前元素或父層的 font-size。rem（D）相對於根元素 <html> 的 font-size。vw（C）相對於視窗寬度的百分比（1vw = 視窗寬度的 1%）。相對單位有助於建立可縮放、響應式的版面。"
+},
+{
+"id": 118,
+"d": 5,
+"stem": "下列 CSS 中，段落文字的行高會被設定為多少像素？",
+"code": "p {\n  font-size: 20px;\n  line-height: 1.5;\n}",
+"o": {
+"A": "1.5px",
+"B": "20px",
+"C": "30px",
+"D": "15px"
+},
+"a": [
+"C"
+],
+"multi": false,
+"e": "line-height 無單位數字會乘上該元素字級：1.5 × 20px = 30px。",
+"ew": "A（1.5px）把倍數誤當成像素值，1.5 是倍率不是像素。B（20px）是字級本身，未乘上行高倍數。D（15px）方向算反，是乘 0.75 的結果，應是乘 1.5。無單位的 line-height 具備隨字級縮放的優點，1.5 × 20 = 30px 才是實際行高。"
+},
+{
+"id": 119,
+"d": 5,
+"stem": "想移除超連結預設的底線，應使用下列哪個宣告？",
+"code": "",
+"o": {
+"A": "text-align: none;",
+"B": "text-decoration: none;",
+"C": "font-style: none;",
+"D": "text-transform: none;"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "連結底線由 text-decoration 控制，設為 none 即可移除。",
+"ew": "A（text-align）控制的是文字水平對齊（left/center/right），與底線無關且 none 不是它的合法值。C（font-style）控制斜體（italic/normal），無法移除底線。D（text-transform）控制大小寫轉換（uppercase 等），也與底線無關。底線屬於文字裝飾線，正確屬性是 text-decoration。"
+},
+{
+"id": 120,
+"d": 5,
+"stem": "下列 border 簡寫宣告，正確描述其效果的是？",
+"code": "div {\n  border: 3px dashed red;\n}",
+"o": {
+"A": "3px 的紅色實線邊框",
+"B": "3px 的紅色虛線邊框",
+"C": "紅色 3px 的圓角邊框",
+"D": "寬度未定義，樣式為 dashed"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "border 簡寫依序為 width、style、color：3px 寬、dashed 虛線、red 紅色。",
+"ew": "A 把 dashed（虛線）誤讀成 solid（實線）。C 把 dashed 誤解成圓角，圓角是另一個屬性 border-radius，與此無關。D 錯在說寬度未定義，實際上 3px 已明確指定寬度。border 簡寫三個值分別對應 border-width、border-style、border-color。"
+},
+{
+"id": 121,
+"d": 5,
+"stem": "下列 CSS 度量單位中，哪一個代表「視窗高度的百分比」？",
+"code": "",
+"o": {
+"A": "vh",
+"B": "vw",
+"C": "vmax",
+"D": "%"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "vh（viewport height）1 單位等於視窗高度的 1%。",
+"ew": "vw（B）相對於視窗寬度（width），不是高度。vmax（C）取視窗寬與高中較大者的百分比，並非單指高度。%（D）是相對於父元素對應維度的百分比，並非直接相對於視窗高度。要以視窗高度為基準，正確單位是 vh。"
+},
+{
+"id": 122,
+"d": 5,
+"stem": "下列 media query 會在什麼情況下套用內部樣式？",
+"code": "@media (max-width: 600px) {\n  body { font-size: 14px; }\n}",
+"o": {
+"A": "視窗寬度大於或等於 600px 時",
+"B": "視窗寬度小於或等於 600px 時",
+"C": "視窗高度小於 600px 時",
+"D": "只在列印時"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "max-width: 600px 表示視窗寬度不超過 600px（含）時套用，常用於手機等小螢幕。",
+"ew": "A 方向相反，那是 min-width 的行為（寬度大於等於某值才套用）。C 把 width（寬度）誤讀成 height（高度），此條件針對的是寬度。D 是 @media print 的用途，此處未指定 print 媒體類型。max-width 是設定斷點（breakpoint）上限，寬度落在此值以下才生效。"
+},
+{
+"id": 123,
+"d": 5,
+"stem": "下列哪一段 <meta> 標記能正確設定響應式網頁的 viewport？",
+"code": "",
+"o": {
+"A": "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">",
+"B": "<meta charset=\"UTF-8\">",
+"C": "<meta name=\"description\" content=\"width=device-width\">",
+"D": "<meta http-equiv=\"refresh\" content=\"30\">"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "width=device-width 讓版面寬度等於裝置寬度、initial-scale=1.0 設定初始縮放，是響應式網頁必備。",
+"ew": "B 是設定字元編碼（UTF-8），與 viewport 無關。C 的 name 是 description（網頁描述），即使 content 寫了 width=device-width 也不會被瀏覽器當作 viewport 設定。D 是每 30 秒自動重新整理頁面，與響應式無關。正確做法必須 name=\"viewport\" 並在 content 內指定 width 與縮放。"
+},
+{
+"id": 124,
+"d": 5,
+"stem": "要讓圖片在大螢幕不超過 800px、在小螢幕又能自動縮小，下列哪個宣告最適合？",
+"code": "",
+"o": {
+"A": "width: 800px;",
+"B": "max-width: 800px; width: 100%;",
+"C": "min-width: 800px;",
+"D": "height: 800px;"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "width: 100% 讓圖隨容器縮放，max-width: 800px 設定上限，兼顧大小螢幕。",
+"ew": "A（固定 width: 800px）在比 800px 窄的螢幕上會溢出，無法縮小。C（min-width: 800px）設的是最小寬度，會強制至少 800px，在小螢幕反而更容易溢出。D（height: 800px）鎖定的是高度而非寬度，也會使圖片變形。max-width 搭配 width: 100% 是響應式圖片的經典寫法：能放大到上限、也能隨容器縮小。"
+},
+{
+"id": 125,
+"d": 5,
+"stem": "下列 overflow 屬性值，哪一個會在內容超出容器時「隱藏超出部分且不顯示捲軸」？",
+"code": "",
+"o": {
+"A": "visible",
+"B": "scroll",
+"C": "hidden",
+"D": "auto"
+},
+"a": [
+"C"
+],
+"multi": false,
+"e": "overflow: hidden 會裁切超出的內容且不提供捲軸。",
+"ew": "visible（A）是預設值，超出的內容會直接溢出顯示、不裁切。scroll（B）永遠顯示捲軸，即使內容沒超出也會有捲軸軌道。auto（D）只有在內容超出時才顯示捲軸，並非完全隱藏。要裁切超出內容又不出現捲軸，正確值是 hidden。"
+},
+{
+"id": 126,
+"d": 5,
+"stem": "下列 CSS 讓文字水平置中，正確的宣告是？",
+"code": "",
+"o": {
+"A": "vertical-align: center;",
+"B": "text-align: center;",
+"C": "align: center;",
+"D": "margin: center;"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "區塊內的行內文字水平對齊使用 text-align: center。",
+"ew": "A（vertical-align）處理的是行內元素或表格儲存格的垂直對齊，且沒有可讓文字水平置中的 center 用途。C（align）不是合法的 CSS 屬性（那是舊版 HTML 的屬性寫法）。D（margin: center）不是合法值，margin 只接受長度或 auto。要讓文字水平置中，正確屬性是 text-align: center。"
+},
+{
+"id": 127,
+"d": 5,
+"stem": "下列哪些屬性可以用來設定盒子的間距？請選出所有正確者。（複選）",
+"code": "",
+"o": {
+"A": "padding（內距，邊框與內容之間）",
+"B": "margin（外距，元素與其他元素之間）",
+"C": "border-spacing 對一般 div 的內容有效",
+"D": "letter-spacing（字母間距）屬於盒子間距"
+},
+"a": [
+"A",
+"B"
+],
+"multi": true,
+"e": "padding 是內容與邊框之間的內距，margin 是元素外緣與相鄰元素之間的外距，皆為 box model 間距。",
+"ew": "C 錯在 border-spacing 只作用於 table 儲存格邊框之間的距離，對一般 div 內容無效。D 錯在 letter-spacing 調整的是文字字母之間的間距，屬於文字格式化而非盒子（box model）的內外間距。box model 的間距層次由內而外為 content、padding、border、margin，因此正確者是 padding 與 margin。"
+},
+{
+"id": 128,
+"d": 5,
+"stem": "下列色彩表示法中，哪一個代表純紅色？",
+"code": "",
+"o": {
+"A": "#00FF00",
+"B": "rgb(255, 0, 0)",
+"C": "rgb(0, 0, 255)",
+"D": "#0000FF"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "rgb(255,0,0) 代表紅色滿值、綠藍為 0，即純紅色。",
+"ew": "#00FF00（A）紅為 00、綠為 FF，是純綠色。rgb(0,0,255)（C）藍為滿值，是純藍色。#0000FF（D）同樣是純藍色（藍色分量 FF）。RGB 三個分量依序為紅、綠、藍，純紅只有紅色分量最大而綠藍為 0，因此 rgb(255,0,0) 正確。"
+},
+{
+"id": 129,
+"d": 5,
+"stem": "下列宣告會讓段落文字呈現什麼樣式？",
+"code": "p {\n  font-style: italic;\n  font-weight: bold;\n}",
+"o": {
+"A": "斜體且加粗",
+"B": "底線且加粗",
+"C": "斜體但正常粗細",
+"D": "正常樣式，只有變色"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "font-style: italic 使文字斜體，font-weight: bold 使文字加粗，兩者同時生效。",
+"ew": "B 錯在 font-style: italic 產生的是斜體而非底線（底線需 text-decoration: underline）。C 忽略了 font-weight: bold 會使字變粗，並非正常粗細。D 完全誤讀，兩個屬性都與顏色無關，且確實各自改變了字型的斜體與粗細。font-style 管斜體、font-weight 管粗細，兩者互不衝突可同時套用。"
+},
+{
+"id": 130,
+"d": 5,
+"stem": "下列 font-family 宣告中，逗號分隔的多個字型名稱代表什麼意義？",
+"code": "body {\n  font-family: \"Helvetica Neue\", Arial, sans-serif;\n}",
+"o": {
+"A": "三種字型會同時疊加顯示",
+"B": "這是備援清單，找不到前者就用後者",
+"C": "只有最後一個 sans-serif 會生效",
+"D": "瀏覽器會隨機挑一個字型"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "font-family 是備援（fallback）清單，瀏覽器由左至右採用第一個可用的字型，最後的 sans-serif 為通用族群保底。",
+"ew": "A 錯在字型不會疊加，同一段文字只會採用一個成功載入的字型。C 錯在若前面的 Helvetica Neue 或 Arial 存在就會優先使用，不一定輪到 sans-serif。D 錯在選用順序是固定由左至右，並非隨機。備援清單的最後通常放通用字型族群（serif/sans-serif/monospace）以確保一定有字型可用。"
+},
+{
+"id": 131,
+"d": 5,
+"stem": "下列宣告 background: url(bg.png) no-repeat center; 中，center 這個值的作用是什麼？",
+"code": "",
+"o": {
+"A": "設定背景圖不重複",
+"B": "設定背景圖的位置（水平與垂直置中）",
+"C": "設定背景色為中性灰",
+"D": "設定背景圖的大小"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "在 background 簡寫中，center 對應 background-position，讓背景圖置中。",
+"ew": "A 描述的是 no-repeat（background-repeat）的作用，不是 center。C 誤解 center 為顏色，實際上它是位置關鍵字，與背景色無關。D 是 background-size 的職責（如 cover、contain），center 並不控制大小。background 簡寫中，center 對應的是 background-position 位置。"
+},
+{
+"id": 132,
+"d": 5,
+"stem": "要建立一個固定在畫面右下角、捲動頁面時仍停留原位的「回到頂端」按鈕，position 應設為？",
+"code": "",
+"o": {
+"A": "static",
+"B": "relative",
+"C": "absolute",
+"D": "fixed"
+},
+"a": [
+"D"
+],
+"multi": false,
+"e": "position: fixed 讓元素相對於視窗定位，捲動時保持固定位置。",
+"ew": "static（A）是預設值，元素隨文件流排列且會跟著頁面一起捲走。relative（B）只是相對自身原位偏移，仍會隨頁面捲動。absolute（C）相對於已定位祖先，也會隨頁面內容捲動而移動。只有 fixed 相對於 viewport 定位，捲動時保持在螢幕固定位置。"
+},
+{
+"id": 133,
+"d": 5,
+"stem": "下列宣告 width: 50%; 套用在一個寬度 400px 的父容器內，該元素寬度為多少？",
+"code": ".parent { width: 400px; }\n.child  { width: 50%; }",
+"o": {
+"A": "50px",
+"B": "100px",
+"C": "200px",
+"D": "400px"
+},
+"a": [
+"C"
+],
+"multi": false,
+"e": "百分比寬度相對於父容器寬度計算：400px × 50% = 200px。",
+"ew": "A（50px）把百分比誤當成固定像素值。B（100px）算成 25% 或比例算錯。D（400px）等於整個父容器寬度，那是 100% 的結果而非 50%。百分比寬度是以父元素的寬度為基準，50% 即父容器 400px 的一半 200px。"
+},
+{
+"id": 134,
+"d": 5,
+"stem": "下列哪個屬性用來調整文字中「字母與字母之間」的間距？",
+"code": "",
+"o": {
+"A": "line-height",
+"B": "letter-spacing",
+"C": "word-spacing",
+"D": "text-indent"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "letter-spacing 控制字母（字元）之間的水平間距。",
+"ew": "line-height（A）控制的是行與行之間的垂直間距（行高），不是字母間距。word-spacing（C）調整的是「單字與單字之間」的間距，粒度是詞而非字母。text-indent（D）控制段落首行的縮排。要調整字母之間的間距，正確屬性是 letter-spacing。"
+},
+{
+"id": 135,
+"d": 5,
+"stem": "下列哪個屬性能讓過長的單字或連續字串在容器邊界自動斷行，避免溢出？",
+"code": "",
+"o": {
+"A": "text-align: justify;",
+"B": "word-wrap: break-word;",
+"C": "white-space: nowrap;",
+"D": "overflow: hidden;"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "word-wrap: break-word（等同 overflow-wrap: break-word）允許在單字內部斷行以避免溢出。",
+"ew": "text-align: justify（A）是兩端對齊，調整詞間距而非強制斷開長單字。white-space: nowrap（C）反而禁止換行，會讓文字強制不斷行、更容易溢出。overflow: hidden（D）只是把溢出的部分裁切隱藏，並沒有讓長字換行。要在長字內部斷行避免溢出，正確屬性是 word-wrap（overflow-wrap）: break-word。"
+},
+{
+"id": 136,
+"d": 5,
+"stem": "下列宣告會讓文字呈現什麼效果？",
+"code": "h2 {\n  font-variant: small-caps;\n}",
+"o": {
+"A": "所有字母變成大寫並放大",
+"B": "小寫字母以較小的大寫字形呈現",
+"C": "文字變成斜體",
+"D": "文字加上底線"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "font-variant: small-caps 會把小寫字母顯示為縮小版的大寫字形（小型大寫）。",
+"ew": "A 描述的是 text-transform: uppercase 且會統一放大，small-caps 的小寫是「較小的大寫」而非等大。C 斜體屬於 font-style: italic，與 font-variant 無關。D 底線屬於 text-decoration，也非此屬性作用。font-variant 的 small-caps 特色是保留原本大寫字母的大小，並把小寫轉為縮小的大寫外形。"
+},
+{
+"id": 137,
+"d": 5,
+"stem": "在浮動（float）版面中，若某元素浮動後導致父容器高度塌陷，下列哪個做法可用來清除浮動？",
+"code": "",
+"o": {
+"A": "對後方元素設定 clear: both;",
+"B": "對浮動元素設定 display: none;",
+"C": "對父容器設定 text-align: center;",
+"D": "對浮動元素設定 visibility: hidden;"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "clear: both 讓元素不與任何浮動元素相鄰，藉此清除浮動、恢復正常排版與父容器高度。",
+"ew": "B（display: none）會直接把浮動元素隱藏消失，並非清除浮動、也不是想要的排版結果。C（text-align: center）只影響行內內容水平對齊，對浮動塌陷毫無作用。D（visibility: hidden）只是讓元素隱形但仍佔位且仍浮動，無法解決塌陷。清除浮動的標準手段是使用 clear（left/right/both）或建立 BFC。"
+},
+{
+"id": 138,
+"d": 5,
+"stem": "下列關於 CSS 建立響應式版面的敘述，哪些正確？（複選）",
+"code": "",
+"o": {
+"A": "斷點（breakpoint）是版面在不同螢幕寬度切換樣式的界線",
+"B": "media query 可依螢幕寬度套用不同樣式",
+"C": "使用固定 px 寬度是達成響應式的最佳做法",
+"D": "display: grid 或 flex 可協助建立彈性的網格版面"
+},
+"a": [
+"A",
+"B",
+"D"
+],
+"multi": true,
+"e": "斷點界定版面切換的寬度、media query 依條件套用樣式、grid/flex 建立彈性版面，皆為響應式核心技術。",
+"ew": "C 是錯誤敘述：固定 px 寬度缺乏彈性，在不同螢幕上容易溢出或留白，響應式應改用百分比、max-width、彈性單位與流動版面。A 正確，斷點就是版面在特定寬度切換樣式的界線。B 正確，media query 依 min/max-width 等條件套用對應樣式。D 正確，Flexbox 與 Grid 是建立可縮放彈性版面的主力工具。"
+},
+{
+"id": 139,
+"d": 6,
+"stem": "在 HTML 中要加入不會被瀏覽器顯示的註解，正確的語法是哪一個？",
+"code": "",
+"o": {
+"A": "<!-- 這是註解 -->",
+"B": "// 這是註解",
+"C": "/* 這是註解 */",
+"D": "# 這是註解"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "HTML 註解以 <!-- 開頭、以 --> 結尾，內容不會被瀏覽器渲染。",
+"ew": "B 的 // 是 JavaScript 的單行註解語法，放在 HTML 內容中不具註解功能，會被當成純文字直接顯示在頁面上。C 的 /* */ 是 CSS 與 JavaScript 的區塊註解語法，並非 HTML 註解，同樣會被瀏覽器當成文字呈現。D 的 # 在 HTML 裡沒有註解意義（它常見於 Python 或 Shell 的行註解），寫在標記中只會變成可見文字。正確的 HTML 註解 <!-- ... --> 能協助團隊理解結構、暫時停用區塊或標示待辦，提升可讀性與維護性。"
+},
+{
+"id": 140,
+"d": 6,
+"stem": "下列哪一個是 CSS 樣式表中合法的註解寫法？",
+"code": "body {\n  /* 設定整體背景為淺灰 */\n  background-color: #f5f5f5;\n}",
+"o": {
+"A": "<!-- 設定整體背景為淺灰 -->",
+"B": "/* 設定整體背景為淺灰 */",
+"C": "// 設定整體背景為淺灰",
+"D": "'' 設定整體背景為淺灰 ''"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "CSS 只支援 /* ... */ 這一種區塊註解語法。",
+"ew": "A 是 HTML 的註解語法，放進 CSS 檔會被視為無效字元造成解析錯誤。C 的 // 在標準 CSS 中不是合法註解（它是 JavaScript 或 Sass 前處理器才有的行為），瀏覽器不會把它當註解，反而可能導致該條規則失效。D 的引號並非任何註解語法，只會被當成無效內容而被忽略或報錯。良好的 CSS 註解以 /* */ 撰寫，能說明某段規則的用途，是可維護程式碼的重要實務。"
+},
+{
+"id": 141,
+"d": 6,
+"stem": "你想讓 h1、h2 與 p 三種元素套用同樣的字型與顏色，最符合「重用規則集（reuse rule sets）」精神的寫法是？",
+"code": "/* 選項 B */\nh1, h2, p {\n  font-family: Arial, sans-serif;\n  color: #333;\n}",
+"o": {
+"A": "為每個元素各寫一組完全重複的規則",
+"B": "用逗號把 h1, h2, p 群組成一個選擇器共用同一組宣告",
+"C": "在每個元素上加 inline style",
+"D": "用三個不同的 class 分別重寫相同宣告"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "用逗號群組選擇器可讓多個元素共用同一組宣告，避免重複。",
+"ew": "A 重複撰寫相同宣告違反 DRY（不要重複自己）原則，日後只要改字型就得同時改多處，容易漏改而出錯。C 的 inline style 把樣式散落在各個 HTML 標籤中，無法跨元素重用，也違反結構與樣式分離原則。D 建立三個內容相同的 class 只是換個形式重複相同宣告，維護負擔和 A 一樣沉重。用逗號群組選擇器把共用宣告集中在一處，才是重用規則集、單點維護樣式的正確做法。"
+},
+{
+"id": 142,
+"d": 6,
+"stem": "關於「web-safe fonts（網頁安全字型）」的敘述，何者最正確？",
+"code": "",
+"o": {
+"A": "它們是只有付費才能使用的字型",
+"B": "它們是幾乎所有作業系統與瀏覽器都預裝、可靠顯示的常見字型（如 Arial、Times New Roman）",
+"C": "它們是只能用在行動裝置上的字型",
+"D": "它們是會自動翻譯文字的特殊字型"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "web-safe fonts 是絕大多數平台都內建、能可靠一致顯示的通用字型。",
+"ew": "A 錯誤，web-safe fonts 的特點正是免費且系統內建，不需付費授權。C 錯誤，它們跨桌機與行動裝置皆可用，能在各平台一致呈現正是其價值所在，與裝置類型無關。D 混淆了字型與翻譯功能，字型只決定文字外觀，不會改變或翻譯文字內容。使用 web-safe fonts 可提升跨平台可用性，確保不同使用者看到的排版盡量一致。"
+},
+{
+"id": 143,
+"d": 6,
+"stem": "下列 font-family 宣告中，哪一個最能確保跨平台的字型回退（fallback）？",
+"code": "/* 比較這幾種寫法 */\nfont-family: \"Helvetica Neue\", Arial, sans-serif;",
+"o": {
+"A": "font-family: \"Helvetica Neue\";",
+"B": "font-family: sans-serif;",
+"C": "font-family: \"Helvetica Neue\", Arial, sans-serif;",
+"D": "font-family: MyCustomFont;"
+},
+"a": [
+"C"
+],
+"multi": false,
+"e": "字型堆疊由特定到通用列出多個備援，最後以通用字型族群結尾最穩健。",
+"ew": "A 只指定單一具名字型，若使用者裝置未安裝就會退回瀏覽器預設字型，結果不可控。B 只給通用族群 sans-serif，缺乏偏好字型，各平台實際顯示的字型差異大、排版一致性差。D 指定一個未必存在的自訂字型且完全沒有備援，最容易出現顯示不一致或退回未知預設。正確的字型堆疊應從最想要的具名字型排到通用族群（sans-serif/serif）結尾，兼顧美觀與跨平台可用性。"
+},
+{
+"id": 144,
+"d": 6,
+"stem": "「結構（HTML）與樣式（CSS）分離」是業界最佳實務。下列何者最違反此原則？",
+"code": "",
+"o": {
+"A": "用外部 .css 檔集中管理所有顏色與版面",
+"B": "在每個 HTML 元素上大量使用 style=\"...\" 的 inline 樣式",
+"C": "使用 class 名稱連結 HTML 與 CSS",
+"D": "把樣式規則寫在 <link> 引入的樣式表中"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "大量 inline style 讓樣式與結構混雜，難以重用與維護，最違反分離原則。",
+"ew": "A 使用外部樣式表正是分離原則的核心做法，樣式集中、利於重用與維護。C 用 class 當作 HTML 與 CSS 的橋樑，讓結構專注語意、樣式獨立管理，完全符合分離原則。D 透過 <link> 引入外部樣式表同樣是良好實務，把外觀與結構清楚切開。相對地，B 的 inline style 把外觀綁死在每個標籤上，無法重用、難以整批修改、也污染 HTML 結構，是應避免的反模式。"
+},
+{
+"id": 145,
+"d": 6,
+"stem": "關於圖片 alt 屬性（文字替代）的用途，下列敘述何者正確？",
+"code": "<img src=\"chart.png\" alt=\"2025 年各季營收長條圖，第四季最高\">",
+"o": {
+"A": "alt 文字只在滑鼠移到圖片上時顯示，沒有其他用途",
+"B": "alt 提供圖片的文字替代，供螢幕閱讀器朗讀，也在圖片載入失敗時顯示",
+"C": "alt 用來設定圖片的寬度與高度",
+"D": "alt 會自動把圖片翻譯成其他語言"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "alt 是圖片的文字替代，服務螢幕閱讀器使用者並在圖片無法載入時顯示。",
+"ew": "A 混淆了 alt 與 title，滑鼠懸停提示是 title 屬性的行為；alt 的核心價值在無障礙，而非懸停顯示。C 錯誤，圖片寬高由 width/height 屬性或 CSS 控制，與 alt 完全無關。D 錯誤，alt 不具翻譯功能，它只是以文字描述圖片內容的替代文字。良好的 alt 能讓視障使用者透過螢幕閱讀器理解圖片，並在圖片載入失敗時提供替代資訊，是無障礙的關鍵。"
+},
+{
+"id": 146,
+"d": 6,
+"stem": "對於「純裝飾、不傳達任何資訊」的圖片，最符合無障礙最佳實務的 alt 寫法是？",
+"code": "",
+"o": {
+"A": "完全省略 alt 屬性",
+"B": "alt=\"圖片\"",
+"C": "alt=\"\"（空字串）",
+"D": "alt=\"這是一張裝飾用的圖片請忽略\""
+},
+"a": [
+"C"
+],
+"multi": false,
+"e": "裝飾性圖片使用空的 alt=\"\"，可讓螢幕閱讀器略過而不朗讀多餘內容。",
+"ew": "A 省略 alt 屬性會讓部分螢幕閱讀器改念出圖片的檔名或 URL，反而造成干擾。B 念出「圖片」對使用者毫無資訊價值，只是多餘雜訊。D 冗長描述反而打斷閱讀體驗，裝飾圖本就不該被朗讀。正確做法是給空的 alt=\"\"，明確告訴輔助技術此圖可安全略過，這是區分裝飾圖與資訊圖、避免螢幕閱讀器念出無用內容的重要原則。"
+},
+{
+"id": 147,
+"d": 6,
+"stem": "WCAG 規定一般大小的內文文字，其前景色與背景色的最小對比度應達到多少？",
+"code": "",
+"o": {
+"A": "1:1",
+"B": "2:1",
+"C": "4.5:1",
+"D": "21:1"
+},
+"a": [
+"C"
+],
+"multi": false,
+"e": "WCAG AA 對一般文字要求至少 4.5:1 的對比度。",
+"ew": "A 的 1:1 代表前景與背景完全同色，文字根本看不見。B 的 2:1 對比不足，低視力使用者或在強光環境下的人會難以閱讀。D 的 21:1 是黑字白底可達到的理論最大值，屬於超標，並非「最低要求」。WCAG AA 標準對一般內文要求至少 4.5:1、對大型文字放寬到 3:1，確保足夠對比讓多數人都能辨讀。"
+},
+{
+"id": 148,
+"d": 6,
+"stem": "下列這段 JavaScript 依 WCAG 公式計算對比度，執行後輸出為何？",
+"code": "function lum(r,g,b){\n  const a=[r,g,b].map(v=>{v/=255;return v<=0.03928?v/12.92:Math.pow((v+0.055)/1.055,2.4);});\n  return 0.2126*a[0]+0.7152*a[1]+0.0722*a[2];\n}\nfunction ratio(c1,c2){\n  const L1=lum(...c1),L2=lum(...c2);\n  const hi=Math.max(L1,L2),lo=Math.min(L1,L2);\n  return ((hi+0.05)/(lo+0.05)).toFixed(2);\n}\nconsole.log(ratio([0,0,0],[255,255,255]));",
+"o": {
+"A": "1.00",
+"B": "4.50",
+"C": "21.00",
+"D": "0.00"
+},
+"a": [
+"C"
+],
+"multi": false,
+"e": "純黑（0,0,0）對純白（255,255,255）是最大對比度 21:1，實際執行輸出 21.00。",
+"ew": "A 的 1.00 代表兩色相同、毫無對比，與黑白這組最高對比恰好相反。B 的 4.50 是 WCAG AA 一般文字的門檻值，並非黑白這組的實際對比。D 的 0.00 在此對比公式中不可能出現，因為分子分母都加了 0.05 且皆為正數。黑字白底達到理論上限 21:1，說明選色時應追求足夠高的對比以利閱讀。"
+},
+{
+"id": 149,
+"d": 6,
+"stem": "設計表單驗證時，僅用「紅色框」表示欄位有錯，對哪類使用者最不友善？為什麼要避免只用顏色傳達資訊？",
+"code": "",
+"o": {
+"A": "對色覺障礙（色盲）使用者不友善，應同時輔以文字或圖示",
+"B": "對使用大螢幕的使用者不友善",
+"C": "對網速快的使用者不友善",
+"D": "完全沒有問題，只用顏色即可"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "不應僅依賴顏色傳達資訊，需搭配文字、圖示等額外提示。",
+"ew": "B 與螢幕大小無關，色彩能否分辨不會因螢幕大小而改變。C 與網速無關，顏色的辨識和連線速度毫無關聯。D 忽略了色覺障礙者的存在，僅用紅框會讓紅綠色盲等使用者無法察覺欄位有錯。WCAG 明確要求不可只靠顏色傳遞資訊，應同時提供錯誤文字、圖示或其他非顏色的視覺線索，讓所有人都能理解狀態。"
+},
+{
+"id": 150,
+"d": 6,
+"stem": "關於「字體易讀性（legibility）」的最佳實務，下列何者正確？",
+"code": "",
+"o": {
+"A": "在大量內文中使用花俏的手寫或裝飾字體以吸引注意",
+"B": "為內文選擇乾淨、間距適當且字級足夠的字體，避免過度裝飾",
+"C": "把行高設成 0 讓文字更緊湊",
+"D": "整段內文全部使用大寫字母以示強調"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "內文應選用乾淨、字級與間距適當的字體以提升易讀性。",
+"ew": "A 裝飾性或手寫字體在長篇內文中筆畫辨識困難，會大幅增加閱讀負擔。C 把行高設成 0 會讓上下行文字擠成一團、幾乎無法閱讀，適當行高反而提升易讀性。D 整段全大寫會失去字母高低起伏（升部與降部）的辨識線索，讓閱讀速度變慢。易讀性著重清楚、一致與舒適，適當的字體、字級、行距與大小寫搭配都是關鍵。"
+},
+{
+"id": 151,
+"d": 6,
+"stem": "下列 HTML 使用 tabindex 控制鍵盤 Tab 的聚焦順序。若只按 Tab 鍵，聚焦的先後順序為何？",
+"code": "<input id=\"a\" tabindex=\"3\">\n<input id=\"b\" tabindex=\"1\">\n<input id=\"c\" tabindex=\"2\">",
+"o": {
+"A": "a → b → c",
+"B": "b → c → a",
+"C": "c → b → a",
+"D": "a → c → b"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "正的 tabindex 依數值由小到大聚焦，所以是 1、2、3 對應 b、c、a。",
+"ew": "A 是按 HTML 出現順序排列，忽略了正 tabindex 會覆寫預設的文件聚焦順序。C 把數值由大到小是相反方向，正 tabindex 是由小到大聚焦。D 順序錯置，未正確依 1→2→3（b→c→a）排列。正 tabindex 值愈小愈先聚焦，濫用會讓 tab order 混亂難維護，實務上多建議保持自然 DOM 順序或只用 0 與 -1。"
+},
+{
+"id": 152,
+"d": 6,
+"stem": "關於 tabindex 屬性值的意義，下列配對何者正確？",
+"code": "",
+"o": {
+"A": "tabindex=\"-1\" 讓元素可用程式聚焦但不進入 Tab 鍵順序",
+"B": "tabindex=\"-1\" 會把元素排到 Tab 順序的最後",
+"C": "tabindex=\"0\" 會讓元素永遠不能被聚焦",
+"D": "tabindex=\"0\" 一定會排在所有正值之前"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "tabindex=\"-1\" 使元素可被 script 或 focus() 聚焦，但不參與 Tab 鍵導覽。",
+"ew": "B 錯誤，-1 是把元素移出 Tab 鍵順序，而不是排到最後。C 恰好相反，tabindex=\"0\" 讓元素依 DOM 順序加入 Tab 導覽，是可被聚焦的。D 錯誤，正值（1、2…）會排在 tabindex=\"0\" 之前，0 反而落在所有正值之後、依文件順序聚焦。理解這些值的差異有助於建立合理的鍵盤操作與 tab order。"
+},
+{
+"id": 153,
+"d": 6,
+"stem": "為了讓使用者放大瀏覽器文字時版面能順暢縮放（text resizing / accessibility），設定字級時最佳的單位選擇是？",
+"code": "/* A */ font-size: 16px;\n/* B */ font-size: 1rem;",
+"o": {
+"A": "使用固定的 px 讓字級永遠不變",
+"B": "使用相對單位如 rem 或 em，讓文字可隨使用者設定縮放",
+"C": "使用 pt 以配合印表機",
+"D": "完全不設定 font-size"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "相對單位（rem/em）讓字級隨使用者偏好與根字級縮放，利於文字調整。",
+"ew": "A 使用固定 px 在某些瀏覽器會妨礙使用者放大文字，對低視力者不友善。C 的 pt 是印刷單位，不適合螢幕上依使用者偏好彈性縮放的情境。D 不設定 font-size 只會沿用預設值，無法達成有意設計的可縮放版面。使用 rem/em 等相對單位能尊重使用者在瀏覽器設定的字級偏好，是 text resizing 無障礙的關鍵實務。"
+},
+{
+"id": 154,
+"d": 6,
+"stem": "關於使用標題標籤（h1–h6）建立「文字階層（text hierarchy）」，下列敘述何者正確？",
+"code": "",
+"o": {
+"A": "h1–h6 只是把字變大變小，沒有語意",
+"B": "應依內容重要性依序使用（h1 最高階），提供清楚的文件大綱與無障礙導覽",
+"C": "一個頁面必須用滿 h1 到 h6 六個層級才合格",
+"D": "為了好看可隨意跳級，例如 h1 之後直接用 h5"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "標題標籤表達內容的層級語意，正確排序能建立清楚大綱並利於螢幕閱讀器導覽。",
+"ew": "A 錯誤，h1–h6 帶有階層語意而不只是視覺大小，字級大小應交由 CSS 控制。C 錯誤，不需用滿所有六個層級，依內容實際結構需要使用即可。D 跳級（h1 直接跳到 h5）會破壞大綱結構，讓依標題導覽的螢幕閱讀器使用者難以理解層次關係。標題應反映內容的邏輯階層、循序不跳級，這正是文字階層的核心精神。"
+},
+{
+"id": 155,
+"d": 6,
+"stem": "下列哪一種情況跳過標題層級會造成無障礙問題？",
+"code": "<h1>網站標題</h1>\n<h4>第一節</h4>   <!-- 直接從 h1 跳到 h4 -->\n<p>內容...</p>",
+"o": {
+"A": "沒有問題，螢幕閱讀器不看層級",
+"B": "會破壞文件大綱的邏輯層次，讓依標題導覽的使用者困惑",
+"C": "會讓頁面完全無法載入",
+"D": "會自動被瀏覽器修正為 h2"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "從 h1 直接跳到 h4 破壞了層級連續性，影響以標題導覽的無障礙體驗。",
+"ew": "A 錯誤，許多螢幕閱讀器提供依標題層級快速跳轉的功能，層級對導覽非常重要。C 誇大其詞，跳級不會使頁面無法載入，只是語意結構不佳。D 錯誤，瀏覽器不會自動修正或補齊被跳過的標題層級。應循序使用標題（h1→h2→h3…），若只是想要不同的視覺大小應以 CSS 調整，而非跳級。"
+},
+{
+"id": 156,
+"d": 6,
+"stem": "某段品牌名稱不希望被瀏覽器或翻譯工具自動翻譯成其他語言，最適合使用哪一個屬性？",
+"code": "<span translate=\"no\">Heph AI</span>",
+"o": {
+"A": "translate=\"no\"",
+"B": "lang=\"none\"",
+"C": "notranslate=\"true\"",
+"D": "translate=\"off\""
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "HTML 的 translate=\"no\" 標示該內容不應被翻譯。",
+"ew": "B 的 lang 屬性是用來宣告內容語言（如 en、zh-Hant），其值不是 none，且宣告語言並不能阻止翻譯。C 的 notranslate 並非標準 HTML 屬性（某些翻譯工具靠 class=\"notranslate\" 生效，但標準的屬性是 translate）。D 的 translate 屬性合法值只有 yes 或 no，off 不是有效值。使用 translate=\"no\" 可保護專有名詞、品牌名或程式碼片段不被誤譯。"
+},
+{
+"id": 157,
+"d": 6,
+"stem": "下列 HTML 因標籤不匹配而結構有誤。哪一個修正能正確關閉巢狀標籤？",
+"code": "<p>這是<strong>重要文字</p></strong>",
+"o": {
+"A": "<p>這是<strong>重要文字</strong></p>",
+"B": "<p>這是<strong>重要文字<p></strong>",
+"C": "<strong>這是<p>重要文字</strong></p>",
+"D": "<p>這是<strong>重要文字</p>"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "巢狀標籤須以「後開先關」的順序關閉，strong 應在 p 之前關閉。",
+"ew": "B 把結束用的 </p> 誤寫成開始的 <p>，反而多開一個標籤，巢狀順序仍然錯誤。C 讓 strong 包住 p，造成行內元素包區塊元素的錯置，結構混亂。D 只關了 p 卻缺少 </strong>，strong 從頭到尾未被關閉。正確做法是遵守巢狀規則：先開的標籤後關（<p><strong>...</strong></p>），這是維持結構完整、除錯標籤不匹配的核心。"
+},
+{
+"id": 158,
+"d": 6,
+"stem": "以下 CSS 中兩條規則衝突（cascading）。段落 <p class=\"note\"> 最終的文字顏色為何？",
+"code": "p { color: black; }\n.note { color: red; }",
+"o": {
+"A": "black，因為 p 選擇器寫在前面",
+"B": "red，因為 class 選擇器的特定性（specificity）高於元素選擇器",
+"C": "兩者混合成灰色",
+"D": "顏色未定義，文字不顯示"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "class 選擇器特定性高於元素選擇器，故 .note 的 red 勝出。",
+"ew": "A 誤以為出現順序決定勝負；當特定性不同時，特定性優先於出現順序。C 錯誤，CSS 衝突時不會把兩個顏色混合，只會有一個宣告勝出。D 錯誤，color 有明確定義，文字會正常顯示為紅色。cascading 的判定順序是：來源與重要性 → 特定性 → 出現順序；class（特定性 0,1,0）高於元素選擇器（0,0,1），因此 red 生效。"
+},
+{
+"id": 159,
+"d": 6,
+"stem": "下列哪些做法有助於「重用（reuse）」CSS 規則、降低重複？（複選）",
+"code": "",
+"o": {
+"A": "把共用外觀抽成一個 class，套用到多個元素",
+"B": "用逗號群組多個選擇器共用同一組宣告",
+"C": "對每個元素都寫獨立且內容相同的規則",
+"D": "善用繼承與通用選擇器設定基礎樣式"
+},
+"a": [
+"A",
+"B",
+"D"
+],
+"multi": true,
+"e": "抽共用 class、群組選擇器、善用繼承都能集中並重用樣式。",
+"ew": "C 是反例：為每個元素重複撰寫內容相同的規則，會造成大量重複、日後難以一次修改，正是重用要避免的。相對地，A 把共用樣式抽成 class 可跨多個元素套用；B 用逗號群組選擇器讓多個元素共享同一組宣告；D 利用繼承與基礎樣式減少各處重複設定。A、B、D 都體現「重用 rules 與 rule sets」的精神，因此為正確選項。"
+},
+{
+"id": 160,
+"d": 6,
+"stem": "WCAG 對「大型文字」（例如約 18pt 以上或 14pt 粗體）的最小對比度要求為何？",
+"code": "",
+"o": {
+"A": "3:1",
+"B": "4.5:1",
+"C": "7:1",
+"D": "1.5:1"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "WCAG AA 對大型文字放寬到至少 3:1。",
+"ew": "B 的 4.5:1 是一般（小）文字的 AA 要求，大型文字因較易辨讀而可放寬。C 的 7:1 屬於更嚴格的 AAA 等級對一般文字的要求，並非大型文字的 AA 門檻。D 的 1.5:1 對比過低，不符合任何 WCAG 等級。因為大字本身筆畫較粗、較易辨讀，AA 允許大型文字降到 3:1，但仍須維持足夠對比確保可讀性。"
+},
+{
+"id": 161,
+"d": 6,
+"stem": "下列哪一種寫法最能兼顧無障礙的「語意結構」與後續樣式套用？",
+"code": "",
+"o": {
+"A": "用一堆 <div> 搭配 class 模擬按鈕與導覽",
+"B": "使用語意化元素如 <nav>、<button>、<header> 表達用途，再以 CSS 美化",
+"C": "全部用 <span> 加 inline style",
+"D": "用表格 <table> 排版整個頁面版面"
+},
+"a": [
+"B"
+],
+"multi": false,
+"e": "語意化元素能傳達用途給輔助技術，並讓結構與樣式清楚分離。",
+"ew": "A 用 div 模擬按鈕與導覽會失去元素內建的鍵盤操作與無障礙語意，需自行補上大量 ARIA 與事件處理。C 全用 span 加 inline style 既無語意，也違反結構與樣式分離原則。D 用 table 排版是過時做法，會誤導螢幕閱讀器把版面當成資料表朗讀。使用 nav、button、header 等語意元素再以 CSS 美化，能同時提升無障礙與可維護性。"
+},
+{
+"id": 162,
+"d": 6,
+"stem": "關於 CSS 中的 !important，下列敘述何者正確？",
+"code": "p { color: blue !important; }\n.highlight { color: green; }",
+"o": {
+"A": "!important 會提高該宣告的優先權，可覆寫一般特定性較高的規則，但應謹慎使用",
+"B": "!important 會讓規則被忽略",
+"C": "!important 只是註解，沒有作用",
+"D": "!important 會自動修正所有語法錯誤"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "!important 提升宣告優先權、能覆寫一般規則，但濫用會讓 cascade 難以維護。",
+"ew": "B 恰好相反，!important 是強化而非忽略該宣告的優先權。C 錯誤，!important 是有效的 CSS 關鍵字而非註解，會實際影響套用結果。D 錯誤，它與語法除錯無關，不會修正任何錯誤。在上例中帶 !important 的 p 規則會勝過一般的 .highlight class 規則；但過度依賴 !important 會破壞正常 cascading，實務上應盡量避免、優先靠合理的特定性解決衝突。"
+},
+{
+"id": 163,
+"d": 6,
+"stem": "下列 CSS 有一個語法錯誤導致其後規則失效。錯誤是什麼？",
+"code": "h1 {\n  color: navy\n  font-size: 24px;\n}",
+"o": {
+"A": "color 宣告後缺少分號（;）",
+"B": "h1 不是合法選擇器",
+"C": "font-size 不能用 px",
+"D": "整段必須加 !important 才能運作"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "color: navy 後缺分號，使解析器無法正確分隔兩條宣告。",
+"ew": "B 錯誤，h1 是完全合法的元素選擇器。C 錯誤，px 是 font-size 最常用的合法長度單位。D 錯誤，!important 用於提升優先權，與此處缺分號的語法問題無關。CSS 每條宣告需以分號結尾分隔，漏掉 navy 後的分號會讓解析器把兩條宣告黏在一起而無法正確解析，這是評估結構完整性時常見的除錯點。"
+},
+{
+"id": 164,
+"d": 6,
+"stem": "為了無障礙與正確翻譯，宣告整份文件主要語言的最佳做法是？",
+"code": "<html lang=\"zh-Hant\">\n  ...\n</html>",
+"o": {
+"A": "在 <html> 標籤加上 lang 屬性，例如 lang=\"zh-Hant\"",
+"B": "完全不需要宣告語言",
+"C": "用 <language> 標籤包住整份文件",
+"D": "在每個文字節點加上 translate 屬性"
+},
+"a": [
+"A"
+],
+"multi": false,
+"e": "在 <html> 上設定 lang 可告知瀏覽器與輔助技術文件語言。",
+"ew": "B 錯誤，缺少 lang 會讓螢幕閱讀器可能用錯語言發音，翻譯工具也難以判斷來源語言。C 錯誤，HTML 沒有 <language> 這個標籤。D 錯誤，translate 屬性是用來標示某段內容是否應被翻譯，並不是宣告語言，且逐一為每個文字節點加上並不切實際。正確做法是在 <html lang=\"...\"> 宣告主要語言，必要時再於局部元素以 lang 覆寫。"
+},
+{
+"id": 165,
+"d": 6,
+"stem": "良好的「跨平台可用性（cross-platform usability）」設計，下列哪些是建議做法？（複選）",
+"code": "",
+"o": {
+"A": "使用 web-safe fonts 或提供適當字型回退",
+"B": "使用相對單位與彈性版面以適應不同螢幕尺寸",
+"C": "只針對單一瀏覽器的私有功能開發，不做回退",
+"D": "用語意化 HTML 並在多種瀏覽器/裝置測試"
+},
+"a": [
+"A",
+"B",
+"D"
+],
+"multi": true,
+"e": "字型回退、彈性版面、語意化並跨裝置測試都能提升跨平台可用性。",
+"ew": "C 是反例：只依賴單一瀏覽器的私有功能且完全不做回退，會讓其他瀏覽器或裝置的使用者無法正常使用，違反跨平台原則。A 的 web-safe fonts 與字型回退確保各平台都能顯示合理字型；B 的相對單位與彈性版面能適應不同螢幕尺寸；D 的語意化 HTML 搭配多環境測試能及早發現相容性問題。A、B、D 才是提升跨平台可用性的正確方向。"
+}
+]
