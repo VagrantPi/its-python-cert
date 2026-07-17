@@ -1,0 +1,813 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ITS Java 證照｜自學與自測 Hub</title>
+<style>
+  :root{
+    --bg:#f6f8fb; --surface:#ffffff; --surface-2:#eef1f7; --code-bg:#f0f3f9;
+    --text:#171c28; --muted:#59637a; --border:#dde3ee;
+    --accent:#3b57d6; --accent-soft:#e6ebfd; --amber:#c9760a;
+    --good:#1f8a4c; --good-soft:#e3f4e9; --good-bd:#a8dcbb;
+    --bad:#cf3d3d; --bad-soft:#fbe7e7; --bad-bd:#f0b6b6;
+    --mono:ui-monospace,"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;
+    --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans TC","PingFang TC",sans-serif;
+    --maxw:960px; --radius:12px;
+  }
+  @media (prefers-color-scheme:dark){
+    :root{
+      --bg:#0e1218; --surface:#151b25; --surface-2:#1d2531; --code-bg:#10151d;
+      --text:#e7eaf2; --muted:#94a0b8; --border:#28303d;
+      --accent:#8098f7; --accent-soft:#1a2440; --amber:#eaa54a;
+      --good:#54cf78; --good-soft:#132c1c; --good-bd:#255f39;
+      --bad:#ef8888; --bad-soft:#301718; --bad-bd:#5e2a2b;
+    }
+  }
+  :root[data-theme="light"]{
+    --bg:#f6f8fb; --surface:#ffffff; --surface-2:#eef1f7; --code-bg:#f0f3f9;
+    --text:#171c28; --muted:#59637a; --border:#dde3ee;
+    --accent:#3b57d6; --accent-soft:#e6ebfd; --amber:#c9760a;
+    --good:#1f8a4c; --good-soft:#e3f4e9; --good-bd:#a8dcbb;
+    --bad:#cf3d3d; --bad-soft:#fbe7e7; --bad-bd:#f0b6b6;
+  }
+  :root[data-theme="dark"]{
+    --bg:#0e1218; --surface:#151b25; --surface-2:#1d2531; --code-bg:#10151d;
+    --text:#e7eaf2; --muted:#94a0b8; --border:#28303d;
+    --accent:#8098f7; --accent-soft:#1a2440; --amber:#eaa54a;
+    --good:#54cf78; --good-soft:#132c1c; --good-bd:#255f39;
+    --bad:#ef8888; --bad-soft:#301718; --bad-bd:#5e2a2b;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);line-height:1.65;
+    -webkit-font-smoothing:antialiased;font-size:16px}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 20px}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code{font-family:var(--mono);font-size:.92em;background:var(--surface-2);padding:.08em .35em;border-radius:5px}
+  pre{font-family:var(--mono);font-size:.86rem;line-height:1.55;background:var(--code-bg);
+    border:1px solid var(--border);border-radius:9px;padding:12px 14px;overflow-x:auto;margin:.6rem 0;
+    tab-size:4}
+  .eyebrow{font-family:var(--mono);font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--muted);font-weight:600}
+  h2{font-size:1.6rem;letter-spacing:-.02em;margin:.2rem 0 .1rem;text-wrap:balance}
+  h3{font-size:1.1rem;margin:1.4rem 0 .3rem}
+
+  /* header */
+  header.bar{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--surface) 88%,transparent);
+    backdrop-filter:blur(10px);border-bottom:1px solid var(--border)}
+  .bar .wrap{display:flex;align-items:center;gap:16px;height:56px}
+  .brand{font-family:var(--mono);font-weight:700;font-size:.95rem;letter-spacing:-.01em;white-space:nowrap}
+  .brand .dot{color:var(--amber)}
+  nav.toc{display:flex;gap:4px;margin-left:auto;overflow-x:auto}
+  nav.toc a{font-size:.8rem;color:var(--muted);padding:6px 10px;border-radius:7px;white-space:nowrap}
+  nav.toc a:hover{color:var(--text);background:var(--surface-2);text-decoration:none}
+  .toggle{flex:0 0 auto;width:38px;height:32px;border:1px solid var(--border);background:var(--surface);
+    border-radius:8px;color:var(--text);cursor:pointer;font-size:1rem;display:grid;place-items:center}
+  .toggle:hover{border-color:var(--accent)}
+
+  /* hero */
+  .hero{padding:52px 0 34px}
+  .hero .kick{color:var(--amber)}
+  .hero h1{font-size:clamp(2rem,5vw,3rem);line-height:1.08;letter-spacing:-.03em;margin:.5rem 0 .6rem;
+    text-wrap:balance}
+  .hero p.lead{font-size:1.08rem;color:var(--muted);max-width:60ch;margin:0}
+  .hero .stats{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .chip{font-family:var(--mono);font-size:.78rem;background:var(--surface);border:1px solid var(--border);
+    padding:7px 11px;border-radius:8px}
+  .chip b{color:var(--accent)}
+  .term{margin-top:26px;background:var(--code-bg);border:1px solid var(--border);border-radius:12px;
+    overflow:hidden;box-shadow:0 10px 30px -18px rgba(20,30,60,.5)}
+  .term .top{display:flex;gap:7px;align-items:center;padding:10px 14px;border-bottom:1px solid var(--border);
+    background:var(--surface-2)}
+  .term .top i{width:11px;height:11px;border-radius:50%;display:inline-block}
+  .term .top .t{font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-left:8px}
+  .term pre{margin:0;border:0;border-radius:0;background:transparent;font-size:.82rem;padding:15px 16px}
+  .cur{display:inline-block;width:8px;height:1.05em;background:var(--accent);vertical-align:-2px;
+    animation:blink 1.1s steps(1) infinite}
+  @keyframes blink{50%{opacity:0}}
+  @media (prefers-reduced-motion:reduce){.cur{animation:none}}
+
+  section{padding:34px 0;border-top:1px solid var(--border)}
+  .lede{color:var(--muted);max-width:64ch}
+
+  /* domain weight bars */
+  .dom{display:grid;gap:12px;margin-top:20px}
+  .dom .row{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:13px 15px}
+  .dom .h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+  .dom .n{font-family:var(--mono);font-size:.72rem;color:var(--accent);font-weight:700}
+  .dom .name{font-weight:600}
+  .dom .w{margin-left:auto;font-family:var(--mono);font-size:.82rem;color:var(--muted);
+    font-variant-numeric:tabular-nums}
+  .dom .track{height:7px;background:var(--surface-2);border-radius:4px;margin-top:9px;overflow:hidden}
+  .dom .fill{height:100%;background:linear-gradient(90deg,var(--accent),color-mix(in srgb,var(--accent) 55%,var(--amber)));
+    border-radius:4px}
+  .dom .sub{font-size:.85rem;color:var(--muted);margin-top:8px}
+
+  /* resource cards */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:18px}
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:14px 15px}
+  .card .tag{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;
+    padding:2px 7px;border-radius:5px;font-weight:700}
+  .tag.t1{background:var(--good-soft);color:var(--good);border:1px solid var(--good-bd)}
+  .tag.t2{background:var(--accent-soft);color:var(--accent)}
+  .tag.t3{background:var(--bad-soft);color:var(--bad);border:1px solid var(--bad-bd)}
+  .card h4{margin:9px 0 4px;font-size:.98rem}
+  .card p{margin:0;font-size:.85rem;color:var(--muted)}
+
+  /* quiz */
+  .quizhead{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end;justify-content:space-between}
+  .filters{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+  .fbtn{font-family:var(--mono);font-size:.78rem;padding:6px 11px;border-radius:8px;cursor:pointer;
+    background:var(--surface);border:1px solid var(--border);color:var(--muted)}
+  .fbtn:hover{border-color:var(--accent);color:var(--text)}
+  .fbtn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+  :root[data-theme="dark"] .fbtn[aria-pressed="true"]{color:#0e1218}
+  @media (prefers-color-scheme:dark){.fbtn[aria-pressed="true"]{color:#0e1218}}
+
+  .scorebar{position:sticky;top:56px;z-index:40;margin-top:18px;
+    background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(8px);
+    border:1px solid var(--border);border-radius:11px;padding:11px 15px;
+    display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+  .scorebar .m{font-family:var(--mono);font-size:.82rem;font-variant-numeric:tabular-nums}
+  .scorebar .m b{font-size:1.05rem}
+  .scorebar .m span{color:var(--muted)}
+  .scorebar .pct{color:var(--accent)}
+  .scorebar .reset{margin-left:auto;font-family:var(--mono);font-size:.76rem;background:none;
+    border:1px solid var(--border);color:var(--muted);padding:5px 10px;border-radius:7px;cursor:pointer}
+  .scorebar .reset:hover{border-color:var(--bad);color:var(--bad)}
+
+  .q{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 17px;margin-top:14px}
+  .q.hidden{display:none}
+  .q .meta{display:flex;gap:8px;align-items:center;margin-bottom:8px}
+  .q .qid{font-family:var(--mono);font-size:.72rem;color:var(--accent);font-weight:700}
+  .q .dl{font-family:var(--mono);font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--muted);background:var(--surface-2);padding:2px 7px;border-radius:5px}
+  .q .multi{font-family:var(--mono);font-size:.66rem;color:var(--amber);border:1px solid var(--amber);
+    padding:1px 6px;border-radius:5px}
+  .q .stem{font-weight:500;margin-bottom:4px}
+  .opts{display:grid;gap:8px;margin-top:11px}
+  .opt{display:flex;gap:10px;align-items:flex-start;text-align:left;width:100%;cursor:pointer;
+    background:var(--surface);border:1px solid var(--border);border-radius:9px;padding:10px 12px;
+    color:var(--text);font-family:inherit;font-size:.93rem;line-height:1.5}
+  .opt:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft)}
+  .opt:disabled{cursor:default}
+  .opt .k{font-family:var(--mono);font-weight:700;color:var(--muted);flex:0 0 auto}
+  .opt .tx{flex:1}
+  .opt .tx code,.opt .tx{font-family:var(--mono);font-size:.9rem}
+  .opt.correct{background:var(--good-soft);border-color:var(--good-bd)}
+  .opt.correct .k{color:var(--good)}
+  .opt.wrong{background:var(--bad-soft);border-color:var(--bad-bd)}
+  .opt.wrong .k{color:var(--bad)}
+  .opt .mark{margin-left:auto;font-family:var(--mono);font-weight:700}
+  .opt.correct .mark{color:var(--good)}
+  .opt.wrong .mark{color:var(--bad)}
+  .submit{margin-top:11px;font-family:var(--mono);font-size:.82rem;background:var(--accent);color:#fff;
+    border:0;padding:8px 16px;border-radius:8px;cursor:pointer}
+  :root[data-theme="dark"] .submit{color:#0e1218}
+  @media (prefers-color-scheme:dark){.submit{color:#0e1218}}
+  .submit:disabled{opacity:.5;cursor:default}
+  .exp{margin-top:11px;padding:11px 13px;border-radius:9px;background:var(--surface-2);
+    border-left:3px solid var(--accent);font-size:.88rem}
+  .exp.hidden{display:none}
+  .exp b{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+  .exp.ok{border-left-color:var(--good)}
+  .exp.bad{border-left-color:var(--bad)}
+  .exp .fb{margin-top:7px;font-size:.86rem;line-height:1.5}
+  .exp .fb .you,.exp .fb .ans{display:inline-block;font-family:var(--mono);font-size:.66rem;letter-spacing:.04em;
+    padding:1px 7px;border-radius:5px;margin-right:7px;font-weight:700;vertical-align:1px}
+  .exp .fb .you{background:var(--bad-soft);color:var(--bad);border:1px solid var(--bad-bd)}
+  .exp .fb .ans{background:var(--good-soft);color:var(--good);border:1px solid var(--good-bd)}
+  .exp .why{margin-top:10px;padding-top:9px;border-top:1px dashed var(--border);font-size:.88rem}
+  .exp .tip{margin-top:8px;font-size:.82rem;color:var(--muted);line-height:1.6}
+
+  /* result */
+  .result{margin-top:18px;background:var(--surface);border:1px solid var(--border);border-radius:12px;
+    padding:20px;display:none}
+  .result.show{display:block}
+  .result .verdict{font-size:1.4rem;font-weight:700;letter-spacing:-.02em}
+  .result .pass{color:var(--good)}
+  .result .fail{color:var(--bad)}
+  .result .big{font-family:var(--mono);font-size:2.6rem;font-weight:700;line-height:1;
+    font-variant-numeric:tabular-nums;margin:6px 0}
+  .rdom{display:grid;gap:8px;margin-top:16px}
+  .rdom .r{display:flex;align-items:center;gap:10px;font-size:.85rem}
+  .rdom .r .lab{font-family:var(--mono);color:var(--muted);flex:0 0 168px}
+  .rdom .r .bar{flex:1;height:8px;background:var(--surface-2);border-radius:4px;overflow:hidden}
+  .rdom .r .bar i{display:block;height:100%;background:var(--good);border-radius:4px}
+  .rdom .r .v{font-family:var(--mono);font-variant-numeric:tabular-nums;flex:0 0 auto}
+
+  footer{padding:34px 0 60px;color:var(--muted);font-size:.82rem;border-top:1px solid var(--border)}
+  footer .wrap{display:flex;flex-wrap:wrap;gap:6px 18px}
+  .note{font-size:.8rem;color:var(--muted);background:var(--surface-2);border-radius:9px;padding:10px 13px;
+    margin-top:14px;border-left:3px solid var(--amber)}
+
+  /* mode bar */
+  .modebar{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+  .mbtn{font-family:var(--mono);font-size:.84rem;padding:9px 15px;border-radius:9px;cursor:pointer;
+    background:var(--surface);border:1px solid var(--border);color:var(--muted)}
+  .mbtn:hover{border-color:var(--accent);color:var(--text)}
+  .mbtn[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+  :root[data-theme="dark"] .mbtn[aria-pressed="true"]{color:#0e1218}
+  @media (prefers-color-scheme:dark){.mbtn[aria-pressed="true"]{color:#0e1218}}
+
+  /* mock */
+  .mockbar .mktime{color:var(--amber)}
+  .mockbar .mktime b{font-size:1.15rem;font-variant-numeric:tabular-nums}
+  .mockbar.warn{border-color:var(--bad)}
+  .mockbar.warn .mktime{color:var(--bad)}
+  .mockbar #mkSubmit{margin-left:auto;padding:6px 14px}
+  .intro{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:22px;margin-top:14px}
+  .intro h3{margin:0 0 6px}
+  .intro ul{margin:10px 0 16px;padding-left:20px;color:var(--muted);font-size:.9rem;line-height:1.9}
+  .intro .go{font-family:var(--mono);font-size:.9rem;background:var(--accent);color:#fff;border:0;
+    padding:11px 22px;border-radius:9px;cursor:pointer}
+  :root[data-theme="dark"] .intro .go{color:#0e1218}
+  @media (prefers-color-scheme:dark){.intro .go{color:#0e1218}}
+  .opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+  .opt.sel .k{color:var(--accent)}
+  .q .num{margin-left:auto;font-family:var(--mono);font-size:.7rem;color:var(--muted)}
+
+  /* 一次一題：題號跳格 + 上/下一題 */
+  .pager{display:flex;flex-wrap:wrap;gap:5px;margin-top:14px}
+  .pnum{font-family:var(--mono);font-size:.72rem;min-width:28px;height:28px;padding:0 4px;border-radius:7px;
+    border:1px solid var(--border);background:var(--surface);color:var(--muted);cursor:pointer;
+    display:inline-flex;align-items:center;justify-content:center;font-variant-numeric:tabular-nums}
+  .pnum:hover{border-color:var(--accent);color:var(--text)}
+  .pnum.ans{border-color:var(--accent);color:var(--accent)}
+  .pnum.correct{background:var(--good-soft);border-color:var(--good-bd);color:var(--good)}
+  .pnum.wrong{background:var(--bad-soft);border-color:var(--bad-bd);color:var(--bad)}
+  .pnum.cur{outline:2px solid var(--accent);outline-offset:1px;font-weight:700;color:var(--text)}
+  .nav{display:flex;align-items:center;gap:12px;margin-top:16px}
+  .navbtn{font-family:var(--mono);font-size:.85rem;padding:9px 16px;border-radius:9px;cursor:pointer;
+    background:var(--surface);border:1px solid var(--border);color:var(--text)}
+  .navbtn:hover:not(:disabled){border-color:var(--accent)}
+  .navbtn:disabled{opacity:.4;cursor:default}
+  .navbtn.primary{margin-left:auto;background:var(--accent);color:#fff;border-color:var(--accent)}
+  :root[data-theme="dark"] .navbtn.primary:not(:disabled){color:#0e1218}
+  @media (prefers-color-scheme:dark){.navbtn.primary:not(:disabled){color:#0e1218}}
+  .navbtn.primary:disabled{background:var(--surface);color:var(--text)}
+  .pos{font-family:var(--mono);font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+
+  /* ---- RWD：行動裝置斷點 ---- */
+  @media (max-width:640px){
+    body{font-size:15px}
+    .wrap{padding:0 14px}
+    .hero{padding:30px 0 20px}
+    .hero h1{font-size:2rem}
+    .hero .lead{font-size:1rem}
+    section{padding:26px 0}
+    h2{font-size:1.3rem}
+    nav.toc a{padding:6px 7px;font-size:.74rem}
+    .term pre{font-size:.72rem}
+    .scorebar{gap:8px 12px;padding:9px 12px}
+    .scorebar .m{font-size:.78rem}
+    .scorebar .reset{padding:5px 8px}
+    .modebar{gap:6px}
+    .mbtn{font-size:.76rem;padding:8px 10px}
+    .pager{max-height:168px;overflow-y:auto}
+    .pnum{min-width:25px;height:25px;font-size:.66rem}
+    .q{padding:13px 12px}
+    .q .stem{font-size:.96rem}
+    pre{font-size:.8rem}
+    .opt{padding:9px 10px}
+    .opt .tx,.opt .tx code{font-size:.86rem}
+    .navbtn{padding:8px 12px;font-size:.8rem}
+    .exp .fb,.exp .why{font-size:.84rem}
+    .rdom .r .lab{flex:0 0 92px;font-size:.76rem}
+    .result{padding:16px}
+    .result .big{font-size:2.1rem}
+  }
+</style>
+
+<header class="bar">
+  <div class="wrap">
+    <span class="brand">ITS<span class="dot">·</span>Java</span>
+    <nav class="toc">
+      <a href="#overview">總覽</a>
+      <a href="#domains">五大領域</a>
+      <a href="#resources">備考資源</a>
+      <a href="#quiz">線上自測</a>
+    </nav>
+    <button class="toggle" id="themeBtn" aria-label="切換深淺色">◐</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <span class="eyebrow kick">Certiport IT Specialist · Java</span>
+    <h1>讀懂程式，<br>比會寫更重要。</h1>
+    <p class="lead">ITS Java 是入門級國際認證，考的是「辨識、預測、除錯」Java 程式碼的能力。這份 Hub 幫你對齊五大考試領域、篩選可信資源，並用 139 題互動測驗即時檢測實力。</p>
+    <div class="stats">
+      <span class="chip">題數 約 <b>40</b> 題</span>
+      <span class="chip">時間 <b>50</b> 分鐘</span>
+      <span class="chip">通過 <b>700</b>/1000</span>
+      <span class="chip">本站題庫 <b>139</b> 題</span>
+    </div>
+    <div class="term" aria-hidden="true">
+      <div class="top">
+        <i style="background:#e0665e"></i><i style="background:#e6b34d"></i><i style="background:#5bbf6a"></i>
+        <span class="t">java — ItsPrep.java</span>
+      </div>
+<pre>int score = 0;
+for (Domain d : exam.domains()) {      <span style="color:var(--muted)">// 五大領域</span>
+    score += study(d);
+}
+System.out.println(score &gt;= 700 ? "PASS" : "RETRY");
+PASS<span class="cur"></span></pre>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section id="overview">
+    <span class="eyebrow">Overview</span>
+    <h2>這張證照在考什麼</h2>
+    <p class="lede">ITS Java 屬 Certiport IT Specialist 系列入門級國際認證，重點在<strong>讀懂與除錯</strong> Java 程式碼而非即席開發。題型包含單選、複選、拖曳、排序、下拉等；考場提供中文介面。</p>
+    <div class="note">⚠️ 官方不公開歷屆真題（受 NDA 保護）。最接近真題手感的合法管道是官方授權的 <b>GMetrix / CertPREP</b> 模擬；本站 139 題為<strong>原創且對齊官方 Objective Domains</strong>，無版權疑慮。</div>
+  </section>
+
+  <section id="domains">
+    <span class="eyebrow">Objective Domains</span>
+    <h2>五大考試領域與權重</h2>
+    <p class="lede">權重來自官方 Certiport IT Specialist – Java Objective Domains（比例為近似值）。<strong>領域 2（資料型別與運算式）</strong>權重最高、領域 4（物件導向）次之，是拉分關鍵。</p>
+    <div class="dom" id="domList"></div>
+  </section>
+
+  <section id="resources">
+    <span class="eyebrow">Study Resources</span>
+    <h2>備考資源（依可信度分級）</h2>
+    <p class="lede">🟢 官方／授權 → 🟡 教材／課程 → 🟠 社群／回憶題（僅供熟悉題型，勿當標準答案）。</p>
+    <div class="cards">
+      <div class="card"><span class="tag t1">官方授權</span><h4>GMetrix / CertPREP</h4><p>官方指定模擬平台，題型與介面貼近正式考試。備考首選，建議完成 1–2 回全真計時模擬。</p></div>
+      <div class="card"><span class="tag t1">官方</span><h4>ITS Java Objective Domains</h4><p>Certiport 官方考綱文件，列出五大領域與細項，對齊「考什麼」的權威依據。</p></div>
+      <div class="card"><span class="tag t2">主教材</span><h4>Java 入門教材 · Oracle 官方教學</h4><p>對齊考綱的 Java SE 基礎教材與 The Java Tutorials，含語法範例與練習。</p></div>
+      <div class="card"><span class="tag t2">線上課程</span><h4>uCertify / Career Smarter</h4><p>互動課程 + 模擬測驗，按基礎、資料型別、流程控制、物件導向、除錯編排。</p></div>
+      <div class="card"><span class="tag t3">社群免費</span><h4>GitHub 開源筆記 · Quizlet</h4><p>免費入門地圖與字卡，答案需用官方考綱覆核，切勿死背。</p></div>
+      <div class="card"><span class="tag t3">避免</span><h4>「100% Pass 真題」販售站</h4><p>可能侵權、答案未必正確、違反考試誠信，不建議使用。</p></div>
+    </div>
+  </section>
+
+  <section id="quiz">
+    <div class="quizhead">
+      <div>
+        <span class="eyebrow">Self Test · 139 題</span>
+        <h2>線上自測</h2>
+        <p class="lede" style="margin:0"><b>練習模式</b>：選答即時對答看解析。<b>計時模擬考</b>：隨機抽 20 題、限時 25 分鐘、一次交卷評分（模擬真實考試）。</p>
+      </div>
+    </div>
+
+    <div class="modebar" id="modebar">
+      <button class="mbtn" data-mode="practice" aria-pressed="true">✎ 練習模式</button>
+      <button class="mbtn" data-mode="mock" aria-pressed="false">⏱ 計時模擬考（隨機 20 題）</button>
+    </div>
+
+    <div id="practicePane">
+      <div class="filters" id="filters"></div>
+      <div class="scorebar">
+        <span class="m"><span>已答</span> <b id="mDone">0</b><span>/<span id="mTotal">139</span></span></span>
+        <span class="m"><span>答對</span> <b id="mRight">0</b></span>
+        <span class="m pct"><span>正確率</span> <b id="mPct">—</b></span>
+        <button class="reset" id="resetBtn">↺ 重置</button>
+      </div>
+    </div>
+
+    <div id="mockPane" style="display:none">
+      <div class="scorebar mockbar" id="mockbar" style="display:none">
+        <span class="m mktime">⏱ <b id="mkTime">25:00</b></span>
+        <span class="m"><span>已答</span> <b id="mkDone">0</b><span>/20</span></span>
+        <button class="submit" id="mkSubmit">交卷評分</button>
+        <button class="reset" id="mkExit">結束模擬</button>
+      </div>
+    </div>
+
+    <div id="quizList"></div>
+    <div class="result" id="result"></div>
+  </section>
+
+</div>
+
+<footer>
+  <div class="wrap">
+    <span>ITS Java 自學 Hub · 資料調研 2026-07</span>
+    <span>· 題目對齊 Java 語法與官方考綱</span>
+    <span>· 規格以報考當下 Certiport 官方 Objective Domains 為準</span>
+  </div>
+</footer>
+
+<script>
+// ---------- 主題切換 ----------
+const root=document.documentElement, tbtn=document.getElementById('themeBtn');
+tbtn.onclick=()=>{
+  const cur=root.getAttribute('data-theme')
+    || (matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light');
+  root.setAttribute('data-theme',cur==='dark'?'light':'dark');
+};
+
+// ---------- 五大領域 ----------
+const domains=[
+  {n:1,short:'Fundamentals',name:'Java Fundamentals',w:'約 20-25%（近似）',pct:22,sub:'進入點 main、javac→.class→JVM 編譯執行流程、原始 vs 參考型別、字面值與註解'},
+  {n:2,short:'Data Types',name:'Data Types, Variables, and Expressions',w:'約 25-30%（近似）',pct:28,sub:'8 種原始型別、型別轉換（自動拓寬／顯式窄化）、運算子與優先序、String 與 == vs equals'},
+  {n:3,short:'Flow Control',name:'Flow Control Implementation',w:'約 10-15%（近似）',pct:12,sub:'if/else、switch（break 與 fall-through）、for/while/do-while、break/continue、三元運算子'},
+  {n:4,short:'OOP',name:'Object-Oriented Programming',w:'約 22-28%（近似）',pct:26,sub:'類別與物件、封裝／繼承／多型、介面與 abstract、static/this/super、覆寫與多載'},
+  {n:5,short:'Debugging',name:'Code Compilation and Debugging',w:'約 10-15%（近似）',pct:12,sub:'編譯錯誤 vs 執行期例外、try/catch/finally、checked/unchecked、讀 stack trace 除錯'},
+];
+document.getElementById('domList').innerHTML=domains.map(d=>`
+  <div class="row">
+    <div class="h"><span class="n">D${d.n}</span><span class="name">${d.name}</span><span class="w">${d.w}</span></div>
+    <div class="track"><div class="fill" style="width:${d.pct*3.4}%"></div></div>
+    <div class="sub">${d.sub}</div>
+  </div>`).join('');
+
+// ---------- 題庫（對齊官方 Objective Domains；答錯詳解見 ew 欄位） ----------
+// a: 正確答案鍵陣列；multi: 複選；ew: 詳盡錯誤解說
+const Q=[
+ {"id": 1, "d": 1, "stem": "在 Java 應用程式中，JVM 用來啟動程式的標準進入點方法，其正確簽名是哪一個？", "code": "", "o": {"A": "public static void main(String[] args)", "B": "public void main(String[] args)", "C": "public static int main(String[] args)", "D": "private static void main(String[] args)"}, "a": ["A"], "multi": false, "e": "標準進入點必須是 public、static、回傳 void，並接收一個 String[] 參數，這是各版本 Java 與證照一致認定的標準簽名。", "ew": "B 少了 static，不是標準靜態進入點寫法；標準進入點之所以要 static，是為了讓 JVM 無需先建立物件即可直接呼叫，因此 B 不是正確的標準簽名。C 的回傳型別是 int 而非 void，標準進入點被規範為回傳 void，回傳型別不符就不是標準 main。D 使用 private，存取權限不足，JVM 無法從類別外部呼叫它（實測 private static void main 會出現找不到主方法的錯誤）。記住標準入口四要素：public 讓 JVM 可存取、static 免建立物件即可呼叫、void 不回傳值、String[] 用來接命令列引數。"},
+ {"id": 2, "d": 1, "stem": "下列哪一個 main 宣告「無法」被 JVM 當作應用程式進入點啟動？", "code": "", "o": {"A": "public static void main(String[] args)", "B": "public static int main(String[] args)", "C": "public static void main(String... args)", "D": "static public void main(String[] args)"}, "a": ["B"], "multi": false, "e": "進入點的回傳型別必須是 void；B 回傳 int，實測 JVM 啟動時找不到符合簽名的 main 而報錯，不能作為進入點。", "ew": "A 是最標準的寫法，實測可正常啟動。C 使用可變參數 String...，在編譯與 JVM 眼中等同於 String[]，實測可啟動。D 只是把 static 與 public 的順序對調，修飾詞順序不影響意義，實測一樣可啟動。關鍵在於 B：進入點回傳型別被規範為 void，回傳 int 雖能通過編譯，但 JVM 啟動時找不到符合的 main，會出現「主要方法不是類別中的…請定義 public static void main(String[] args)」錯誤。"},
+ {"id": 3, "d": 1, "stem": "以指令 java ArgsDemo apple banana 執行下列程式，輸出為何？", "code": "public class ArgsDemo {\n    public static void main(String[] args) {\n        System.out.println(args.length);\n        if (args.length > 0) {\n            System.out.println(args[0]);\n        }\n    }\n}", "o": {"A": "2 換行 apple", "B": "3 換行 ArgsDemo", "C": "2 換行 ArgsDemo", "D": "3 換行 apple"}, "a": ["A"], "multi": false, "e": "命令列引數不含程式名稱，args 只有 apple、banana 兩個，長度 2，args[0] 是 apple。實測輸出為 2 換行 apple。", "ew": "B、C 誤以為程式名稱 ArgsDemo 也算一個引數，因此把 length 當成 3 或把 args[0] 當成 ArgsDemo；但 Java 與 C 不同，args 不包含類別名稱。D 同樣把 length 誤算為 3。實際上 JVM 只把類別名稱後面的字串一一放進 args，所以 args.length 是 2、args[0] 是第一個真正的引數 apple。"},
+ {"id": 4, "d": 1, "stem": "關於 Java 的命令列引數（command-line arguments），下列敘述何者正確？", "code": "", "o": {"A": "args[0] 一定是被執行的類別名稱", "B": "args 陣列中的每個元素都是 String 型別", "C": "若要傳入數字，args 會自動轉成 int", "D": "沒有傳入任何引數時，args 會是 null"}, "a": ["B"], "multi": false, "e": "命令列引數一律以 String 形式放入 args；要當數字使用需自行用 Integer.parseInt 等轉換。", "ew": "A 錯在把類別名稱算進去；args[0] 是類別名稱後的第一個引數，不含類別名稱。C 錯在以為會自動轉型；即使輸入 5，args 中仍是字串 \"5\"，需程式自行解析。D 錯在型別觀念；沒有引數時 args 是長度為 0 的空陣列而非 null，所以可安全呼叫 args.length。正確觀念是：命令列引數永遠是 String，需要數值時必須自行轉換。"},
+ {"id": 5, "d": 1, "stem": "下列程式的輸出為何？", "code": "class Counter {\n    int count;\n    void inc() { count++; }\n}\npublic class CounterDemo {\n    public static void main(String[] args) {\n        Counter c = new Counter();\n        c.inc();\n        c.inc();\n        System.out.println(c.count);\n    }\n}", "o": {"A": "0", "B": "1", "C": "2", "D": "編譯錯誤，count 未初始化"}, "a": ["C"], "multi": false, "e": "以 new 建立自訂類別 Counter 的實例，呼叫兩次 inc() 使實例欄位 count 由預設值 0 遞增到 2。實測輸出為 2。", "ew": "A 誤以為 count 沒被改動仍是 0，但呼叫了兩次 inc() 已把它加到 2。B 只算了一次遞增。D 誤以為欄位未初始化會編譯錯誤，但實例欄位（instance field）會自動取得預設值，int 的預設值是 0，不需手動初始化即可編譯。此題重點是：用 new 建立自己的類別實例後，透過該實例呼叫方法會改變該實例的欄位狀態。"},
+ {"id": 6, "d": 1, "stem": "若要在 main 中使用你自己定義的類別 Robot（含建構子 Robot(String name)）建立一個實例並命名為 r，下列哪一行正確？", "code": "", "o": {"A": "Robot r = Robot(\"R2\");", "B": "Robot r = new Robot(\"R2\");", "C": "new Robot r = \"R2\";", "D": "Robot r = new Robot;"}, "a": ["B"], "multi": false, "e": "建立實例需使用 new 運算子並呼叫建構子並傳入引數：new Robot(\"R2\")。", "ew": "A 少了 new，直接寫 Robot(\"R2\") 會被當成方法呼叫而無法建立物件。C 的語法順序完全錯誤，new 應接在等號右側且不能把型別名放在 new 之後又直接指派字串。D 使用了 new Robot 但缺少括號與必要的引數，無法對應到 Robot(String) 建構子。建立自訂類別實例的通則是：型別 變數 = new 建構子(引數);。"},
+ {"id": 7, "d": 1, "stem": "以不帶任何引數的指令 java Demo 執行下列程式，會發生什麼？", "code": "public class Demo {\n    public static void main(String[] args) {\n        System.out.println(args.length);\n        System.out.println(args[0]);\n    }\n}", "o": {"A": "先印出 0，接著在存取 args[0] 時丟出 ArrayIndexOutOfBoundsException", "B": "印出 0 然後印出 null", "C": "編譯失敗", "D": "印出 1 然後印出空字串"}, "a": ["A"], "multi": false, "e": "沒有引數時 args 長度為 0，args.length 印出 0；接著存取 args[0] 因索引超界而丟出例外。實測輸出 0 後拋出 ArrayIndexOutOfBoundsException: Index 0 out of bounds for length 0。", "ew": "B 誤以為超界會得到 null，但陣列越界是丟出 ArrayIndexOutOfBoundsException，不是回傳 null。C 錯在此程式語法完全合法可編譯，問題發生在執行期。D 誤以為 length 是 1；沒有引數時 args 是空陣列，length 為 0。重點：args 在無引數時是長度 0 的空陣列，可安全讀 length，但不可存取任何索引。"},
+ {"id": 8, "d": 1, "stem": "關於 main 方法參數 String... args 與 String[] args 的關係，下列敘述何者正確？", "code": "", "o": {"A": "兩者對 JVM 而言等效，String... 是可變參數寫法，底層即為 String[]", "B": "String... 只能接收一個字串，無法接收多個", "C": "使用 String... 會導致編譯失敗，不能當進入點", "D": "String... 會把引數變成 int 陣列"}, "a": ["A"], "multi": false, "e": "可變參數 String... 在位元組碼層級就是 String[]，因此可作為合法進入點且行為與 String[] 相同（實測 public static void main(String... args) 可正常啟動）。", "ew": "B 誤解可變參數的意義；String... 正是用來接收零到多個字串，恰恰能接多個引數。C 與事實相反，實測 String... args 是合法的進入點宣告，可被 JVM 啟動。D 錯在型別；可變參數只是語法糖，不會改變元素型別，String... 的元素仍是 String 而非 int。核心觀念：String... args 與 String[] args 在進入點上完全等效。"},
+ {"id": 9, "d": 1, "stem": "下列程式的輸出為何？", "code": "public class PrintDemo {\n    public static void main(String[] args) {\n        System.out.print(\"A\");\n        System.out.print(\"B\");\n        System.out.println(\"C\");\n    }\n}", "o": {"A": "A 換行 B 換行 C", "B": "ABC（同一行）", "C": "AB 換行 C", "D": "A B C"}, "a": ["B"], "multi": false, "e": "print 不換行，println 才在輸出後換行；因此 A、B、C 連在同一行成為 ABC。實測輸出為 ABC。", "ew": "A 誤以為每個 print 都會換行，但只有 println 會換行，print 不會。C 誤把最後的換行套用在 B 與 C 之間，實際上 println(\"C\") 是先印 C 再換行，換行發生在 C 之後。D 憑空加入空白，但程式並未輸出任何空格。重點區別：print 輸出後游標留在原行，println 輸出後移到下一行。"},
+ {"id": 10, "d": 1, "stem": "下列程式的輸出為何？", "code": "public class Concat {\n    public static void main(String[] args) {\n        System.out.println(\"C\" + 1 + 2);\n    }\n}", "o": {"A": "C3", "B": "C12", "C": "3C", "D": "C 1 2"}, "a": ["B"], "multi": false, "e": "運算由左至右；\"C\"+1 先形成字串 \"C1\"，再 +2 得到 \"C12\"，均為字串串接。實測輸出為 C12。", "ew": "A 誤以為 1+2 會先算成 3，但因最左邊已是字串，+ 從左到右都變成字串串接，不會先做算術。C 把順序反了；輸出開頭是 C。D 憑空加入空白，串接不會插入空格。關鍵：當 + 的其中一個運算元是 String 時，+ 是串接而非加法，且是由左至右逐一結合。"},
+ {"id": 11, "d": 1, "stem": "下列程式的輸出為何？", "code": "public class Concat2 {\n    public static void main(String[] args) {\n        System.out.println(1 + 2 + \"C\");\n    }\n}", "o": {"A": "12C", "B": "3C", "C": "C3", "D": "C12"}, "a": ["B"], "multi": false, "e": "由左至右，1+2 兩個都是整數先做算術得 3，再與 \"C\" 串接成 \"3C\"。實測輸出為 3C。", "ew": "A 誤以為 1 與 2 都被當字串串接，但此處左側 1+2 兩個運算元都是數字，先做算術加法得 3。C、D 把順序或型別搞錯，開頭應是算術結果 3。此題與上一題對照重點：+ 由左至右求值，遇到字串前的純數字相加是算術，遇到字串後就轉為串接。"},
+ {"id": 12, "d": 1, "stem": "下列程式的輸出為何？", "code": "public class CharAdd {\n    public static void main(String[] args) {\n        System.out.println('A' + 1);\n    }\n}", "o": {"A": "A1", "B": "B", "C": "66", "D": "編譯錯誤"}, "a": ["C"], "multi": false, "e": "'A' 的字元編碼是 65，char 與 int 相加會做整數運算，65+1=66，println 印出整數 66。實測輸出為 66。", "ew": "A 誤以為 'A'+1 是字串串接得 A1，但字元用單引號是 char 型別，char+int 是算術而非串接。B 誤以為結果會轉回字元 'B'，但運算結果型別是 int，println 直接印出數值。D 錯在此為合法的數值運算，可正常編譯執行。重點：char 參與算術時會被提升成其 Unicode 數值（'A' 為 65）。"},
+ {"id": 13, "d": 1, "stem": "要在程式中使用 Scanner 類別讀取輸入，正確的 import 敘述是哪一個？", "code": "", "o": {"A": "import java.util.Scanner;", "B": "import java.io.Scanner;", "C": "include java.util.Scanner;", "D": "import java.util.*Scanner;"}, "a": ["A"], "multi": false, "e": "Scanner 位於 java.util 套件，正確寫法為 import java.util.Scanner;。", "ew": "B 套件錯誤，Scanner 在 java.util 而非 java.io。C 使用 include 這個關鍵字，Java 匯入用的是 import，include 是 C/C++ 的語法。D 的 *Scanner 語法非法，萬用字元匯入應寫成 import java.util.*;，不能把星號和類別名混在一起。正確做法：明確匯入 import java.util.Scanner; 或用 import java.util.*; 匯入整個套件。"},
+ {"id": 14, "d": 1, "stem": "下列程式以標準輸入送入 3 4 後，輸出為何？", "code": "import java.util.Scanner;\npublic class Sum {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        int a = sc.nextInt();\n        int b = sc.nextInt();\n        System.out.println(a + b);\n    }\n}", "o": {"A": "34", "B": "7", "C": "3 4", "D": "執行期例外"}, "a": ["B"], "multi": false, "e": "nextInt() 依序讀取兩個整數 3 與 4，a+b 為整數加法得 7。實測以輸入 3 4 執行輸出為 7。", "ew": "A 誤以為結果是字串串接 34，但 a 與 b 都是 int，+ 是算術加法。C 誤以為原樣輸出輸入，但程式印出的是相加結果。D 誤以為會丟例外，但輸入的確是兩個以空白分隔的整數，nextInt() 可正常解析。重點：Scanner 的 nextInt() 會略過空白讀取下一個整數 token，兩數皆為 int 時 + 做算術。"},
+ {"id": 15, "d": 1, "stem": "下列程式以標準輸入送入 Hello World 後，輸出為何？", "code": "import java.util.Scanner;\npublic class ReadToken {\n    public static void main(String[] args) {\n        Scanner sc = new Scanner(System.in);\n        String w = sc.next();\n        System.out.println(\"[\" + w + \"]\");\n    }\n}", "o": {"A": "[Hello World]", "B": "[Hello]", "C": "[World]", "D": "[Hello World ]"}, "a": ["B"], "multi": false, "e": "next() 只讀取到下一個空白為止的單一 token，因此只取到 Hello。實測以輸入 Hello World 執行輸出為 [Hello]。", "ew": "A、D 誤以為 next() 會讀整行，但整行要用 nextLine()；next() 遇到空白就停止。C 誤以為讀到第二個字，但 next() 讀的是第一個 token Hello，而非 World。重點：next() 讀單一 token（以空白切分），若要讀含空白的整行需改用 nextLine()。"},
+ {"id": 16, "d": 1, "stem": "若要用 Scanner 讀取「包含空白的一整行」文字，應使用下列哪個方法？", "code": "", "o": {"A": "next()", "B": "nextInt()", "C": "nextLine()", "D": "nextToken()"}, "a": ["C"], "multi": false, "e": "nextLine() 讀取到換行為止的一整行，可包含空白。", "ew": "A 的 next() 只讀到下一個空白前的單一 token，無法取得含空白的整行。B 的 nextInt() 只讀一個整數，且輸入非數字會丟例外。D 的 nextToken() 不是 Scanner 的方法（那是 StringTokenizer 的方法），對 Scanner 呼叫會編譯錯誤。正確選擇：需要整行輸入時使用 nextLine()。"},
+ {"id": 17, "d": 1, "stem": "下列程式無法通過編譯，最主要的原因是什麼？", "code": "public class Scope1 {\n    public static void main(String[] args) {\n        for (int i = 0; i < 3; i++) {\n            int x = i * 2;\n        }\n        System.out.println(x);\n    }\n}", "o": {"A": "x 宣告在 for 迴圈的區塊內，離開該區塊後即超出作用範圍，最後一行找不到 x", "B": "i 未初始化", "C": "System.out.println 不能印出 int", "D": "x 應該用 double 宣告"}, "a": ["A"], "multi": false, "e": "x 宣告於 for 區塊 { } 內，屬於區塊作用域（block scope），離開區塊後就不存在，最後一行使用 x 會編譯錯誤 cannot find symbol。實測 javac 報 cannot find symbol: variable x。", "ew": "B 錯在 i 於 for 的初始式中已被指定為 0，並非未初始化。C 錯在 println 可以接受並印出 int，有對應的多載版本。D 與作用域無關，型別不是問題所在。核心觀念：在區塊（如迴圈、if 的大括號）內宣告的變數只在該區塊內可見，這稱為區塊作用域，區塊結束變數即失效。"},
+ {"id": 18, "d": 1, "stem": "下列程式無法編譯，原因為何？", "code": "public class Redecl {\n    public static void main(String[] args) {\n        int x = 1;\n        {\n            int x = 2;\n        }\n    }\n}", "o": {"A": "內層區塊的 x 與外層方法作用域中的 x 重複，區塊被外層 x 的作用域涵蓋，不可重新宣告", "B": "x 不能是 int", "C": "缺少 return 敘述", "D": "程式可以正常編譯並執行"}, "a": ["A"], "multi": false, "e": "外層方法的區域變數 x 作用域涵蓋整個 main（含內層區塊），內層再宣告同名 x 造成重複定義而編譯錯誤。實測 javac 報 variable x is already defined in method main(String[])。", "ew": "B 錯在 int 型別本身沒有問題，問題在同名重複宣告。C 錯在 void 方法不需 return，缺 return 不是此處錯誤。D 與事實相反，程式確實無法編譯。重點：巢狀內層區塊仍位於外層變數的作用域範圍內，因此不能重新宣告與外層同名的變數（Java 不允許在此情形下遮蔽）。"},
+ {"id": 19, "d": 1, "stem": "下列程式的輸出為何？", "code": "public class Siblings {\n    public static void main(String[] args) {\n        { int y = 1; System.out.println(y); }\n        { int y = 2; System.out.println(y); }\n    }\n}", "o": {"A": "1 換行 2", "B": "編譯錯誤：y 重複宣告", "C": "2 換行 2", "D": "1 換行 1"}, "a": ["A"], "multi": false, "e": "兩個區塊互不重疊，各自的 y 有獨立且不重疊的作用域，因此可同名，分別印出 1 與 2。實測輸出為 1 換行 2。", "ew": "B 誤以為兩個 y 會衝突，但兩個區塊是並列（sibling）而非巢狀，作用域不重疊，可合法各自宣告同名變數。C、D 誤判某個 y 覆蓋另一個，但兩者作用域彼此獨立，離開第一個區塊後其 y 已失效。重點：並列區塊的區域變數作用域彼此獨立，可以重複使用相同名稱。"},
+ {"id": 20, "d": 1, "stem": "下列程式的輸出為何？", "code": "public class Shadow {\n    static int n = 10;\n    public static void main(String[] args) {\n        int n = 5;\n        System.out.println(n);\n        System.out.println(Shadow.n);\n    }\n}", "o": {"A": "5 換行 10", "B": "10 換行 10", "C": "5 換行 5", "D": "編譯錯誤"}, "a": ["A"], "multi": false, "e": "方法內的區域變數 n 遮蔽了類別欄位 n，直接寫 n 取到區域的 5；以 Shadow.n 明確存取類別欄位則取到 10。實測輸出為 5 換行 10。", "ew": "B 誤以為區域變數不會遮蔽欄位，但同名的區域變數在方法內會優先，故第一個印 5。C 誤以為 Shadow.n 也取區域值，但用類別名限定存取的是類別的 static 欄位 10。D 錯在此為合法程式；區域變數允許與類別欄位同名並產生遮蔽。重點：方法作用域的區域變數會遮蔽同名的類別欄位，要存取被遮蔽的欄位需用類別名或 this 限定。"},
+ {"id": 21, "d": 1, "stem": "關於方法內宣告的區域變數（method scope），下列敘述何者正確？", "code": "", "o": {"A": "在方法 A 內宣告的區域變數，可直接在方法 B 中使用", "B": "區域變數的作用域從宣告處開始，到其所在區塊結束為止", "C": "區域變數會自動取得預設值，不需初始化即可讀取", "D": "區域變數的作用域涵蓋整個類別"}, "a": ["B"], "multi": false, "e": "區域變數的作用域自宣告位置起，至其所在的方法或區塊結束為止。", "ew": "A 錯在跨方法存取；方法 A 的區域變數只存在於 A 內，方法 B 看不到它。C 錯在區域變數與實例欄位不同，不會自動取得預設值，未指定值就讀取會造成編譯錯誤。D 錯把區域變數當成類別欄位；只有欄位（field）才有類別範圍，區域變數只限於其方法或區塊。核心：區域變數的生存與可見範圍局限在宣告它的方法或區塊內。"},
+ {"id": 22, "d": 1, "stem": "關於方法參數（method parameter）的作用域，下列敘述何者正確？", "code": "", "o": {"A": "參數的作用域涵蓋整個類別，任何方法都能存取", "B": "參數的作用域僅限於它所屬的那個方法內部", "C": "參數在方法結束後仍持續存在於記憶體中供其他方法使用", "D": "參數必須宣告為 static 才能在方法中使用"}, "a": ["B"], "multi": false, "e": "方法參數屬於該方法的作用域，只在該方法的本體內可見與可用。", "ew": "A 錯把參數當成類別欄位；參數只屬於宣告它的那個方法，其他方法無法存取。C 錯在生命週期；方法結束後其參數與區域變數即離開作用域，不會提供給其他方法。D 錯在語法要求；參數不需要也不能加 static 修飾，static 是類別成員的修飾詞。重點：參數如同區域變數，作用域局限在它所屬的方法本體內。"},
+ {"id": 23, "d": 1, "stem": "下列哪一個是語法正確的 Javadoc 文件註解？", "code": "", "o": {"A": "/** 這是說明 */", "B": "/* 這是說明 */", "C": "// 這是說明", "D": "<!-- 這是說明 -->"}, "a": ["A"], "multi": false, "e": "Javadoc 文件註解以 /** 開頭、以 */ 結尾，才能被 javadoc 工具擷取產生 API 文件。", "ew": "B 只有一個星號，那是普通的區塊註解，不會被 javadoc 工具擷取成 API 文件。C 是單行註解，同樣不屬於 Javadoc。D 是 HTML 的註解語法 <!-- -->，在 Java 原始碼中根本不是合法註解，會造成編譯錯誤，更談不上是 Javadoc。重點：Javadoc 的固定語法是以 /** 開頭、以 */ 結尾，這是唯一能被 javadoc 工具處理成 API 文件的註解形式。"},
+ {"id": 24, "d": 1, "stem": "在 Javadoc 中，用來描述方法「某個參數」用途的標籤（tag）是哪一個？", "code": "", "o": {"A": "@param", "B": "@return", "C": "@throws", "D": "@author"}, "a": ["A"], "multi": false, "e": "@param 用於描述方法的參數，格式為 @param 參數名 說明。", "ew": "@return 是用來描述方法回傳值，不是參數。@throws（或同義的 @exception）用來說明方法可能丟出的例外。@author 用於標註類別或介面的作者，與參數無關。重點：Javadoc 針對不同資訊有專屬標籤，描述參數固定使用 @param 並接參數名稱。"},
+ {"id": 25, "d": 1, "stem": "下列 Javadoc 中，@return 標籤最恰當的用途是什麼？", "code": "/**\n * 計算兩數之和。\n * @param a 第一個加數\n * @param b 第二個加數\n * @return 兩數相加的結果\n */\npublic int add(int a, int b) {\n    return a + b;\n}", "o": {"A": "描述方法回傳值的意義", "B": "描述方法會丟出的例外", "C": "宣告方法為 static", "D": "匯入 java.util 套件"}, "a": ["A"], "multi": false, "e": "@return 用來在 Javadoc 中說明方法回傳值的意義，本例說明回傳的是兩數之和。", "ew": "B 是 @throws 的職責，用於描述例外而非回傳值。C 錯把註解當程式碼；Javadoc 標籤只是文件說明，不會改變方法是否為 static，static 由方法宣告決定。D 匯入套件是 import 敘述的工作，與 Javadoc 標籤無關。重點：@return 專用於描述回傳值，@param 描述參數，兩者是 Javadoc 中最常見的搭配。"},
+ {"id": 26, "d": 1, "stem": "關於 Java 的三種註解寫法，下列哪些敘述正確？（複選）", "code": "", "o": {"A": "// 用於單行註解，從 // 到該行結尾都被忽略", "B": "/* ... */ 用於區塊註解，可跨多行", "C": "/** ... */ 是 Javadoc 文件註解，可被工具擷取產生 HTML 文件", "D": "註解中的程式碼仍會被編譯執行"}, "a": ["A", "B", "C"], "multi": true, "e": "// 為單行註解、/* */ 為可跨行的區塊註解、/** */ 為 Javadoc 文件註解；三者內容都不會被編譯執行。", "ew": "D 是錯誤敘述：註解會被編譯器完全忽略，其中的內容（即使長得像程式碼）不會被編譯或執行，這正是用註解暫時停用程式碼的原理。A 正確描述單行註解，從 // 起到行尾都是註解。B 正確描述區塊註解可跨多行。C 正確描述 Javadoc 文件註解可被 javadoc 工具擷取產生 HTML API 文件。重點：三種註解都不參與執行，Javadoc 額外具備產生文件的用途。"},
+ {"id": 27, "d": 2, "stem": "下列哪個 Java 基本型別用來儲存單一 16 位元的 Unicode 字元？", "code": "", "o": {"A": "String", "B": "char", "C": "byte", "D": "int"}, "a": ["B"], "multi": false, "e": "char 是 16 位元、用來存放單一 Unicode 字元的基本型別，字面值以單引號表示，如 'A'。", "ew": "String 不是基本型別而是類別，用來存放字元序列且以雙引號表示，無法對應「單一字元的基本型別」這個描述。byte 只有 8 位元、範圍 -128~127，僅能存放小整數，無法完整涵蓋 16 位元的 Unicode 碼位。int 是 32 位元整數型別，雖能容納字元的碼點數值，但它並非專為單一字元設計。八個基本型別中唯一針對字元的是 char，這是本題的核心觀念。"},
+ {"id": 28, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    int x = 5;\n    int y = 2;\n    System.out.println(x / y);\n  }\n}", "o": {"A": "2.5", "B": "2", "C": "2.0", "D": "3"}, "a": ["B"], "multi": false, "e": "兩個 int 相除為整數除法，小數部分直接捨去，5/2 得到 2。", "ew": "2.5 是把它當成浮點運算的結果，但只要兩個運算元都是 int，Java 就會做整數除法而非浮點除法。2.0 帶有小數點屬於 double，但整數除法的結果型別仍是 int，不會有小數點。3 是四捨五入的想法，然而整數除法是無條件捨去（truncation）而非四捨五入。要得到 2.5 必須讓至少一個運算元為 double，例如 5.0/2。"},
+ {"id": 29, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    byte b = 100;\n    b += 50;\n    System.out.println(b);\n  }\n}", "o": {"A": "150", "B": "-106", "C": "編譯錯誤", "D": "106"}, "a": ["B"], "multi": false, "e": "byte 範圍是 -128~127，100+50=150 超出範圍發生溢位，回繞後得到 -106。", "ew": "150 超出 byte 上限 127，byte 無法儲存這個值，因此不會是 150。編譯錯誤是誤以為 b += 50 會因型別不符報錯，但複合指定運算子 += 會自動做隱含窄化轉換（cast），故能通過編譯。106 沒有考慮溢位，忽略了超出範圍時會以二補數回繞。此題重點在於複合指定運算子的隱含 cast，以及 byte 溢位時回繞的行為。"},
+ {"id": 30, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    System.out.println(0.1 + 0.2);\n  }\n}", "o": {"A": "0.3", "B": "0.30000000000000004", "C": "0.30", "D": "0.4"}, "a": ["B"], "multi": false, "e": "double 以二進位浮點近似儲存 0.1 與 0.2，相加後產生微小誤差，輸出 0.30000000000000004。", "ew": "0.3 是數學上的期望值，但浮點型別無法精確表示 0.1 與 0.2，故實際結果帶有誤差。0.30 只是格式化後的顯示，Java 直接印出 double 不會補零或截斷成兩位。0.4 完全是錯誤的加法。此題說明浮點運算會發生精度遺失，需要精確小數（如金額）時應改用 BigDecimal。"},
+ {"id": 31, "d": 2, "stem": "關於基本型別 int 與包裝類別 Integer 的差異，下列敘述哪些正確？（複選）", "code": "", "o": {"A": "Integer 變數可以被指定為 null，int 不行", "B": "int 是基本型別，Integer 是物件", "C": "int 和 Integer 完全相同，可互換且沒有任何差異", "D": "Integer 可以呼叫方法（如 intValue()），int 不能"}, "a": ["A", "B", "D"], "multi": true, "e": "Integer 是物件（可為 null、可呼叫方法），int 是基本型別（不可為 null、不能呼叫方法），兩者透過自動裝箱/拆箱轉換。", "ew": "選項 C 錯誤，因為兩者在儲存方式、是否可為 null、是否有方法上都不同，並非完全相同：int 直接存數值，Integer 存的是物件參考，且 Integer 有快取機制導致 == 比較在大數值時會失敗。A 正確點出 Integer 可為 null 而 int 不可，B 正確區分基本型別與物件，D 正確指出只有物件能呼叫方法。理解裝箱/拆箱與快取是避免 == 比較陷阱的關鍵。"},
+ {"id": 32, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    Integer a = 200;\n    Integer b = 200;\n    System.out.println(a == b);\n  }\n}", "o": {"A": "true", "B": "false", "C": "200", "D": "編譯錯誤"}, "a": ["B"], "multi": false, "e": "Integer 快取範圍是 -128~127，200 超出範圍，a 與 b 是不同物件，== 比較參考得到 false。", "ew": "true 是誤以為 == 比較數值，但對包裝類別而言 == 比較的是物件參考而非內容值。由於 200 超出 Integer 快取範圍（-128~127），裝箱會建立兩個不同物件，故參考不相等。200 不是布林運算的結果，而編譯錯誤也不成立，語法完全合法。要比較數值內容應使用 equals()，這正是包裝類別與基本型別的重要差異。"},
+ {"id": 33, "d": 2, "stem": "下列哪一個變數宣告會導致編譯錯誤，因為區域變數未初始化就被使用？", "code": "public class Main {\n  public static void main(String[] args) {\n    int x;\n    System.out.println(x);\n  }\n}", "o": {"A": "正常輸出 0", "B": "正常輸出 null", "C": "編譯錯誤", "D": "執行期例外"}, "a": ["C"], "multi": false, "e": "區域變數沒有預設值，未初始化就使用會在編譯階段被拒絕。", "ew": "輸出 0 是誤把區域變數當成有預設值，但只有類別的成員（欄位）與陣列元素才有預設值 0，區域變數沒有。輸出 null 也錯，int 是基本型別根本不可能是 null。執行期例外也不對，因為問題在編譯階段（javac 報 variable x might not have been initialized）就被攔下，程式根本無法執行。這強調區域變數必須先明確初始化才能使用。"},
+ {"id": 34, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    String s = \"abc\";\n    s.toUpperCase();\n    System.out.println(s);\n  }\n}", "o": {"A": "ABC", "B": "abc", "C": "Abc", "D": "null"}, "a": ["B"], "multi": false, "e": "String 不可變，toUpperCase() 回傳新字串而不修改 s，s 仍為 \"abc\"。", "ew": "ABC 是誤以為 toUpperCase() 會就地修改原字串，但字串是不可變的，所有看似修改的方法其實都回傳新物件而不動原字串。Abc 只是隨意的大小寫混合，方法根本不會產生這種結果。null 也不對，s 已被賦值且不會被清空。要保留大寫結果必須寫成 s = s.toUpperCase()，這是字串不可變性的典型考點。"},
+ {"id": 35, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    String a = \"hi\";\n    String b = new String(\"hi\");\n    System.out.println(a == b);\n    System.out.println(a.equals(b));\n  }\n}", "o": {"A": "true / true", "B": "false / true", "C": "true / false", "D": "false / false"}, "a": ["B"], "multi": false, "e": "new String 建立新物件，a==b 比較參考為 false；equals 比較內容為 true。", "ew": "true/true 是誤以為 == 和 equals 都比內容，但 == 比較的是物件參考；因為 b 用 new 建立，位址與字串池中的 a 不同，所以 == 為 false。true/false 把兩者顛倒了，實際上內容相同 equals 應為 true。false/false 忽略了 equals 是比較字元內容，內容相同時會回 true。此題提醒字串比較內容一律用 equals，不要用 ==。"},
+ {"id": 36, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    System.out.println(1 + 2 + \"x\" + 1 + 2);\n  }\n}", "o": {"A": "3x3", "B": "12x12", "C": "3x12", "D": "1212x"}, "a": ["C"], "multi": false, "e": "由左至右運算：1+2 先算成 3，遇到字串後轉為串接，之後 1、2 依序接成字串。", "ew": "3x3 是誤以為字串後面的 1+2 也會先相加，但一旦左側運算元已是字串，+ 就變成串接，1 和 2 會被逐一接上去變成 \"12\"。12x12 假設全部都串接，卻忽略了字串前的 1+2 兩個運算元都是數值仍相加得 3。1212x 弄錯了運算順序與結合方向。此題考 + 運算子在數值相加與字串串接之間的切換，以及由左至右的結合性。"},
+ {"id": 37, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    System.out.println(String.format(\"%.2f\", 3.14159));\n  }\n}", "o": {"A": "3.14159", "B": "3.14", "C": "3.1", "D": "3.142"}, "a": ["B"], "multi": false, "e": "%.2f 表示保留兩位小數並四捨五入，3.14159 格式化後為 3.14。", "ew": "3.14159 是完全沒有套用格式化的原值，但 %.2f 明確要求只留兩位小數。3.1 只留了一位，對應的是 %.1f 而非 %.2f。3.142 是保留三位小數（%.3f）的結果。String.format 的 %.2f 是控制浮點顯示位數的常見用法，數字會依第三位小數四捨五入。"},
+ {"id": 38, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    String s = \"Hello\";\n    System.out.println(s.length());\n    System.out.println(s.charAt(1));\n    System.out.println(s.substring(1, 3));\n  }\n}", "o": {"A": "5 / e / el", "B": "5 / H / He", "C": "4 / e / ell", "D": "5 / e / ell"}, "a": ["A"], "multi": false, "e": "length 為 5；charAt(1) 是索引 1 的 'e'；substring(1,3) 取索引 1、2 得 \"el\"。", "ew": "5/H/He 誤把 charAt(1) 當成第一個字元，但索引從 0 開始，索引 1 是 'e' 而非 'H'。4/e/ell 把長度算錯（Hello 有 5 個字元），且 substring 上界也弄錯。5/e/ell 誤以為 substring(1,3) 含索引 3，但 substring 的第二個參數是不包含的結束位置，只取到索引 2。掌握零起始索引與 substring 半開區間 [1,3) 是關鍵。"},
+ {"id": 39, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    String s = null;\n    System.out.println(\"value=\" + s);\n  }\n}", "o": {"A": "value=", "B": "value=null", "C": "拋出 NullPointerException", "D": "編譯錯誤"}, "a": ["B"], "multi": false, "e": "字串串接時 null 會被轉成字面文字 \"null\"，故輸出 value=null。", "ew": "value= 是誤以為 null 會被當成空字串，但串接規則是把 null 轉成 \"null\" 這四個字。拋出 NullPointerException 也不對，因為這裡並未對 null 呼叫任何方法，只是字串串接。編譯錯誤同樣不成立，語法合法。要注意串接 null 不會爆例外，但若對 null 字串呼叫 length() 等方法就會 NPE。"},
+ {"id": 40, "d": 2, "stem": "關於 Java 字串，下列哪些敘述正確？（複選）", "code": "", "o": {"A": "String 物件一旦建立內容就不可改變", "B": "用雙引號寫的字串字面值會存放在字串常數池", "C": "呼叫 s.replace() 會直接修改原字串物件", "D": "比較兩字串內容是否相同應使用 equals()"}, "a": ["A", "B", "D"], "multi": true, "e": "字串不可變、字面值進入常數池、內容比較用 equals，這三項皆正確；replace 回傳新字串不改原物件。", "ew": "選項 C 錯誤，因為字串不可變，replace() 與其他看似修改的方法都會回傳新字串，原物件完全不會被更動，要保留結果必須把回傳值重新賦值。A 描述不可變性，B 描述字面值共用常數池以節省記憶體，D 強調內容比較用 equals 而非 ==（== 比參考）。這三項皆是字串操作的核心觀念。"},
+ {"id": 41, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    int[] arr = new int[3];\n    System.out.println(arr[0] + \",\" + arr.length);\n  }\n}", "o": {"A": "null,3", "B": "0,3", "C": "0,2", "D": "編譯錯誤"}, "a": ["B"], "multi": false, "e": "int 陣列元素預設值為 0，new int[3] 長度為 3，故輸出 0,3。", "ew": "null,3 誤以為 int 元素預設是 null，但 null 只適用於物件型別，int 這種基本型別的預設值是 0。0,2 把長度算錯，new int[3] 建立 3 個元素，length 就是元素個數 3 而非最大索引 2。編譯錯誤也不對，語法完全合法。此題考陣列的預設值與 length 屬性（length 是元素個數，不是最後索引）。"},
+ {"id": 42, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    int[][] m = {{1, 2}, {3, 4, 5}};\n    System.out.println(m.length + \" \" + m[1].length + \" \" + m[1][2]);\n  }\n}", "o": {"A": "2 2 4", "B": "2 3 5", "C": "3 3 5", "D": "2 3 4"}, "a": ["B"], "multi": false, "e": "外層有 2 列，第 2 列有 3 個元素，m[1][2] 是第 2 列索引 2 的值 5。", "ew": "2 2 4 誤以為每列長度相同，但 Java 支援不規則（jagged）二維陣列，第二列其實有 3 個元素。3 3 5 把外層列數算成 3，實際只有兩個子陣列所以 m.length 是 2。2 3 4 取錯了元素，m[1][2] 是第二列的第三個元素 5 而非 4。二維陣列在 Java 中是陣列的陣列，各列長度可不同，需分別以 m.length 與 m[i].length 取得。"},
+ {"id": 43, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "import java.util.*;\npublic class Main {\n  public static void main(String[] args) {\n    List<String> list = new ArrayList<>();\n    list.add(\"a\");\n    list.add(\"b\");\n    list.add(\"c\");\n    list.remove(\"b\");\n    System.out.println(list + \" \" + list.size());\n  }\n}", "o": {"A": "[a, c] 2", "B": "[a, b, c] 3", "C": "[a, c] 3", "D": "[b, c] 2"}, "a": ["A"], "multi": false, "e": "remove(\"b\") 傳入 String 物件，走的是 remove(Object)，移除元素 \"b\"，剩下 [a, c]，size 為 2。", "ew": "[a, b, c] 3 是誤以為 remove 沒有生效，但傳入字串物件會依內容移除該元素。[a, c] 3 內容對但 size 錯，移除後元素只剩 2 個。[b, c] 2 移除了錯誤元素，remove(\"b\") 移的是 b 不是 a。注意 remove(Object) 與 remove(int index) 是不同多載，傳字串物件走的是依內容移除。"},
+ {"id": 44, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "import java.util.*;\npublic class Main {\n  public static void main(String[] args) {\n    List<Integer> nums = new ArrayList<>(Arrays.asList(10, 20, 30));\n    nums.remove(1);\n    System.out.println(nums);\n  }\n}", "o": {"A": "[20, 30]", "B": "[10, 30]", "C": "[10, 20]", "D": "[10, 20, 30]"}, "a": ["B"], "multi": false, "e": "remove(1) 傳入 int，走的是 remove(int index) 依索引移除，移除索引 1 的元素 20，剩下 [10, 30]。", "ew": "[20, 30] 是誤以為移除的是值 10 或索引 0，但索引 1 對應的是第二個元素。[10, 20] 誤以為移除最後一個或索引 2。[10, 20, 30] 誤以為沒有移除任何元素。關鍵在於 remove(int) 移除的是「索引 1」的位置（值為 20），而非值等於 1 的元素；這與上一題的 remove(Object) 形成對比，是 ArrayList 常見陷阱。"},
+ {"id": 45, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    String[] arr = new String[2];\n    System.out.println(arr[0]);\n  }\n}", "o": {"A": "0", "B": "空字串", "C": "null", "D": "編譯錯誤"}, "a": ["C"], "multi": false, "e": "物件型別（String）陣列元素的預設值為 null。", "ew": "0 是數值型陣列的預設值，但 String 是物件型別不是數字。空字串也不對，Java 不會自動把元素初始化為 \"\"，只有數值 0 或物件 null 兩種預設。編譯錯誤也不成立，宣告與存取都合法。此題對比基本型別陣列（預設 0）與物件陣列（預設 null），對 null 元素呼叫方法會拋 NPE。"},
+ {"id": 46, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    int sum = 0;\n    int[] a = {2, 4, 6};\n    for (int v : a) {\n      sum += v;\n    }\n    System.out.println(sum);\n  }\n}", "o": {"A": "6", "B": "12", "C": "0", "D": "246"}, "a": ["B"], "multi": false, "e": "增強式 for 迴圈走訪每個元素累加，2+4+6=12。", "ew": "6 只加了最後一個元素或最大值，忽略了迴圈把每個元素都累加。0 是誤以為迴圈沒有執行，但陣列有 3 個元素會走訪 3 次。246 是把元素當字串串接，但 sum 是 int，+= 做的是數值相加而非串接。此題考增強式 for（for-each）走訪陣列與複合指定運算子 += 的累加。"},
+ {"id": 47, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    int x = (int) 3.99;\n    int y = (int) -3.99;\n    System.out.println(x + \" \" + y);\n  }\n}", "o": {"A": "4 -4", "B": "3 -3", "C": "3 -4", "D": "4 -3"}, "a": ["B"], "multi": false, "e": "double 轉 int 是直接截斷小數部分（朝零方向），3.99 變 3，-3.99 變 -3。", "ew": "4 -4 是四捨五入的想法，但 cast 是截斷不是四捨五入。3 -4 對正數截斷正確卻對負數用了無條件進位，實際上截斷一律朝零方向，-3.99 變 -3 而非 -4。4 -3 對正數又誤用了四捨五入。基本型別間的窄化轉換（double→int）只保留整數部分，這是 cast 的重要行為。"},
+ {"id": 48, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    int n = Integer.parseInt(\"42\");\n    double d = Double.parseDouble(\"3.5\");\n    System.out.println(n + d);\n  }\n}", "o": {"A": "42 3.5", "B": "45.5", "C": "453.5", "D": "編譯錯誤"}, "a": ["B"], "multi": false, "e": "parseInt 得 42、parseDouble 得 3.5，int 加 double 提升為 double，42+3.5=45.5。", "ew": "42 3.5 是誤以為兩者以字串形式並列輸出，但它們已被解析成數值並相加。453.5 是把 42 當字串與 3.5 串接，但兩者都是數值型別，+ 做數值加法。編譯錯誤也不對，int 與 double 相加會自動型別提升為 double。此題考字串轉數字（parse）以及混合型別運算時的型別提升。"},
+ {"id": 49, "d": 2, "stem": "要將整數 99 轉換成字串 \"99\"，下列哪些寫法可行？（複選）", "code": "", "o": {"A": "String.valueOf(99)", "B": "Integer.toString(99)", "C": "\"\" + 99", "D": "(String) 99"}, "a": ["A", "B", "C"], "multi": true, "e": "valueOf、toString、與空字串串接都能把數字轉成字串；直接 cast 基本型別為 String 不合法。", "ew": "選項 D 錯誤，因為 int 是基本型別，不能用 (String) 強制轉型成物件字串，會編譯失敗（基本型別與 String 之間沒有 cast 關係）。A 使用 String.valueOf、B 使用包裝類別的 Integer.toString、C 利用與空字串串接觸發自動轉字串，三者都是把數字轉字串的常見合法方式。記住 String 轉型只適用於物件參考型別。"},
+ {"id": 50, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    System.out.println(2 + 3 * 4);\n  }\n}", "o": {"A": "20", "B": "14", "C": "24", "D": "9"}, "a": ["B"], "multi": false, "e": "乘法優先於加法，3*4=12 先算，再加 2 得 14。", "ew": "20 是誤以為由左至右先算 2+3=5 再乘 4，但乘法優先權高於加法。24 是把加法先做或誤把三數相乘之類的錯誤解讀。9 純粹是錯誤計算。運算子優先順序中 * 高於 +，除非用括號改變，否則乘除會先於加減運算。"},
+ {"id": 51, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    int x = 10;\n    x -= 4;\n    x *= 2;\n    System.out.println(x);\n  }\n}", "o": {"A": "12", "B": "16", "C": "8", "D": "20"}, "a": ["A"], "multi": false, "e": "x -= 4 使 x 變 6，x *= 2 使 x 變 12。", "ew": "16 是誤把運算順序當成先乘後減或算錯中間值。8 只做了其中一步或計算錯誤。20 是誤以為 x *= 2 對原始 10 運算（10*2）而忽略前一步已把 x 改為 6。複合指定運算子會先取當前值再運算並回存，兩步依序執行（10-4=6，6*2=12）後結果為 12。"},
+ {"id": 52, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    char c = 'A';\n    int n = c + 1;\n    System.out.println(n);\n  }\n}", "o": {"A": "B", "B": "A1", "C": "66", "D": "65"}, "a": ["C"], "multi": false, "e": "char 在算術運算中被提升為 int，'A' 的碼值 65 加 1 得 66，並存入 int 變數。", "ew": "B 是誤以為結果仍是字元，但結果被指定給 int 變數，印出的是數值 66 而非字元。A1 是把它當字串串接，但這裡是算術加法不是串接。65 忘了加 1，'A' 的碼值本身是 65 但運算後為 66。char 參與算術會提升成 int，若要得到字元 'B' 需再 cast 回 char。"},
+ {"id": 53, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    int x = 7;\n    double d = x / 2;\n    System.out.println(d);\n  }\n}", "o": {"A": "3.5", "B": "3.0", "C": "3", "D": "4.0"}, "a": ["B"], "multi": false, "e": "x/2 兩者皆 int 先做整數除法得 3，再轉存為 double 成為 3.0。", "ew": "3.5 是誤以為賦值給 double 就會做浮點除法，但除法在賦值前已完成，此時兩運算元都是 int 走整數除法。3 沒有小數點，但存入 double 後會顯示為 3.0。4.0 是四捨五入的錯誤想法。要得到 3.5 必須在除法前就讓運算元為浮點，如 x / 2.0。"},
+ {"id": 54, "d": 2, "stem": "以下程式的輸出是什麼？", "code": "public class Main {\n  public static void main(String[] args) {\n    int big = Integer.MAX_VALUE;\n    System.out.println(big + 1);\n  }\n}", "o": {"A": "2147483648", "B": "-2147483648", "C": "0", "D": "編譯錯誤"}, "a": ["B"], "multi": false, "e": "int 最大值加 1 發生溢位，回繞到最小值 -2147483648。", "ew": "2147483648 超出 int 的 32 位元表示範圍，int 無法儲存這個值。0 不是溢位的結果，回繞是到最小負值而非歸零。編譯錯誤也不對，big+1 語法合法且在編譯期不會被攔（這是執行期的溢位行為）。int 溢位不會拋例外而是靜默回繞，需要更大範圍時應使用 long。"},
+ {"id": 55, "d": 3, "stem": "這段程式的輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int x = 2;\n        StringBuilder sb = new StringBuilder();\n        switch (x) {\n            case 1: sb.append(\"A\");\n            case 2: sb.append(\"B\");\n            case 3: sb.append(\"C\"); break;\n            case 4: sb.append(\"D\");\n        }\n        System.out.println(sb);\n    }\n}", "o": {"A": "B", "B": "BC", "C": "BCD", "D": "ABC"}, "a": ["B"], "multi": false, "e": "x 為 2，從 case 2 進入。case 2、case 3 都沒有 break，會 fall-through 依序執行 append(\"B\")、append(\"C\")，直到 case 3 的 break 才停止，故輸出 BC。", "ew": "switch 從符合的 case 標籤開始執行，之後若無 break 會繼續往下貫穿（fall-through）到後續 case。選項 A 只輸出 B，誤以為每個 case 執行完就自動跳出，忽略了沒有 break 時的貫穿行為。選項 C 的 BCD 錯在 case 3 有 break 會結束 switch，根本到不了 case 4，因此 D 不會被附加。選項 D 的 ABC 錯在起點，程式是從 case 2 進入而非 case 1，case 1 的 append(\"A\") 永遠不會執行。"},
+ {"id": 56, "d": 3, "stem": "這段程式的輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int score = 75;\n        if (score >= 90) {\n            System.out.println(\"A\");\n        } else if (score >= 80) {\n            System.out.println(\"B\");\n        } else if (score >= 70) {\n            System.out.println(\"C\");\n        } else {\n            System.out.println(\"D\");\n        }\n    }\n}", "o": {"A": "A", "B": "B", "C": "C", "D": "D"}, "a": ["C"], "multi": false, "e": "else if 鏈由上往下逐一測試，只執行第一個成立的分支。75>=90 假、75>=80 假、75>=70 真，印出 C 後整個鏈結束。", "ew": "if / else if / else 鏈是互斥的，一旦某個條件成立就執行該區塊並跳過其餘所有分支。選項 A 需要 score>=90，但 75 不滿足。選項 B 需要 score>=80，75 也不滿足，故不會落在該分支。選項 D 的 else 只有在前面所有條件都為假時才會執行，但 70 這個條件已經成立，因此不會到達 else。"},
+ {"id": 57, "d": 3, "stem": "這段程式的輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int n = 5;\n        String s = \"\";\n        if (n > 3)\n            s += \"x\";\n            s += \"y\";\n        System.out.println(s);\n    }\n}", "o": {"A": "x", "B": "xy", "C": "y", "D": "（空字串）"}, "a": ["B"], "multi": false, "e": "沒有大括號時，if 只綁定其後的單一敘述 s+=\"x\"。s+=\"y\" 的縮排只是排版，它其實不屬於 if，永遠會執行。n>3 為真所以兩者都執行，得到 xy。", "ew": "單行 if 只控制緊接其後的一個敘述，縮排對 Java 沒有語意作用。選項 A 誤以為 s+=\"y\" 也在 if 內、且條件成立所以只執行第一行，但其實兩行都會執行。選項 C 的 y 會發生在 n<=3 時（此時 s+=\"x\" 被跳過），但本題 n=5 條件為真。選項 D 的空字串更不可能，因為 s+=\"y\" 是無條件執行的獨立敘述。"},
+ {"id": 58, "d": 3, "stem": "這段程式的輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int[] arr = null;\n        boolean result = (arr != null && arr.length > 0);\n        System.out.println(result);\n    }\n}", "o": {"A": "true", "B": "false", "C": "編譯錯誤", "D": "執行期丟出 NullPointerException"}, "a": ["B"], "multi": false, "e": "&& 具短路特性：左運算元 arr!=null 為 false 時，右運算元 arr.length 不會被求值，因此不會發生 NPE，整體結果為 false。", "ew": "邏輯 && 只要左邊為 false 就直接得出 false，右邊不再計算，這正是用來防範空指標的常見寫法。選項 A 的 true 需要兩個條件都成立，但 arr 為 null 使左條件為假。選項 D 的 NullPointerException 是誤解，正因為短路才不會去存取 null 的 length。選項 C 編譯錯誤也不對，這是合法且常見的語法。"},
+ {"id": 59, "d": 3, "stem": "這段程式的輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int i = 0, j = 0;\n        boolean a = (false & (i++ > -1));\n        boolean b = (false && (j++ > -1));\n        System.out.println(i + \",\" + j);\n    }\n}", "o": {"A": "0,0", "B": "1,1", "C": "1,0", "D": "0,1"}, "a": ["C"], "multi": false, "e": "& 是非短路運算子，即使左邊為 false 仍會求值右運算元，故 i++ 執行，i 變 1。&& 為短路，左邊 false 就跳過右邊，j++ 不執行，j 仍為 0。", "ew": "這題的關鍵在於區分 &（逐位/邏輯，兩邊都求值）與 &&（短路，可能略過右邊）。選項 A 假設兩個都短路，但單一個 & 不會短路，i++ 一定執行。選項 B 假設兩個都求值右邊，但 && 在左邊 false 時就停止，j++ 不會發生。選項 D 把兩者角色顛倒，實際上是 & 那行讓 i 遞增、&& 那行讓 j 維持不變。"},
+ {"id": 60, "d": 3, "stem": "這段程式的輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        String fruit = \"pear\";\n        String color;\n        switch (fruit) {\n            case \"apple\": color = \"red\"; break;\n            case \"pear\": color = \"green\"; break;\n            default: color = \"unknown\";\n        }\n        System.out.println(color);\n    }\n}", "o": {"A": "red", "B": "green", "C": "unknown", "D": "編譯錯誤：switch 不支援 String"}, "a": ["B"], "multi": false, "e": "Java 7 起 switch 可用 String 作為選擇器，以 equals 比對。fruit 等於 \"pear\"，執行對應 case 印出 green 後 break。", "ew": "switch 支援 String 型別，並使用字串內容（equals）進行比對。選項 A 的 red 對應 \"apple\"，但輸入不是 apple。選項 C 的 unknown 只有在沒有任何 case 相符時才由 default 執行，但 \"pear\" 已經命中。選項 D 錯誤地認為 String 不能用於 switch，這在現代 Java（Java 7 以後）是合法的。"},
+ {"id": 61, "d": 3, "stem": "這段程式的輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        char ch = 'B';\n        int ci = 0;\n        switch (ch) {\n            case 'A': ci = 1;\n            case 'B': ci += 2;\n            case 'C': ci += 3; break;\n            default: ci = 99;\n        }\n        System.out.println(ci);\n    }\n}", "o": {"A": "2", "B": "5", "C": "6", "D": "99"}, "a": ["B"], "multi": false, "e": "從 case 'B' 進入：ci+=2 得 2，無 break 貫穿到 case 'C'：ci+=3 得 5，遇 break 結束。default 不會執行。", "ew": "switch 可用於 char，且同樣有 fall-through 行為。選項 A 只算了 case 'B' 的 +2，忽略沒有 break 而貫穿到 case 'C' 的 +3。選項 C 的 6 誤把 case 'A' 的 ci=1 也算進去，但程式是從 'B' 進入，'A' 不會執行。選項 D 的 99 是 default，但 'C' 的 break 已使控制流離開 switch，default 到不了。"},
+ {"id": 62, "d": 3, "stem": "下列關於 switch 選擇器（switch 括號內運算式）型別的敘述，哪些在標準 Java 中是合法的？（複選）", "code": "", "o": {"A": "int 型別", "B": "String 型別", "C": "char 型別", "D": "double 型別"}, "a": ["A", "B", "C"], "multi": true, "e": "傳統 switch 允許 byte、short、char、int（及其包裝類別）、enum 與 String。浮點數 double、long 與 boolean 都不被允許。", "ew": "switch 的選擇器限定於整數家族（byte/short/char/int 及其包裝類別）、enum 與 String。選項 D 的 double 不合法，因為浮點數比較不精確且語言規範明文不允許，long 同樣不行。A（int）是最經典的用法、B（String）自 Java 7 起支援、C（char）屬於可被提升為 int 的整數型別，三者皆為正解；只有 double 需排除。"},
+ {"id": 63, "d": 3, "stem": "這段程式的輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int a = 5, b = 10;\n        String out;\n        if (a > 0) {\n            if (b > a) {\n                out = \"deeper\";\n            } else {\n                out = \"mid\";\n            }\n        } else {\n            out = \"neg\";\n        }\n        System.out.println(out);\n    }\n}", "o": {"A": "deeper", "B": "mid", "C": "neg", "D": "編譯錯誤：out 可能未初始化"}, "a": ["A"], "multi": false, "e": "外層 a>0 為真進入內層；內層 b>a（10>5）為真，執行 out=\"deeper\"。巢狀分支已涵蓋所有路徑，out 一定會被賦值。", "ew": "巢狀 if 是在一個分支內再做進一步判斷。選項 B 的 mid 對應內層 else（b<=a），但 10>5 成立所以走 if 而非 else。選項 C 的 neg 對應外層 else（a<=0），但 a=5 為正，不會進入。選項 D 也不對，因為每條路徑都有賦值 out，編譯器能確定它已明確初始化。"},
+ {"id": 64, "d": 3, "stem": "這段程式的輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int score = 82;\n        String grade = score >= 90 ? \"A\"\n                     : score >= 80 ? \"B\"\n                     : score >= 70 ? \"C\"\n                     : \"F\";\n        System.out.println(grade);\n    }\n}", "o": {"A": "A", "B": "B", "C": "C", "D": "F"}, "a": ["B"], "multi": false, "e": "三元運算子由左至右求值：82>=90 假，接著 82>=80 真，回傳 \"B\"，後續不再判斷。", "ew": "巢狀三元運算子等同於 if/else if 鏈，取第一個成立條件的結果。選項 A 需要 score>=90，82 不滿足。選項 C 的 C 需要在 80 這關為假才會走到，但 82>=80 已成立。選項 D 的 F 是所有條件皆假時的最後備援，這裡第二個條件就成立了。"},
+ {"id": 65, "d": 3, "stem": "關於下列邏輯運算式，其結果為何？x 與 y 的初始值為 x = 8、y = 3。", "code": "public class Main {\n    public static void main(String[] args) {\n        int x = 8, y = 3;\n        boolean r = (x > 5 || y > 10) && !(x == y);\n        System.out.println(r);\n    }\n}", "o": {"A": "true", "B": "false", "C": "編譯錯誤", "D": "執行期例外"}, "a": ["A"], "multi": false, "e": "(x>5 || y>10) = (true || false) = true；!(x==y) = !(false) = true；true && true = true。", "ew": "求值需注意運算子優先序：關係運算子先於 &&/||，! 先於兩者。選項 B 的 false 需要至少一邊為假，但兩個子式都為真。選項 C、D 都不成立，這是型別正確且不涉及空指標或除零的純布林運算，既能編譯也不會丟例外。"},
+ {"id": 66, "d": 3, "stem": "下列哪些運算子在 Java 中具有短路（short-circuit）求值特性？（複選）", "code": "", "o": {"A": "&&", "B": "||", "C": "&", "D": "|"}, "a": ["A", "B"], "multi": true, "e": "只有邏輯 &&（短路 AND）與 ||（短路 OR）會在結果已確定時略過右運算元。單一 & 與 | 一律求值兩邊。", "ew": "這裡本應允許複選：&& 與 || 才會短路。選項 C 的 & 與選項 D 的 | 是非短路（bitwise/邏輯）運算子，無論左邊結果為何都會求值右運算元，因此不具短路特性；把它們選入即為誤解短路只發生在雙字元的 && 與 || 上。"},
+ {"id": 67, "d": 3, "stem": "這段 while 迴圈執行後，count 的值為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int k = 0, count = 0;\n        while (k < 5) {\n            count++;\n            k += 2;\n        }\n        System.out.println(count);\n    }\n}", "o": {"A": "2", "B": "3", "C": "5", "D": "迴圈不會結束"}, "a": ["B"], "multi": false, "e": "k 依序為 0、2、4 時條件 k<5 為真，各執行一次共 3 次；k 變 6 時退出。count=3。", "ew": "while 每輪先測條件、成立才執行主體。選項 A 少算一次，忽略 k=4（<5 成立）時仍會執行一次。選項 C 的 5 把 k 每次加 1 誤當成迴圈次數，但這裡每次加 2。選項 D 認為是無窮迴圈，但 k 每輪遞增終將 >=5，條件會失敗而正常結束。"},
+ {"id": 68, "d": 3, "stem": "這段 for 迴圈的輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int sum = 0;\n        for (int i = 1; i <= 4; i++) {\n            sum += i;\n        }\n        System.out.println(sum);\n    }\n}", "o": {"A": "6", "B": "10", "C": "15", "D": "4"}, "a": ["B"], "multi": false, "e": "i 取 1、2、3、4，累加 1+2+3+4=10。條件為 i<=4，故含 4 這一輪。", "ew": "for 迴圈的 i<=4 是包含 4 的（閉區間）。選項 A 的 6 是 1+2+3，漏掉 i=4，誤以為條件是 i<4。選項 C 的 15 是加到 5（1+..+5），但 i=5 時 5<=4 為假不會執行。選項 D 的 4 只是最後一次的 i 值，並非累加總和。"},
+ {"id": 69, "d": 3, "stem": "這段 do-while 迴圈的 runs 值為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int m = 10, runs = 0;\n        do {\n            runs++;\n            m++;\n        } while (m < 5);\n        System.out.println(runs);\n    }\n}", "o": {"A": "0", "B": "1", "C": "5", "D": "迴圈不會結束"}, "a": ["B"], "multi": false, "e": "do-while 先執行主體再測條件，故至少跑一次。第一輪後 m=11，11<5 為假立即結束，runs=1。", "ew": "do-while 與 while 最大差別在於它先做後判，所以主體保證執行一次。選項 A 的 0 是把它當成 while（先判斷），但 do-while 不會因初始條件不成立就完全不執行。選項 C、D 都假設會多次或無限執行，但 m 一開始就 >=5，測到條件即退出。"},
+ {"id": 70, "d": 3, "stem": "這段程式的輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int result = -1;\n        for (int i = 0; i < 10; i++) {\n            if (i == 3) {\n                result = i;\n                break;\n            }\n        }\n        System.out.println(result);\n    }\n}", "o": {"A": "-1", "B": "3", "C": "9", "D": "10"}, "a": ["B"], "multi": false, "e": "當 i 到 3 時，先賦值 result=3，再由 break 立即跳出整個迴圈，後續 i 不再執行。", "ew": "break 會終止最內層的迴圈。選項 A 的 -1 認為 if 從未成立，但 i 必然會等於 3。選項 C 的 9 假設迴圈完整跑到底才停，但 break 在 i=3 就中斷了。選項 D 的 10 是迴圈自然結束時的 i 值，但這裡是被 break 提前打斷，i 停在 3。"},
+ {"id": 71, "d": 3, "stem": "這段程式的輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int oddSum = 0;\n        for (int i = 1; i <= 6; i++) {\n            if (i % 2 == 0) {\n                continue;\n            }\n            oddSum += i;\n        }\n        System.out.println(oddSum);\n    }\n}", "o": {"A": "9", "B": "12", "C": "21", "D": "6"}, "a": ["A"], "multi": false, "e": "continue 在 i 為偶數時跳過本輪剩餘敘述，只有奇數 1、3、5 被累加，1+3+5=9。", "ew": "continue 只跳過當前這一輪的後續程式碼，並繼續下一輪，而非結束迴圈。選項 B 的 12 是偶數和 2+4+6，剛好相反，誤把被 continue 略過的當成被累加的。選項 C 的 21 是 1 到 6 全部相加，忽略了 continue 過濾掉偶數。選項 D 的 6 是迴圈上限值，與累加結果無關。"},
+ {"id": 72, "d": 3, "stem": "這段巢狀迴圈的 count 值為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int count = 0;\n        for (int i = 0; i < 3; i++) {\n            for (int j = 0; j < 2; j++) {\n                count++;\n            }\n        }\n        System.out.println(count);\n    }\n}", "o": {"A": "5", "B": "6", "C": "3", "D": "2"}, "a": ["B"], "multi": false, "e": "外層跑 3 次、每次內層跑 2 次，總執行次數 3×2=6。", "ew": "巢狀迴圈的總次數是外層次數乘以內層次數。選項 A 的 5 是誤把兩者相加再減，或算錯乘積。選項 C 的 3 只算外層次數，忽略內層每輪都重跑。選項 D 的 2 只算內層一輪的次數，沒有考慮外層會重複三遍。"},
+ {"id": 73, "d": 3, "stem": "這段程式的輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int v = 5;\n        int res = v++ + ++v;\n        System.out.println(res + \",\" + v);\n    }\n}", "o": {"A": "10,7", "B": "12,7", "C": "11,7", "D": "12,6"}, "a": ["B"], "multi": false, "e": "v++ 先取用舊值 5、v 變 6；++v 先把 v 加成 7 再取用 7。5+7=12，最終 v=7。", "ew": "後置 v++ 回傳遞增前的值，前置 ++v 回傳遞增後的值，但兩者都會改變 v。選項 A 的 10 誤把兩個都當後置（5+5），忽略 ++v 用的是加後的 7。選項 C 的 11 算成 5+6，沒注意到第二次運算時 v 已是 6、再前置加成 7。選項 D 的 v=6 漏掉了第二個運算子也會遞增 v。"},
+ {"id": 74, "d": 3, "stem": "這段使用多重更新運算式的 for 迴圈，執行後 steps 的值為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int i = 0, j = 10, steps = 0;\n        for (; i < j; i++, j--) {\n            steps++;\n        }\n        System.out.println(steps);\n    }\n}", "o": {"A": "5", "B": "10", "C": "4", "D": "6"}, "a": ["A"], "multi": false, "e": "每輪 i 加 1、j 減 1，兩者以每輪 2 的差距靠近。i,j 走過 (0,10)(1,9)(2,8)(3,7)(4,6) 共 5 次，第 6 次 i=5、j=5，5<5 為假結束。", "ew": "for 的更新段可用逗號放多個運算式，本題 i 上升、j 下降同時進行。選項 B 的 10 只考慮 i 從 0 到 10，忽略 j 也同時往下逼近，實際相遇更快。選項 C 少算一次，(4,6) 這輪 4<6 仍成立會執行。選項 D 多算一次，(5,5) 時 5<5 已為假不會執行主體。"},
+ {"id": 75, "d": 3, "stem": "這段程式的輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int count = 0;\n        for (int i = 0; i <= 5; i++) {\n            count++;\n        }\n        System.out.println(count);\n    }\n}", "o": {"A": "5", "B": "6", "C": "4", "D": "7"}, "a": ["B"], "multi": false, "e": "i 取 0、1、2、3、4、5 共 6 個值皆滿足 i<=5，故執行 6 次。", "ew": "這是典型的差一（off-by-one）陷阱：條件是 i<=5 且從 0 起算，會多包含一個端點。選項 A 的 5 誤把它當成 i<5 或從 1 起算的 5 次。選項 C 的 4 更是少算兩個端點。選項 D 的 7 則多算一次，但 i=6 時 6<=5 為假不會執行。"},
+ {"id": 76, "d": 3, "stem": "這段使用標籤（label）的巢狀迴圈輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int lb = 0;\n        outer:\n        for (int i = 0; i < 3; i++) {\n            for (int j = 0; j < 3; j++) {\n                if (i + j == 3) {\n                    lb = i * 10 + j;\n                    break outer;\n                }\n            }\n        }\n        System.out.println(lb);\n    }\n}", "o": {"A": "3", "B": "12", "C": "21", "D": "0"}, "a": ["B"], "multi": false, "e": "依序 i=0 時 j 最多到 2（和最大 2）都不成立；i=1、j=2 時 i+j=3 首次成立，lb=1*10+2=12，break outer 跳出兩層。", "ew": "break outer 會一次跳出被標籤標記的外層迴圈，而不只是內層。第一次讓 i+j==3 成立的是 (i=1, j=2)，故 lb=12。選項 A 的 3 誤把 lb 當成 i+j 的和。選項 C 的 21 對應 (i=2, j=1)，但 (1,2) 更早出現就已跳出，到不了 i=2。選項 D 的 0 假設條件從未成立或未跳出，但 (1,2) 一定會觸發。"},
+ {"id": 77, "d": 3, "stem": "這段 do-while 迴圈的 dw 值為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int dw = 0;\n        boolean cond = false;\n        do {\n            dw++;\n        } while (cond);\n        System.out.println(dw);\n    }\n}", "o": {"A": "0", "B": "1", "C": "編譯錯誤", "D": "迴圈不會結束"}, "a": ["B"], "multi": false, "e": "do-while 先執行主體一次再檢查條件；cond 為 false，第一次後即結束，dw=1。", "ew": "即使條件一開始就是 false，do-while 仍保證主體至少執行一次。選項 A 的 0 是把它誤當 while（先判斷後執行）。選項 C 不成立，這是合法語法。選項 D 也不對，cond 恆為 false，第一輪結束後測到 false 就退出，不會無限循環。"},
+ {"id": 78, "d": 3, "stem": "這段程式的輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int pc = 0, body = 0;\n        while (pc++ < 3) {\n            body++;\n        }\n        System.out.println(body + \",\" + pc);\n    }\n}", "o": {"A": "3,3", "B": "3,4", "C": "4,4", "D": "4,3"}, "a": ["B"], "multi": false, "e": "pc++ 先用舊值比較再遞增。pc=0,1,2 時比較 <3 為真各執行一次（body 累到 3），pc=3 時 3<3 為假但已先加成 4 才退出。", "ew": "後置 pc++ 在條件中會回傳遞增前的值，但每次評估仍會使 pc 加 1，包括最後失敗那次。選項 A 的 pc=3 漏掉條件為假那一次的遞增（比較序列 0→1→2→3 共 4 次，pc 最終為 4）。選項 C 的 body=4 誤以為條件為真 4 次，但 pc=3 那次比較已為假、body 不會加。選項 D 兩者皆錯，把 body 與 pc 的值都判斷反了。"},
+ {"id": 79, "d": 3, "stem": "這段程式的輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int w = 0, acc = 0;\n        while (w < 5) {\n            w++;\n            if (w == 3) {\n                continue;\n            }\n            acc += w;\n        }\n        System.out.println(acc);\n    }\n}", "o": {"A": "15", "B": "12", "C": "10", "D": "9"}, "a": ["B"], "multi": false, "e": "w 依序 1..5，當 w==3 時 continue 跳過 acc+=w。累加 1+2+4+5=12（跳過 3）。", "ew": "這裡 w++ 在 continue 之前，所以 continue 不會造成無窮迴圈，且只略過 acc 的累加。選項 A 的 15 是 1+2+3+4+5，忘了 w==3 時 continue 會跳過該次的 acc+=w。選項 C 的 10 對應 1+2+3+4，是誤以為迴圈只跑到 w=4（把上限 5 當成不含）、且沒跳過 3 的雙重錯誤。選項 D 的 9 剛好是奇數和 1+3+5，與本題「僅跳過 3」的邏輯不符，屬張冠李戴。"},
+ {"id": 80, "d": 3, "stem": "這段使用 for-each 的程式輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int[] fa = {1, 2, 3};\n        for (int e : fa) {\n            e = e * 2;\n        }\n        int sum = 0;\n        for (int e : fa) {\n            sum += e;\n        }\n        System.out.println(sum);\n    }\n}", "o": {"A": "6", "B": "12", "C": "3", "D": "0"}, "a": ["A"], "multi": false, "e": "for-each 的迴圈變數 e 是陣列元素的複本，對 e 賦值不會改動原陣列。fa 仍是 {1,2,3}，總和 1+2+3=6。", "ew": "for-each 走訪基本型別陣列時，e 只是每個元素的拷貝，修改它不影響原陣列內容。選項 B 的 12 誤以為 e=e*2 會把陣列變成 {2,4,6}，但那只改到區域複本。選項 C 的 3 是元素個數而非總和。選項 D 的 0 假設陣列被清空，並無此事。"},
+ {"id": 81, "d": 3, "stem": "這段巢狀迴圈中內層有 break，輸出的 inner 值為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int inner = 0;\n        for (int i = 0; i < 3; i++) {\n            for (int j = 0; j < 3; j++) {\n                if (j == 1) {\n                    break;\n                }\n                inner++;\n            }\n        }\n        System.out.println(inner);\n    }\n}", "o": {"A": "3", "B": "9", "C": "6", "D": "1"}, "a": ["A"], "multi": false, "e": "沒有標籤的 break 只跳出內層迴圈。每次外層迭代，內層在 j=0 時執行一次 inner++，j=1 就 break。外層 3 次共 3。", "ew": "未加標籤的 break 只終止最內層的迴圈，外層照常繼續。選項 B 的 9 假設沒有 break（3×3 全跑）。選項 C 的 6 誤以為每輪內層跑兩次。選項 D 的 1 則誤以為 break 一次就結束整個巢狀結構，但它只中斷當前這層內層迴圈，外層仍會再進入內層兩次。"},
+ {"id": 82, "d": 3, "stem": "這段程式的輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int[] ap = {10, 20, 30};\n        int idx = 0;\n        int val = ap[idx++] + ap[idx];\n        System.out.println(val + \",\" + idx);\n    }\n}", "o": {"A": "20,1", "B": "30,1", "C": "30,2", "D": "40,2"}, "a": ["B"], "multi": false, "e": "idx++ 先取 idx=0 存取 ap[0]=10，之後 idx 變 1；接著 ap[idx]=ap[1]=20。10+20=30，idx 最終為 1。", "ew": "運算式由左至右求值，後置 idx++ 用完舊值 0 後把 idx 加成 1，右側再用新值 1。選項 A 的 20 只算到 ap[1]，漏了左邊的 ap[0]。選項 C 的 idx=2 錯以為存取兩次就加兩次，但只有一個 ++ 運算子。選項 D 的 40 對應 ap[1]+ap[1] 或 ap[0]+ap[2] 的誤算，並非本式的取值順序。"},
+ {"id": 83, "d": 3, "stem": "關於 break 與 continue 在迴圈中的行為，下列哪些敘述正確？（複選）", "code": "", "o": {"A": "break 會立即終止並跳出其所在的（最內層）迴圈", "B": "continue 會跳過本輪迴圈主體的剩餘敘述，直接進入下一輪", "C": "在巢狀迴圈中，未加標籤的 break 會一次跳出所有外層迴圈", "D": "帶標籤的 break（如 break outer;）可跳出被標籤指定的外層迴圈"}, "a": ["A", "B", "D"], "multi": true, "e": "break 終止其所在迴圈、continue 略過本輪其餘敘述並續下一輪，標籤 break 可跳出指定外層。未加標籤的 break 只影響最內層，不會跳出所有外層。", "ew": "這題唯一錯誤的是選項 C：未加標籤的 break 只跳出它直接所在的那一層迴圈，外層仍會繼續執行，若要一次跳出多層必須使用帶標籤的 break（即選項 D 所述）。選項 A、B 分別是 break 與 continue 的標準定義，選項 D 描述標籤 break 的正確用途，三者皆為正解；只有把 C 選入才是誤解 break 的作用範圍。"},
+ {"id": 84, "d": 3, "stem": "這段程式的輸出為何？", "code": "public class Main {\n    public static void main(String[] args) {\n        int dec = 0;\n        for (int i = 3; i > 0; i--) {\n            dec++;\n        }\n        System.out.println(dec);\n    }\n}", "o": {"A": "2", "B": "3", "C": "4", "D": "0"}, "a": ["B"], "multi": false, "e": "i 由 3 遞減，取 3、2、1 時 i>0 成立各執行一次，i=0 時停止。共 3 次。", "ew": "遞減迴圈同樣要看條件何時為假：i>0 在 i=1 仍成立、i=0 才失敗。選項 A 的 2 漏算了 i=1 那一輪。選項 C 的 4 多算了 i=0（但 0>0 為假不執行）。選項 D 的 0 假設迴圈從不執行，但初始 i=3 已滿足條件。"},
+ {"id": 85, "d": 4, "stem": "關於 Java 建構子 (constructor) 的敘述，下列哪些是正確的？（複選）", "code": "", "o": {"A": "建構子的名稱必須與所屬類別的名稱完全相同", "B": "建構子沒有回傳型別，連 void 都不能寫", "C": "一個類別最多只能有一個建構子", "D": "若程式中未撰寫任何建構子，編譯器會自動提供一個無參數的預設建構子"}, "a": ["A", "B", "D"], "multi": true, "e": "建構子名稱同類別名、無回傳型別；未寫建構子時編譯器補上預設無參建構子。可透過多載擁有多個建構子。", "ew": "C 錯誤：類別可以透過建構子多載 (constructor overloading) 定義多個參數列不同的建構子，並非只能有一個。A 正確反映建構子必須與類別同名的規則，這是編譯器辨識建構子的依據。B 正確，建構子不宣告回傳型別，一旦寫了 void 就會被當成一般方法而非建構子。D 正確，只有在你完全沒寫任何建構子時編譯器才補預設建構子，一旦自訂了任一建構子，這個預設建構子就不再自動產生。"},
+ {"id": 86, "d": 4, "stem": "以下程式的輸出是什麼？", "code": "class Box {\n    int w, h;\n    Box() { this(1, 1); }\n    Box(int s) { this(s, s); }\n    Box(int w, int h) { this.w = w; this.h = h; }\n    int area() { return w * h; }\n}\npublic class Q2 {\n    public static void main(String[] a) {\n        System.out.println(new Box().area() + \" \" + new Box(3).area() + \" \" + new Box(2,5).area());\n    }\n}", "o": {"A": "1 9 10", "B": "1 3 10", "C": "0 0 0", "D": "編譯錯誤"}, "a": ["A"], "multi": false, "e": "三個多載建構子透過 this(...) 互相委派：Box() 轉呼叫 (1,1)→面積1；Box(3) 轉 (3,3)→9；Box(2,5)→10。", "ew": "B 錯誤：Box(3) 會用 this(s,s) 委派給 (3,3)，面積是 9 而非 3，這正是建構子多載搭配 this() 委派的重點。C 錯誤：欄位並非停留在預設值 0，因為每個建構子最終都會執行 this.w/this.h 的指派完成初始化。D 錯誤：三個建構子參數列不同屬合法多載，且 this(...) 委派放在建構子第一行也合法，可以正常編譯。這題示範了建構子多載與建構子鏈結 (constructor chaining) 如何重用初始化邏輯。"},
+ {"id": 87, "d": 4, "stem": "以下程式的輸出是什麼？", "code": "class Counter {\n    int count;\n    void set(int count) { count = count; }\n    void setRight(int count) { this.count = count; }\n}\npublic class Q3 {\n    public static void main(String[] a) {\n        Counter c = new Counter();\n        c.set(5);\n        System.out.print(c.count + \" \");\n        c.setRight(5);\n        System.out.println(c.count);\n    }\n}", "o": {"A": "5 5", "B": "0 5", "C": "0 0", "D": "5 0"}, "a": ["B"], "multi": false, "e": "set() 內 count=count 只是把區域參數指派給自己，未動到欄位，故仍為 0；setRight() 用 this.count 才正確寫入欄位得 5。", "ew": "A 錯誤：set() 內 `count = count` 兩邊都指向方法參數（因為參數遮蔽了同名欄位），欄位 count 從未被賦值，維持預設 0。C 錯誤：setRight() 用 this.count 明確指向實例欄位，成功寫入 5，不會是 0。D 錯誤：輸出順序是先印 set() 後的 0、再印 setRight() 後的 5。此題凸顯當參數與欄位同名（變數遮蔽）時，必須用 this 關鍵字才能存取被遮蔽的實例欄位。"},
+ {"id": 88, "d": 4, "stem": "一個宣告為 public 的類別名為 Student，依 Java「一個 .java 檔一個 public 類別」的規定，其原始檔名必須是？", "code": "", "o": {"A": "Student.java", "B": "student.java", "C": "Student.class", "D": "任意檔名皆可"}, "a": ["A"], "multi": false, "e": "public 類別的原始檔名必須與類別名稱大小寫完全相同，並以 .java 為副檔名。", "ew": "B 錯誤：Java 檔名大小寫敏感，public 類別 Student 對應的檔名首字必須大寫為 Student.java，student.java 會編譯失敗。C 錯誤：.class 是編譯後由 javac 產生的位元組碼檔，原始碼副檔名必須是 .java。D 錯誤：只有非 public（package 級）的類別才可與檔名不同；一旦類別是 public，檔名就被強制綁定為與類別同名，這正是「一個 .java 一個 public 類別」規則的核心。"},
+ {"id": 89, "d": 4, "stem": "以下程式的輸出是什麼？", "code": "class Animal { String sound() { return \"...\"; } }\nclass Cat extends Animal { String sound() { return \"Meow\"; } }\npublic class Q5 {\n    public static void main(String[] a) {\n        Animal x = new Cat();\n        System.out.println(x.sound());\n    }\n}", "o": {"A": "...", "B": "Meow", "C": "編譯錯誤", "D": "Animal"}, "a": ["B"], "multi": false, "e": "Cat 覆寫 (override) 了 sound()。實際物件是 Cat，動態繫結會呼叫 Cat 的版本輸出 Meow。", "ew": "A 錯誤：雖然參考變數的靜態型別是 Animal，但覆寫方法在執行期依「實際物件型別」決定呼叫哪個版本（多型/動態繫結），物件是 Cat 所以不會輸出 Animal 的 \"...\"。C 錯誤：Cat 正確地以相同簽章覆寫父類別方法，語法合法可編譯。D 錯誤：程式沒有任何地方會印出 \"Animal\" 字串。此題示範基本繼承與覆寫下的執行期多型行為。"},
+ {"id": 90, "d": 4, "stem": "以下程式的輸出是什麼？（注意 Sub 中 greet() 的參數）", "code": "class Base { void greet(String s) { System.out.println(\"Base \" + s); } }\nclass Sub extends Base {\n    void greet() { System.out.println(\"Sub\"); }\n}\npublic class Q6 {\n    public static void main(String[] a) {\n        Base b = new Sub();\n        b.greet(\"hi\");\n    }\n}", "o": {"A": "Sub", "B": "Base hi", "C": "編譯錯誤", "D": "沒有任何輸出"}, "a": ["B"], "multi": false, "e": "Sub 的 greet() 無參數，與 greet(String) 簽章不同，屬多載而非覆寫，未覆蓋父類別方法；b.greet(\"hi\") 呼叫的是 Base 的版本。", "ew": "A 錯誤：Sub 的 greet() 沒有 String 參數，並未覆寫 Base 的 greet(String)，它只是新增了一個多載版本，b.greet(\"hi\") 不會呼叫到它。C 錯誤：程式語法完全合法，不同參數列的同名方法是允許的多載。D 錯誤：b.greet(\"hi\") 一定會執行 Base 的 greet(String) 並印出。此題強調「覆寫必須簽章一致」，若參數不同就只是多載，容易被誤認為覆寫而踩坑。"},
+ {"id": 91, "d": 4, "stem": "以下程式的輸出是什麼？", "code": "class Point {\n    int x, y;\n    Point() { this(0, 0); System.out.print(\"A\"); }\n    Point(int x, int y) { this.x = x; this.y = y; System.out.print(\"B\"); }\n}\npublic class Q7 {\n    public static void main(String[] a) {\n        new Point();\n        System.out.println();\n    }\n}", "o": {"A": "AB", "B": "BA", "C": "B", "D": "BAB"}, "a": ["B"], "multi": false, "e": "new Point() 先進入無參建構子，第一行 this(0,0) 先跑完（印 B），返回後才印 A，故為 BA。", "ew": "A 錯誤：this(0,0) 是委派呼叫且必須是建構子第一行，會先執行完被委派的 Point(int,int)（印 B），控制權回到 Point() 後才印 A，順序是 B 在前。C 錯誤：Point() 本體的 System.out.print(\"A\") 一定會執行，不會只印 B。D 錯誤：整個過程只各印一次 B 與 A，Point(int,int) 只被呼叫一次。此題示範建構子鏈結中被委派建構子先執行的順序。"},
+ {"id": 92, "d": 4, "stem": "下列哪一個存取修飾詞可讓成員被「任何套件中的任何類別」存取？", "code": "", "o": {"A": "private", "B": "protected", "C": "public", "D": "不加修飾詞（package-private，預設）"}, "a": ["C"], "multi": false, "e": "public 是最開放的存取層級，任何套件的任何類別都能存取。", "ew": "A 錯誤：private 是最嚴格層級，只有同一個類別內部能存取，外部類別完全無法觸及。B 錯誤：protected 允許同套件類別及其他套件的「子類別」存取，但不開放給其他套件中的非子類別。D 錯誤：不加修飾詞為 package-private，只有同一套件內的類別可存取，跨套件即被擋。只有 public 才是完全無限制的存取層級。"},
+ {"id": 93, "d": 4, "stem": "以下程式的輸出是什麼？", "code": "class Widget {\n    static int count = 0;\n    Widget() { count++; }\n}\npublic class Q9 {\n    public static void main(String[] a) {\n        new Widget(); new Widget(); new Widget();\n        System.out.println(Widget.count);\n    }\n}", "o": {"A": "1", "B": "3", "C": "0", "D": "編譯錯誤"}, "a": ["B"], "multi": false, "e": "static 欄位 count 由所有實例共用，只有一份；每建立一個 Widget 就 count++，共建三個故為 3。", "ew": "A 錯誤：count 是 static 靜態成員，屬於類別而非個別物件，三次建構共用同一個計數器並各自加一，結果是 3 而非各自獨立的 1。C 錯誤：每次呼叫建構子都執行 count++，不會停在初始值 0。D 錯誤：以類別名 Widget.count 存取 static 成員是合法且慣用的寫法，可正常編譯。此題示範靜態資料成員在所有實例間共享的特性。"},
+ {"id": 94, "d": 4, "stem": "若要宣告一個「所有實例共用、且宣告後不可再被修改」的常數 MAX，下列哪一種宣告最恰當？", "code": "", "o": {"A": "int MAX = 100;", "B": "static int MAX = 100;", "C": "static final int MAX = 100;", "D": "final int MAX = 100;"}, "a": ["C"], "multi": false, "e": "static 使其為類別層級（所有實例共用一份），final 使其不可再被賦值，合起來即 Java 的常數慣例。", "ew": "A 錯誤：純 int MAX 是可變的實例欄位，每個物件各有一份且值可被改，既不共用也不是常數。B 錯誤：static 讓它變成共用，但缺少 final，值仍可被重新指派，稱不上常數。D 錯誤：final 讓它不可修改，但沒有 static，每個實例都各自持有一份，不符合「所有實例共用」。只有 static final 同時滿足共用與不可變兩個條件，是宣告類別常數的標準做法（常配合全大寫命名）。"},
+ {"id": 95, "d": 4, "stem": "關於封裝 (encapsulation) 的敘述，下列哪些正確？（複選）", "code": "", "o": {"A": "將資料成員宣告為 private，只透過 public 方法存取", "B": "封裝能隱藏內部實作細節，降低模組間的耦合", "C": "封裝要求類別中所有欄位都必須宣告為 public 才能被存取", "D": "提供 getter/setter 方法是實現封裝的常見手段"}, "a": ["A", "B", "D"], "multi": true, "e": "封裝＝把資料設為 private 並以公開方法控管存取，隱藏細節、降低耦合；getter/setter 是常見做法。", "ew": "C 錯誤且與封裝精神相反：封裝的核心正是把欄位設為 private 加以保護，再透過受控的公開方法暴露必要操作，若全部欄位都設成 public 就等於放棄封裝。A 正確描述了封裝的標準結構（private 欄位 + public 存取方法）。B 正確，隱藏實作可讓外部只依賴穩定介面、降低耦合。D 正確，getter/setter 讓你在存取或修改欄位時加入驗證與控制，是封裝最常見的實作方式。"},
+ {"id": 96, "d": 4, "stem": "以下程式的輸出是什麼？", "code": "class Data {\n    int n;\n    String s;\n    boolean b;\n}\npublic class Q12 {\n    public static void main(String[] a) {\n        Data d = new Data();\n        System.out.println(d.n + \" \" + d.s + \" \" + d.b);\n    }\n}", "o": {"A": "0 null false", "B": "0  false", "C": "編譯錯誤", "D": "0 0 false"}, "a": ["A"], "multi": false, "e": "未明確初始化的實例欄位採預設值：數值型為 0、布林為 false、物件參考型（如 String）為 null。", "ew": "B 錯誤：String s 的預設值是 null，字串串接時會被轉成文字 \"null\" 而印出，不是空白。C 錯誤：實例欄位不需明確初始化即有預設值，存取它們完全合法（這與必須先賦值的區域變數不同）。D 錯誤：s 是 String 參考型別，預設是 null 而非數值 0。此題示範實例資料成員在物件建立時的預設初始值規則。"},
+ {"id": 97, "d": 4, "stem": "以下程式的輸出是什麼？", "code": "class Vehicle { protected int wheels = 4; }\nclass Car extends Vehicle {\n    void show() { System.out.println(wheels); }\n}\npublic class Q13 {\n    public static void main(String[] a) { new Car().show(); }\n}", "o": {"A": "4", "B": "編譯錯誤：wheels 為 protected 無法存取", "C": "0", "D": "執行期丟出例外"}, "a": ["A"], "multi": false, "e": "protected 成員可被子類別存取，Car 繼承 Vehicle 故能直接使用 wheels，輸出 4。", "ew": "B 錯誤：protected 的存取範圍本就包含子類別，Car 是 Vehicle 的子類別，能合法存取繼承來的 wheels，不會編譯錯誤。C 錯誤：wheels 已在宣告時初始化為 4，不是預設 0。D 錯誤：物件正常建立、欄位正常存取，不會有任何執行期例外。此題示範 protected 存取修飾詞讓子類別得以存取父類別成員。"},
+ {"id": 98, "d": 4, "stem": "以下程式碼的結果是什麼？", "code": "class Wallet {\n    private int cash = 100;\n}\npublic class Q14 {\n    public static void main(String[] a) {\n        Wallet w = new Wallet();\n        System.out.println(w.cash);\n    }\n}", "o": {"A": "輸出 100", "B": "編譯錯誤：cash 在 Wallet 中為 private，外部無法存取", "C": "輸出 0", "D": "執行期丟出 NullPointerException"}, "a": ["B"], "multi": false, "e": "cash 為 private，只能在 Wallet 類別內部存取；在 Q14 中用 w.cash 存取會編譯失敗。", "ew": "A 錯誤：private 欄位不允許被宣告類別以外的程式直接讀取，w.cash 這一行在編譯階段就會被擋下，根本執行不到印出 100。C 錯誤：欄位確實是 100，但問題出在存取權限而非值，且它也不是 0。D 錯誤：這是編譯期錯誤而非執行期例外，程式無法通過編譯，不會產生 NullPointerException。要在外部讀取應改用 public 的 getter 方法，這正是封裝的用意。"},
+ {"id": 99, "d": 4, "stem": "以下程式的輸出是什麼？", "code": "class Printer {\n    String show(int x) { return \"int\"; }\n    String show(double x) { return \"double\"; }\n    String show(String x) { return \"String\"; }\n}\npublic class Q15 {\n    public static void main(String[] a) {\n        Printer p = new Printer();\n        System.out.println(p.show(5) + \" \" + p.show(5.0) + \" \" + p.show(\"5\"));\n    }\n}", "o": {"A": "int double String", "B": "double double String", "C": "int int int", "D": "編譯錯誤"}, "a": ["A"], "multi": false, "e": "方法多載依引數的編譯期型別選版本：5 為 int、5.0 為 double、\"5\" 為 String，分別對應三個多載。", "ew": "B 錯誤：字面值 5 是 int 型別，會精準匹配 show(int) 而非 show(double)，不需要拓寬。C 錯誤：5.0 是 double、\"5\" 是 String，各自對應不同的多載版本，不會全部落到 show(int)。D 錯誤：三個方法參數型別不同，是合法的方法多載，可正常編譯。此題示範多載解析如何依引數靜態型別在多個同名方法間挑選。"},
+ {"id": 100, "d": 4, "stem": "對於一個回傳型別為 void 的方法，下列敘述何者正確？", "code": "", "o": {"A": "方法內可以寫 return;（不帶值）以提早結束方法", "B": "方法內必須 return 一個值", "C": "方法內完全不能出現任何 return 敘述", "D": "方法內可以 return 一個 int 值"}, "a": ["A"], "multi": false, "e": "void 方法不回傳值，但允許使用不帶值的 return; 提前結束；回傳任何值則會編譯錯誤。", "ew": "B 錯誤：void 明確表示「不回傳值」，若強制 return 一個值反而編譯失敗。C 錯誤：void 方法仍可使用不帶運算式的 `return;`，常用於在某條件下提早離開方法，並非完全禁止 return。D 錯誤：回傳 int（或任何值）與 void 宣告衝突，會出現 \"unexpected return value\" 編譯錯誤。重點在於 void 允許無值 return 但禁止有值 return。"},
+ {"id": 101, "d": 4, "stem": "以下程式碼的結果是什麼？", "code": "class Machine {\n    int id;\n    static int getId() { return id; }\n}\npublic class Q17 {\n    public static void main(String[] a) { }\n}", "o": {"A": "可正常編譯並回傳 id", "B": "編譯錯誤：靜態方法無法直接參考非靜態的實例欄位 id", "C": "編譯成功，執行時回傳 0", "D": "執行期丟出例外"}, "a": ["B"], "multi": false, "e": "static 方法屬於類別、沒有特定物件，無法直接存取需要實例的非靜態欄位 id，故編譯失敗。", "ew": "A 錯誤：靜態方法沒有 this、不隸屬任何物件，無法確定要讀哪一個實例的 id，編譯器直接拒絕。C 錯誤：這是編譯期錯誤，程式根本無法產生可執行的 class，不會執行到回傳 0。D 錯誤：問題在編譯階段就發生，不是執行期例外。若要讀取實例欄位，方法本身須為實例方法，或改為透過某個物件參考存取。此題示範靜態方法與實例成員的存取界線。"},
+ {"id": 102, "d": 4, "stem": "下列 Svc 類別能否編譯？為什麼？", "code": "class Svc {\n    int go(int x) { return x; }\n    String go(int x) { return \"\" + x; }\n}\npublic class Q18 { public static void main(String[] a){} }", "o": {"A": "可以，這是合法的方法多載", "B": "不能，兩方法的名稱與參數列相同、僅回傳型別不同，不算多載", "C": "可以，只要回傳型別不同就構成多載", "D": "不能，因為方法名稱不可以重複"}, "a": ["B"], "multi": false, "e": "多載必須靠參數列（型別/數量/順序）區分；兩個 go(int) 簽章完全相同，只差回傳型別，屬重複定義，編譯失敗。", "ew": "A 錯誤：合法多載要求參數列不同，這兩個方法參數同為 (int)，不符合多載條件。C 錯誤：回傳型別「不」是方法簽章的一部分，不能用來區分多載；僅回傳型別不同會被視為同一方法重複定義。D 錯誤：方法名稱是可以重複的（那正是多載的前提），真正的問題是「同名且同參數列」而非名稱重複本身。此題釐清多載的判定依據是參數列而非回傳型別。"},
+ {"id": 103, "d": 4, "stem": "以下程式的輸出是什麼？", "code": "class Calc {\n    int add(int a, int b) { return a + b; }\n    void addVoid(int a, int b) { int r = a + b; }\n}\npublic class Q19 {\n    public static void main(String[] a) {\n        Calc c = new Calc();\n        int r = c.add(3, 4);\n        System.out.println(r);\n    }\n}", "o": {"A": "7", "B": "0", "C": "編譯錯誤", "D": "沒有輸出"}, "a": ["A"], "multi": false, "e": "add 回傳 int，c.add(3,4) 回傳 7 並指派給 r 後印出；addVoid 在本題未被呼叫。", "ew": "B 錯誤：add 明確 return a+b，回傳值 7 被指派給 r，不會是 0。C 錯誤：add 有 int 回傳型別，將其回傳值指派給 int 變數 r 完全合法（注意：若改成把 void 的 addVoid 回傳值指派給 r 才會編譯錯誤）。D 錯誤：main 中有 println，一定會輸出。此題示範帶回傳值的實例方法如何回傳結果供呼叫端使用。"},
+ {"id": 104, "d": 4, "stem": "以下程式的輸出是什麼？", "code": "class Util {\n    static int square(int x) { return x*x; }\n    int cube(int x) { return x*x*x; }\n}\npublic class Q20 {\n    public static void main(String[] a) {\n        int s = Util.square(4);\n        int c = new Util().cube(2);\n        System.out.println(s + \" \" + c);\n    }\n}", "o": {"A": "16 8", "B": "編譯錯誤", "C": "8 16", "D": "16 16"}, "a": ["A"], "multi": false, "e": "square 為靜態方法，用類別名 Util.square(4)=16；cube 為實例方法，需物件 new Util().cube(2)=8。", "ew": "B 錯誤：靜態方法以類別名呼叫、實例方法以物件呼叫，兩種呼叫方式都正確，可正常編譯。C 錯誤：s 對應 square(4)=16、c 對應 cube(2)=8，順序不會相反。D 錯誤：cube(2)=2*2*2=8 而非 16。此題示範靜態方法（透過類別呼叫）與實例方法（需先建立物件）的呼叫方式差異。"},
+ {"id": 105, "d": 4, "stem": "以下程式的輸出是什麼？", "code": "class Res {\n    static String m(long x) { return \"long\"; }\n    static String m(Integer x) { return \"Integer\"; }\n}\npublic class Q21 {\n    public static void main(String[] a) {\n        int i = 7;\n        System.out.println(Res.m(i));\n    }\n}", "o": {"A": "long", "B": "Integer", "C": "編譯錯誤（呼叫模糊）", "D": "int"}, "a": ["A"], "multi": false, "e": "多載解析優先選「基本型別拓寬 (int→long)」，其優先度高於「自動裝箱 (int→Integer)」，故選 m(long)。", "ew": "B 錯誤：雖然 int 也能自動裝箱成 Integer，但 Java 多載解析在第一階段只考慮拓寬轉型且優先套用，int→long 的拓寬勝過裝箱，因此不會選 m(Integer)。C 錯誤：因為有明確的優先順序規則，兩者並非同等匹配，不會產生模糊呼叫錯誤。D 錯誤：沒有 m(int) 這個多載，且輸出字串取決於被選中的方法本體。此題示範多載解析中「拓寬 > 裝箱」的優先順序。"},
+ {"id": 106, "d": 4, "stem": "以下程式的輸出是什麼？", "code": "class Dog {\n    String name;\n    void bark() { System.out.println(name + \" says Woof\"); }\n}\npublic class Q22 {\n    public static void main(String[] a) {\n        Dog d = new Dog();\n        d.name = \"Rex\";\n        d.bark();\n    }\n}", "o": {"A": "Rex says Woof", "B": "null says Woof", "C": "編譯錯誤", "D": "執行期丟出 NullPointerException"}, "a": ["A"], "multi": false, "e": "new Dog() 建立物件後，先以 d.name=\"Rex\" 修改欄位，再呼叫 bark() 讀取，輸出 Rex says Woof。", "ew": "B 錯誤：呼叫 bark() 之前已用 d.name=\"Rex\" 明確設定欄位，name 不再是預設的 null。C 錯誤：name 為 package 級（同類別及同套件可存取），在本檔內直接存取與修改都合法，可正常編譯。D 錯誤：d 已由 new 正確實例化，並非 null 參考，呼叫 d.bark() 不會丟出 NullPointerException。此題示範物件實例化後對資料成員的存取與修改流程。"},
+ {"id": 107, "d": 4, "stem": "以下程式碼的結果是什麼？", "code": "class Person { String name; }\npublic class Q23 {\n    public static void main(String[] a) {\n        Person p = null;\n        System.out.println(p.name.length());\n    }\n}", "o": {"A": "輸出 0", "B": "執行期丟出 NullPointerException", "C": "輸出 null", "D": "編譯錯誤"}, "a": ["B"], "multi": false, "e": "p 為 null，並未指向任何物件，對 null 參考存取成員 p.name 會在執行期丟出 NullPointerException。", "ew": "A 錯誤：程式在 p.name 這步就因對 null 解參考而中斷，根本算不到長度 0。C 錯誤：不會印出 \"null\"，因為存取 null 參考的成員直接觸發例外而非回傳 null。D 錯誤：語法本身合法（型別皆正確），編譯可通過，問題發生在執行期。此題示範 null 代表「不指向任何物件」，對它存取成員即產生 NullPointerException。"},
+ {"id": 108, "d": 4, "stem": "以下程式的輸出是什麼？", "code": "class Temp {\n    private int c;\n    void setC(int c) { this.c = c; }\n    int getC() { return c; }\n}\npublic class Q24 {\n    public static void main(String[] a) {\n        Temp t = new Temp();\n        t.setC(36);\n        System.out.println(t.getC());\n    }\n}", "o": {"A": "36", "B": "編譯錯誤：c 為 private 無法存取", "C": "0", "D": "執行期丟出 NullPointerException"}, "a": ["A"], "multi": false, "e": "c 雖為 private，但透過同類別的 public setC/getC 存取，符合封裝；設值 36 後讀回 36。", "ew": "B 錯誤：setC/getC 與欄位 c 屬同一類別，類別內部存取自己的 private 成員完全合法，外部則透過這兩個公開方法間接操作，並不會編譯錯誤。C 錯誤：setC(36) 已把 c 寫成 36，getC 讀回的是 36 而非預設 0。D 錯誤：t 由 new 正確建立，不是 null，呼叫方法不會有例外。此題示範用 getter/setter 對 private 欄位進行受控存取與修改，正是封裝的典型用法。"},
+ {"id": 109, "d": 4, "stem": "以下程式的輸出是什麼？", "code": "class Bank {\n    static double rate = 0.05;\n    static double interest(double amt) { return amt * rate; }\n}\npublic class Q25 {\n    public static void main(String[] a) {\n        System.out.println(Bank.interest(1000));\n    }\n}", "o": {"A": "50.0", "B": "0.05", "C": "編譯錯誤", "D": "1000.0"}, "a": ["A"], "multi": false, "e": "以類別名 Bank.interest(1000) 呼叫靜態方法，內部用靜態欄位 rate=0.05，1000*0.05=50.0。", "ew": "B 錯誤：0.05 只是利率 rate 的值，方法回傳的是 amt*rate 的計算結果 50.0。C 錯誤：靜態方法透過類別名直接呼叫、靜態方法存取同類別靜態欄位都合法，可正常編譯。D 錯誤：1000 是本金 amt，回傳值是本金乘利率後的 50.0 而非本金本身。此題示範透過類別名存取靜態成員（方法與欄位）的用法。"},
+ {"id": 110, "d": 4, "stem": "若要在程式中使用 java.util.ArrayList，下列 import 敘述何者最正確且能讓你直接使用 ArrayList？", "code": "", "o": {"A": "import java.util.ArrayList;", "B": "import java.util.ArrayList.*;", "C": "include java.util.ArrayList;", "D": "import ArrayList from java.util;"}, "a": ["A"], "multi": false, "e": "正確語法為 import 套件路徑.類別名; 即 import java.util.ArrayList;（或用 java.util.* 匯入整個套件）。", "ew": "B 錯誤：import java.util.ArrayList.*; 雖能通過編譯，但它是型別按需匯入 (type-import-on-demand)，匯入的是 ArrayList 的內部（巢狀）成員型別，並不會匯入 ArrayList 類別本身，因此無法讓你直接使用 ArrayList（若要匯入靜態成員則須寫 import static）。C 錯誤：Java 使用 import 關鍵字，沒有 include（那是 C/C++ 的用法）。D 錯誤：Java 沒有 `import ... from ...` 這種語法（那較像 JavaScript），順序與關鍵字都不對。正確寫法是 import 後直接接完整限定名稱 java.util.ArrayList;。（註：java.lang 下的類別如 String 由編譯器自動匯入，不需 import。）"},
+ {"id": 111, "d": 4, "stem": "以下程式的輸出是什麼？", "code": "class Account {\n    double balance;\n    Account(double b) { balance = b; }\n}\npublic class Q27 {\n    public static void main(String[] a) {\n        Account acc = new Account(500);\n        System.out.println(acc.balance);\n    }\n}", "o": {"A": "500.0", "B": "0.0", "C": "編譯錯誤", "D": "500"}, "a": ["A"], "multi": false, "e": "建構子 Account(double) 在初始化時把 balance 設為傳入值；500 被拓寬為 double，故印出 500.0。", "ew": "B 錯誤：建構子已在物件初始化時把 balance 設成傳入值 500，不會停留在預設 0.0。C 錯誤：int 字面值 500 可自動拓寬為 double 傳入建構子，型別相容，可正常編譯。D 錯誤：balance 宣告為 double，其字串表示會帶小數點顯示為 500.0 而非整數 500。此題示範透過建構子在物件建立當下完成資料成員的初始化。"},
+ {"id": 112, "d": 4, "stem": "以下程式的輸出是什麼？", "code": "class Cup { int ml; }\npublic class Q28 {\n    public static void main(String[] a) {\n        Cup x = new Cup();\n        x.ml = 100;\n        Cup y = x;\n        y.ml = 250;\n        System.out.println(x.ml + \" \" + y.ml);\n    }\n}", "o": {"A": "100 250", "B": "250 250", "C": "100 100", "D": "編譯錯誤"}, "a": ["B"], "multi": false, "e": "Cup y = x 是複製參考，x 與 y 指向同一個物件；透過 y 改 ml 也就是改同一物件，兩者都讀到 250。", "ew": "A 錯誤：y = x 並未複製出新物件，只是讓 y 指向與 x 相同的物件，透過 y.ml=250 修改後 x.ml 也變成 250。C 錯誤：y.ml=250 這行確實把共用物件的 ml 從 100 改成 250，不會維持 100。D 錯誤：型別相容的參考指派完全合法，可正常編譯。此題示範物件參考的別名 (aliasing) 特性——多個參考變數可指向同一物件，透過任一個修改都會反映到其他變數。"},
+ {"id": 113, "d": 5, "stem": "下列程式編譯並執行後，主控台輸出的內容為何？", "code": "public class Demo {\n  public static void main(String[] a){\n    try { System.out.print(\"try \"); int x = 1/0; }\n    catch (ArithmeticException e){ System.out.print(\"catch \"); }\n    finally { System.out.print(\"finally \"); }\n    System.out.println(\"end\");\n  }\n}", "o": {"A": "try catch finally end", "B": "try finally end", "C": "try catch end", "D": "try end"}, "a": ["A"], "multi": false, "e": "1/0 拋出 ArithmeticException，被 catch 接住，finally 一定執行，之後程式正常往下印 end。", "ew": "選項 B 假設例外未被捕捉而略過 catch，但 catch 明確攔截 ArithmeticException，因此 catch 會執行。選項 C 遺漏了 finally，然而 finally 區塊無論有無例外都必定執行，是 try/catch/finally 的核心保證。選項 D 同時漏掉 catch 與 finally，誤以為除零會讓程式直接中止，但例外一旦被 catch 處理，程式流程即恢復正常並繼續執行後續敘述。"},
+ {"id": 114, "d": 5, "stem": "下列方法回傳的值為何？", "code": "public class Demo {\n  static int m(){\n    try { return 1; }\n    finally { return 2; }\n  }\n  public static void main(String[] a){ System.out.println(m()); }\n}", "o": {"A": "1", "B": "2", "C": "編譯錯誤", "D": "同時印出 1 和 2"}, "a": ["B"], "multi": false, "e": "finally 內的 return 會覆蓋 try 內的 return，最終回傳 2。", "ew": "選項 A 以為 try 先執行 return 1 就定案，但在 return 真正離開方法前 finally 必先執行，finally 內的 return 2 會取代原本的回傳值。選項 C 認為 finally 內寫 return 是編譯錯誤，實際上這是合法但不建議的寫法，可正常編譯。選項 D 誤解 return 的語意，一個方法只能回傳單一值，不會同時印出兩個結果。"},
+ {"id": 115, "d": 5, "stem": "下列程式的輸出順序為何？", "code": "public class Demo {\n  static int m(){\n    try { return 1; }\n    finally { System.out.println(\"finally\"); }\n  }\n  public static void main(String[] a){ System.out.println(m()); }\n}", "o": {"A": "1 然後 finally", "B": "finally 然後 1", "C": "只印 1", "D": "只印 finally"}, "a": ["B"], "multi": false, "e": "return 1 在真正返回前會先執行 finally（印出 finally），回到 main 才印出回傳值 1。", "ew": "選項 A 順序顛倒，finally 是在 return 值被送回呼叫端之前執行，所以 finally 一定先印出。選項 C 忽略 finally 一定會執行的規則，finally 不會被 return 略過。選項 D 忽略了 m() 的回傳值 1 會在 main 被 println 印出，兩行都會出現。"},
+ {"id": 116, "d": 5, "stem": "執行下列程式，catch 區塊印出的 e.getMessage() 內容為何？", "code": "public class Demo {\n  public static void main(String[] a){\n    try { int x = 10 / 0; }\n    catch (ArithmeticException e){ System.out.println(\"Caught: \" + e.getMessage()); }\n  }\n}", "o": {"A": "Caught: / by zero", "B": "Caught: null", "C": "Caught: ArithmeticException", "D": "Caught: 10 / 0"}, "a": ["A"], "multi": false, "e": "整數除以零拋出 ArithmeticException，其訊息文字固定為 \"/ by zero\"。", "ew": "選項 B 認為訊息為 null，但整數除零的例外帶有明確描述字串，getMessage() 不會是 null。選項 C 混淆了例外的類別名稱與訊息內容，類別名稱需用 getClass().getName() 取得，getMessage() 只回傳描述文字。選項 D 誤以為訊息會重述原運算式，但 JVM 產生的訊息是固定的 \"/ by zero\"，並非程式碼原文。"},
+ {"id": 117, "d": 5, "stem": "下列程式執行時會拋出哪一種例外？", "code": "public class Demo {\n  public static void main(String[] a){\n    int[] arr = {1, 2, 3};\n    System.out.println(arr[3]);\n  }\n}", "o": {"A": "NullPointerException", "B": "ArrayIndexOutOfBoundsException", "C": "ArrayStoreException", "D": "編譯錯誤，無法通過 javac"}, "a": ["B"], "multi": false, "e": "陣列長度 3，合法索引為 0~2，存取 arr[3] 於執行期拋出 ArrayIndexOutOfBoundsException。", "ew": "選項 A 的 NullPointerException 用於存取 null 參考，但此處 arr 已正確初始化，並非 null。選項 C 的 ArrayStoreException 發生在把不相容型別存入陣列時，此處只是讀取，不涉及型別不符。選項 D 認為編譯就會失敗，但索引越界是執行期才能得知的錯誤，javac 無法在編譯階段偵測，程式可正常編譯。"},
+ {"id": 118, "d": 5, "stem": "下列程式執行時的結果為何？", "code": "public class Demo {\n  public static void main(String[] a){\n    String s = null;\n    System.out.println(s.length());\n  }\n}", "o": {"A": "印出 0", "B": "印出 null", "C": "拋出 NullPointerException", "D": "拋出 NumberFormatException"}, "a": ["C"], "multi": false, "e": "s 為 null，對 null 呼叫 length() 方法會在執行期拋出 NullPointerException（較新版 JVM 會附上 Helpful NullPointerException 訊息，指出是哪個變數為 null）。", "ew": "選項 A 誤以為 null 字串長度為 0，但 null 代表沒有物件，根本無法呼叫任何方法。選項 B 認為會印出字面 null，實際上程式在呼叫 length() 時就中斷，不會走到 println。選項 D 的 NumberFormatException 是字串轉數字失敗才會發生，與對 null 呼叫方法無關。"},
+ {"id": 119, "d": 5, "stem": "下列程式的輸出為何？", "code": "public class Demo {\n  public static void main(String[] a){\n    try {\n      int n = Integer.parseInt(\"12x\");\n      System.out.println(n);\n    } catch (NumberFormatException e){\n      System.out.println(\"bad number\");\n    }\n  }\n}", "o": {"A": "12", "B": "bad number", "C": "120", "D": "拋出 ArithmeticException"}, "a": ["B"], "multi": false, "e": "\"12x\" 不是合法整數，Integer.parseInt 拋出 NumberFormatException，被 catch 接住印出 bad number。", "ew": "選項 A 假設 parseInt 會忽略非數字字元只取 12，但只要字串含有任何非數字字元就會整個失敗拋例外。選項 C 憑空產生 120，parseInt 不會做任何補位或運算。選項 D 的 ArithmeticException 只在算術運算（如除零）時發生，字串解析失敗屬於 NumberFormatException。"},
+ {"id": 120, "d": 5, "stem": "下列程式以 javac 編譯時會發生什麼事？", "code": "public class Demo {\n  public static void main(String[] a){\n    try { throw new RuntimeException(\"x\"); }\n    catch (Exception e){ System.out.println(\"A\"); }\n    catch (RuntimeException e){ System.out.println(\"B\"); }\n  }\n}", "o": {"A": "正常編譯並印出 A", "B": "正常編譯並印出 B", "C": "編譯錯誤：RuntimeException 已被前面的 catch 攔截", "D": "正常編譯並印出 A B"}, "a": ["C"], "multi": false, "e": "RuntimeException 是 Exception 的子類，較廣的 Exception catch 必須放在後面，否則子類 catch 永遠無法到達，造成編譯錯誤。", "ew": "選項 A 與 B 假設可以正常編譯執行，但因為 catch 順序錯誤，javac 直接拒絕編譯，程式根本無法執行。選項 D 誤以為兩個 catch 都會執行，實際上一個 try 最多只會進入一個 catch，且此程式因編譯失敗不會有任何輸出。正確作法是把子類例外（RuntimeException）放在父類（Exception）之前。"},
+ {"id": 121, "d": 5, "stem": "下列程式以 javac 編譯時的結果為何？", "code": "public class Demo {\n  public static void main(String[] a){\n    int x = 5\n    System.out.println(x);\n  }\n}", "o": {"A": "編譯成功，印出 5", "B": "編譯錯誤：缺少分號（';' expected）", "C": "執行期拋出例外", "D": "編譯錯誤：cannot find symbol"}, "a": ["B"], "multi": false, "e": "int x = 5 這行缺少結尾分號，屬於語法錯誤，javac 回報 ';' expected。", "ew": "選項 A 認為能成功編譯，但缺分號是最典型的語法錯誤，javac 會直接失敗。選項 C 誤把語法錯誤當成執行期例外，語法錯誤在編譯階段就被攔下，程式根本無法產生 class 檔去執行。選項 D 的 cannot find symbol 是識別字（變數或方法名）找不到時的錯誤訊息，與缺分號無關。"},
+ {"id": 122, "d": 5, "stem": "下列程式以 javac 編譯時會出現什麼問題？", "code": "public class Demo {\n  public static void main(String[] a){\n    Thread.sleep(100);\n  }\n}", "o": {"A": "編譯成功並暫停 100 毫秒", "B": "編譯錯誤：未處理的檢查型例外 InterruptedException", "C": "執行期拋出 InterruptedException", "D": "編譯錯誤：找不到 sleep 方法"}, "a": ["B"], "multi": false, "e": "Thread.sleep 會拋出檢查型例外 InterruptedException，呼叫端必須以 try/catch 捕捉或用 throws 宣告，否則編譯失敗。", "ew": "選項 A 假設可直接呼叫，但檢查型（checked）例外強制要求處理，未處理無法通過編譯。選項 C 誤把它當成執行期才發生的問題，實際上 javac 在編譯階段就要求你處理該例外。選項 D 認為找不到方法，但 sleep 是 Thread 的合法靜態方法，錯誤原因是未處理其宣告的檢查型例外。"},
+ {"id": 123, "d": 5, "stem": "下列程式的輸出為何？", "code": "class MyException extends Exception {\n  MyException(String m){ super(m); }\n}\npublic class Demo {\n  static void check(int n) throws MyException {\n    if (n < 0) throw new MyException(\"negative\");\n    System.out.println(\"ok \" + n);\n  }\n  public static void main(String[] a){\n    try { check(-1); }\n    catch (MyException e){ System.out.println(\"Caught: \" + e.getMessage()); }\n  }\n}", "o": {"A": "ok -1", "B": "Caught: negative", "C": "編譯錯誤", "D": "Caught: null"}, "a": ["B"], "multi": false, "e": "傳入 -1，check 拋出自訂的 MyException(\"negative\")，被 catch 接住並印出訊息 negative。", "ew": "選項 A 假設印出 ok -1，但因 n<0 條件成立，程式先拋例外，不會執行到 println(\"ok\")。選項 C 認為自訂例外類別寫法有誤，實際上繼承 Exception 並呼叫 super(m) 是標準且合法的自訂例外寫法。選項 D 誤以為訊息為 null，但建構時已透過 super(\"negative\") 設定訊息，getMessage() 會回傳 negative。"},
+ {"id": 124, "d": 5, "stem": "下列程式執行後拋出例外，其堆疊追蹤（stack trace）最頂端（第一個 at 行）指向哪個方法？", "code": "public class Demo {\n  static void c(){ int[] x = new int[2]; System.out.println(x[5]); }\n  static void b(){ c(); }\n  static void a(){ b(); }\n  public static void main(String[] s){ a(); }\n}", "o": {"A": "main", "B": "a", "C": "b", "D": "c"}, "a": ["D"], "multi": false, "e": "stack trace 由上而下呈現呼叫鏈，最頂端是實際拋出例外的位置，即方法 c。", "ew": "選項 A 的 main 是呼叫鏈的最底層（最先被呼叫），會出現在 stack trace 的最後一行，而非最頂端。選項 B 與 C 的 a、b 只是中間的呼叫層級，位於 trace 中段；判讀 stack trace 時最上面那一行才是真正發生錯誤的地方，往下依序是誰呼叫誰。因此定位 bug 應從最頂端的 at 行著手。"},
+ {"id": 125, "d": 5, "stem": "下列程式想計算 7 除以 2 的平均值，實際輸出為何？（邏輯錯誤判讀）", "code": "public class Demo {\n  public static void main(String[] a){\n    double avg = 7 / 2;\n    System.out.println(avg);\n  }\n}", "o": {"A": "3.5", "B": "3.0", "C": "3", "D": "編譯錯誤"}, "a": ["B"], "multi": false, "e": "7 與 2 都是 int，先做整數除法得 3，再轉成 double 存入 avg，故印出 3.0，這是常見的整數除法邏輯錯誤。", "ew": "選項 A 3.5 是我們期望的正確結果，但因為除法在指派給 double 之前就以整數運算完成，小數部分已被截斷。選項 C 認為印出 3，但 avg 型別是 double，println 會顯示 3.0 而非 3。選項 D 認為編譯錯誤，實際上這是合法程式，只是產生非預期結果；要修正應寫成 7.0 / 2 讓運算以浮點進行。"},
+ {"id": 126, "d": 5, "stem": "下列程式的兩行輸出分別為何？", "code": "public class Demo {\n  public static void main(String[] a){\n    String x = new String(\"hi\");\n    String y = new String(\"hi\");\n    System.out.println(x == y);\n    System.out.println(x.equals(y));\n  }\n}", "o": {"A": "true 然後 true", "B": "false 然後 true", "C": "true 然後 false", "D": "false 然後 false"}, "a": ["B"], "multi": false, "e": "用 new 建立的兩個字串是不同物件，== 比較參考為 false；equals 比較內容相同為 true。", "ew": "選項 A 假設 == 也為 true，但 new String 產生的是各自獨立的物件，記憶體參考不同，== 為 false。選項 C 與 D 認為 equals 為 false，但 equals 比較的是字元內容，兩者都是 \"hi\"，內容相同故為 true。這正是初學者常見的邏輯錯誤：比較字串內容應使用 equals 而非 ==。"},
+ {"id": 127, "d": 5, "stem": "下列程式以 javac 編譯的結果為何？", "code": "public class Demo {\n  public static void main(String[] a){\n    int count = 0;\n    System.out.println(Count);\n  }\n}", "o": {"A": "編譯成功並印出 0", "B": "編譯錯誤：cannot find symbol（變數 Count）", "C": "執行期拋出 NullPointerException", "D": "編譯成功並印出 Count"}, "a": ["B"], "multi": false, "e": "Java 大小寫敏感，宣告的是 count，卻使用 Count，編譯器找不到該識別字，回報 cannot find symbol。", "ew": "選項 A 假設能印出 0，但 Count（大寫 C）從未宣告，編譯無法通過。選項 C 誤把它當執行期問題，但識別字找不到是編譯期錯誤，程式無法產生 class 檔。選項 D 以為會印出字面 Count，這需要用字串 \"Count\" 才行，此處被當成變數名稱解析，因而失敗。"},
+ {"id": 128, "d": 5, "stem": "下列程式的輸出為何？", "code": "public class Demo {\n  public static void main(String[] a){\n    try {\n      Object o = \"str\";\n      Integer i = (Integer) o;\n    } catch (NullPointerException | ClassCastException e){\n      System.out.println(e.getClass().getSimpleName());\n    }\n  }\n}", "o": {"A": "NullPointerException", "B": "ClassCastException", "C": "編譯錯誤", "D": "沒有任何輸出"}, "a": ["B"], "multi": false, "e": "o 實際指向 String，強制轉型為 Integer 失敗，拋出 ClassCastException，被多重 catch 捕捉並印出其簡短類別名。", "ew": "選項 A 的 NullPointerException 需在物件為 null 時才發生，此處 o 指向合法字串，並非 null。選項 C 認為多重 catch（用 | 串接）語法有誤，但這是 Java 7 起支援的合法 multi-catch 寫法。選項 D 認為沒有輸出，但轉型失敗確實會拋例外並進入 catch，故一定會印出例外類別名稱。"},
+ {"id": 129, "d": 5, "stem": "下列程式的輸出為何？", "code": "public class Demo {\n  public static void main(String[] a){\n    Exception e = new IllegalArgumentException(\"bad arg\");\n    System.out.println(e.toString());\n  }\n}", "o": {"A": "bad arg", "B": "java.lang.IllegalArgumentException: bad arg", "C": "IllegalArgumentException", "D": "java.lang.Exception: bad arg"}, "a": ["B"], "multi": false, "e": "Throwable.toString() 回傳「完整類別名稱: 訊息」的格式，故為 java.lang.IllegalArgumentException: bad arg。", "ew": "選項 A 只是 getMessage() 的內容，toString() 還會前綴類別全名。選項 C 只有簡短類別名，缺少套件名稱與訊息，與 toString() 的完整格式不符。選項 D 的類別名稱錯誤，實際物件是 IllegalArgumentException（雖然參考型別宣告為 Exception），toString() 反映的是實際執行期型別，而非宣告型別。"},
+ {"id": 130, "d": 5, "stem": "下列程式的輸出為何？", "code": "public class Demo {\n  public static void main(String[] a){\n    try { throw new IllegalStateException(\"s\"); }\n    catch (RuntimeException e){ System.out.println(\"caught runtime\"); }\n  }\n}", "o": {"A": "caught runtime", "B": "程式因未捕捉例外而中止", "C": "編譯錯誤", "D": "沒有任何輸出"}, "a": ["A"], "multi": false, "e": "IllegalStateException 是 RuntimeException 的子類，父類的 catch 可攔截其所有子類例外，故印出 caught runtime。", "ew": "選項 B 認為例外未被捕捉，但 catch 使用父類 RuntimeException 可捕捉子類 IllegalStateException，例外確實被處理。選項 C 認為編譯錯誤，但以父類捕捉子類例外是合法且常見的多型應用。選項 D 認為無輸出，但例外被成功捕捉後會執行 catch 內的 println，必定有輸出。"},
+ {"id": 131, "d": 5, "stem": "下列程式的輸出為何？", "code": "public class Demo {\n  public static void main(String[] a){\n    try { System.out.println(\"try\"); System.exit(0); }\n    finally { System.out.println(\"finally\"); }\n  }\n}", "o": {"A": "try 然後 finally", "B": "只印 try", "C": "只印 finally", "D": "finally 然後 try"}, "a": ["B"], "multi": false, "e": "System.exit(0) 會立即終止 JVM，這是 finally 不執行的少數例外情況，因此只印出 try。", "ew": "選項 A 認為 finally 照常執行，但 System.exit 直接關閉整個 JVM，finally 來不及執行。選項 C 與 D 假設 finally 會先或單獨印出，但在 exit 之前已印出 try，且 exit 之後 JVM 立刻結束，finally 那行不會被執行。這說明 finally「幾乎總是」執行，但遇到 System.exit 或 JVM 崩潰則例外。"},
+ {"id": 132, "d": 5, "stem": "下列程式以 javac 編譯時的結果為何？", "code": "import java.io.IOException;\npublic class Demo {\n  public static void main(String[] a){\n    try { System.out.println(\"hi\"); }\n    catch (IOException e){ System.out.println(\"io\"); }\n  }\n}", "o": {"A": "編譯成功並印出 hi", "B": "編譯錯誤：try 區塊從未拋出 IOException", "C": "執行期拋出 IOException", "D": "編譯成功並印出 io"}, "a": ["B"], "multi": false, "e": "try 內沒有任何會拋出檢查型例外 IOException 的敘述，Java 不允許捕捉一個絕不可能被拋出的檢查型例外，故編譯失敗。", "ew": "選項 A 與 D 假設能正常編譯執行，但 javac 會針對「不可能拋出的檢查型例外」直接報錯，無法產生可執行檔。選項 C 認為執行期會拋出 IOException，但 println 根本不會拋此例外，且程式因編譯失敗也無法執行。注意：若 catch 的是 RuntimeException 或 Exception 這類非檢查型或最頂層例外則不會有此限制。"},
+ {"id": 133, "d": 5, "stem": "下列程式想在年齡不在 12~65 之間時給予不同費率，但輸出總是 child rate，屬於什麼問題？", "code": "public class Demo {\n  public static void main(String[] a){\n    int age = 20;\n    if (age > 12 || age < 65) System.out.println(\"child rate\");\n    else System.out.println(\"adult rate\");\n  }\n}", "o": {"A": "語法錯誤，無法編譯", "B": "執行期例外", "C": "邏輯錯誤：||（或）應改為 &&（且）", "D": "程式完全正確"}, "a": ["C"], "multi": false, "e": "用 || 時只要任一條件成立即為真，而任何年齡都會滿足 age>12 或 age<65 其中之一，導致永遠為真；應改用 && 才符合區間判斷。", "ew": "選項 A 認為語法錯誤，但程式語法完全合法，能正常編譯執行。選項 B 認為有執行期例外，但布林判斷不會拋例外，程式順利跑完。選項 D 認為程式正確，然而輸出與意圖不符正是典型的邏輯錯誤：編譯器與 JVM 都不會提示，需靠測試或 print 除錯才能發現運算子用錯。"},
+ {"id": 134, "d": 5, "stem": "下列程式以 javac 編譯時最可能出現哪一種錯誤訊息？", "code": "public class Demo {\n  public static void main(String[] a){\n    System.out.println(\"hi\");\n}", "o": {"A": "reached end of file while parsing（大括號不成對）", "B": "cannot find symbol", "C": "incompatible types", "D": "編譯成功，印出 hi"}, "a": ["A"], "multi": false, "e": "類別缺少一個結尾的右大括號，編譯器一路解析到檔案結尾仍未閉合，回報 reached end of file while parsing。", "ew": "選項 B 的 cannot find symbol 是使用未宣告識別字時的錯誤，與大括號不成對無關。選項 C 的 incompatible types 是型別指派不相容時才會出現，此處沒有型別問題。選項 D 認為能成功編譯，但少了一個 } 使類別定義未閉合，屬於語法錯誤，無法通過編譯。"},
+ {"id": 135, "d": 5, "stem": "下列程式以 javac 編譯的結果為何？", "code": "public class Demo {\n  public static void main(String[] a){\n    int x = \"hello\";\n    System.out.println(x);\n  }\n}", "o": {"A": "編譯成功並印出 hello", "B": "編譯錯誤：incompatible types（String 無法轉為 int）", "C": "執行期拋出 ClassCastException", "D": "編譯成功並印出 0"}, "a": ["B"], "multi": false, "e": "把字串字面值指派給 int 變數，型別不相容，javac 於編譯期回報 incompatible types。", "ew": "選項 A 與 D 假設能編譯，但 int 無法承接 String，型別檢查在編譯階段就失敗。選項 C 的 ClassCastException 是執行期強制轉型物件失敗時才發生，此處是基本型別的指派不相容，屬於編譯期錯誤，程式根本無法執行。這類型別不符是 javac 能在編譯階段替我們攔下的常見錯誤。"},
+ {"id": 136, "d": 5, "stem": "下列程式想加總 1 到 5（含 5），實際輸出為何？（邏輯錯誤判讀）", "code": "public class Demo {\n  public static void main(String[] a){\n    int sum = 0;\n    for (int i = 1; i < 5; i++) sum += i;\n    System.out.println(sum);\n  }\n}", "o": {"A": "15", "B": "10", "C": "編譯錯誤", "D": "執行期例外"}, "a": ["B"], "multi": false, "e": "迴圈條件 i<5 只加到 4（1+2+3+4=10），漏掉了 5，這是典型的差一（off-by-one）邏輯錯誤，正確應為 i<=5。", "ew": "選項 A 15 是我們期望的正確答案（1+2+3+4+5），但因條件用 < 而非 <=，迴圈在 i=5 前就停止。選項 C 認為編譯錯誤，但程式語法正確可正常編譯。選項 D 認為有執行期例外，但簡單累加不會拋例外；此類 off-by-one 錯誤不會被編譯器或 JVM 提示，需靠 print 或測試發現。"},
+ {"id": 137, "d": 5, "stem": "關於 print 敘述（如 System.out.println）用於除錯，下列敘述何者正確？（複選）", "code": "", "o": {"A": "可在關鍵位置印出變數目前的值，協助定位邏輯錯誤", "B": "能顯示程式實際的執行流程，例如是否進入某個 if 分支", "C": "是排查語法錯誤（缺分號、括號不成對）的主要手段", "D": "除錯完成後通常應移除或改用正式的日誌機制"}, "a": ["A", "B", "D"], "multi": true, "e": "print 除錯適合觀察變數值與執行流程以找出邏輯錯誤，用完應清理；語法錯誤則由編譯器攔截，不靠 print。", "ew": "選項 C 是錯的：語法錯誤（如缺分號、括號不成對）在編譯階段就被 javac 攔下，程式根本無法執行，因此加 print 也不會執行到，排查語法錯誤要看編譯器的錯誤訊息而非 print。其餘 A、B、D 都是 print 除錯的正確用途與良好習慣：A 觀察變數值、B 追蹤流程分支、D 事後清理避免污染輸出。"},
+ {"id": 138, "d": 5, "stem": "關於 javac 與 java 兩個指令的角色，下列敘述何者正確？", "code": "", "o": {"A": "javac 將 .java 原始碼編譯成 .class 位元組碼；java 執行 .class", "B": "java 編譯原始碼；javac 執行位元組碼", "C": "兩者都只負責執行，不做編譯", "D": "javac 直接把 .java 轉成機器碼並執行"}, "a": ["A"], "multi": false, "e": "javac 是編譯器，將 .java 編成 .class 位元組碼；java 是啟動器，載入並在 JVM 上執行 .class。", "ew": "選項 B 把兩者角色對調，javac 才是編譯、java 才是執行。選項 C 認為兩者都只執行，忽略了 javac 的編譯職責。選項 D 認為 javac 直接產生機器碼並執行，但 Java 是編成與平台無關的位元組碼，再由 JVM（透過 java 指令）解譯或即時編譯執行，javac 本身並不執行程式。"},
+ {"id": 139, "d": 5, "stem": "下列哪些屬於非檢查型例外（unchecked / RuntimeException 的子類，編譯器不強制處理）？（複選）", "code": "", "o": {"A": "NullPointerException", "B": "ArrayIndexOutOfBoundsException", "C": "ArithmeticException", "D": "IOException"}, "a": ["A", "B", "C"], "multi": true, "e": "NullPointerException、ArrayIndexOutOfBoundsException、ArithmeticException 都是 RuntimeException 的子類，屬非檢查型；IOException 屬檢查型。", "ew": "選項 D 的 IOException 直接繼承 Exception 但不屬於 RuntimeException，是檢查型（checked）例外，編譯器會強制你用 try/catch 或 throws 處理，因此不在非檢查型之列。A、B、C 三者皆為 RuntimeException 的子類，代表多為程式邏輯瑕疵導致、編譯器不強制宣告的執行期例外，這正是檢查型與非檢查型的關鍵區別。"}
+];
+
+// ---------- 共用 ----------
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+const list=document.getElementById('quizList');
+const resultBox=document.getElementById('result');
+let mode='practice';
+const eq=(sel,ans)=>sel.length===ans.length && sel.every(k=>ans.includes(k));
+
+function optHTML(q,{chosen=[],graded=false,selected=[]}){
+  return Object.entries(q.o).map(([k,t])=>{
+    let cls='opt',mark='';
+    if(graded){
+      if(q.a.includes(k)){cls+=' correct';mark='✓';}
+      else if(chosen.includes(k)){cls+=' wrong';mark='✗';}
+    }else if(selected.includes(k)){cls+=' sel';}
+    const dis=graded?'disabled':'';
+    return `<button class="${cls}" ${dis} data-id="${q.id}" data-k="${k}">
+      <span class="k">${k}</span><span class="tx">${esc(t)}</span>${mark?`<span class="mark">${mark}</span>`:''}</button>`;
+  }).join('');
+}
+function cardHTML(q,body,idx){
+  return `<div class="q" data-q="${q.id}">
+    <div class="meta"><span class="qid">Q${q.id}</span><span class="dl">領域 ${q.d}</span>${q.multi?'<span class="multi">複選</span>':''}${idx!=null?`<span class="num">${idx}</span>`:''}</div>
+    <div class="stem">${esc(q.stem)}</div>
+    ${q.code?`<pre>${esc(q.code)}</pre>`:''}
+    ${body}</div>`;
+}
+let practiceIdx=0, mockIdx=0;
+function navHTML(idx,total,nextOK){
+  return `<div class="nav">
+    <button class="navbtn" data-nav="prev" ${idx<=0?'disabled':''}>← 上一題</button>
+    <span class="pos">${idx+1} / ${total}</span>
+    <button class="navbtn primary" data-nav="next" ${(idx>=total-1||!nextOK)?'disabled':''}>下一題 →</button>
+  </div>`;
+}
+function pagerHTML(qs,curIdx,statusFn){
+  return `<div class="pager">${qs.map((q,i)=>
+    `<button class="pnum ${statusFn(q,i)}${i===curIdx?' cur':''}" data-jump="${i}">${i+1}</button>`).join('')}</div>`;
+}
+function showResult(pool,ans,label){
+  const total=pool.length;
+  const right=pool.filter(q=>ans[q.id]&&ans[q.id].correct).length;
+  const pct=Math.round(right/total*100), pass=pct>=70;
+  const perDom=domains.map(d=>{
+    const qs=pool.filter(q=>q.d===d.n);
+    const r=qs.filter(q=>ans[q.id]&&ans[q.id].correct).length;
+    return {n:d.n,short:d.short,r,t:qs.length,pct:qs.length?Math.round(r/qs.length*100):0};
+  }).filter(d=>d.t>0);
+  resultBox.innerHTML=`
+    <span class="eyebrow">Result · ${label}</span>
+    <div class="verdict ${pass?'pass':'fail'}">${pass?'✓ 達到通過門檻':'✗ 尚未達標'}</div>
+    <div class="big ${pass?'pass':'fail'}">${pct}%</div>
+    <p class="lede" style="margin:0">答對 ${right}/${total} 題 · 通過門檻 70%（正式考試 700/1000）。${pass?'維持手感，建議再做官方 GMetrix 全真模擬。':'加強下方低分領域，重讀考綱後再測。'}</p>
+    <div class="rdom">${perDom.map(d=>`
+      <div class="r"><span class="lab">D${d.n} ${d.short}</span>
+        <span class="bar"><i style="width:${d.pct}%;background:${d.pct>=70?'var(--good)':'var(--bad)'}"></i></span>
+        <span class="v">${d.r}/${d.t}</span></div>`).join('')}</div>`;
+}
+
+// ---------- 作答回饋（答錯時給更多解釋） ----------
+const DOMAIN_TIP={
+  1:'基礎：進入點 public static void main(String[] args)；.java 原始碼經 javac 編譯成 .class 位元組碼，再由 JVM 執行；原始型別存值、參考型別存位址；區塊以 {} 界定、每條敘述以分號結尾。',
+  2:'型別與運算式：8 種原始型別（byte/short/int/long/float/double/char/boolean）；小→大自動拓寬、大→小需顯式 cast；整數相除會截斷取整；++/-- 前後置差異；String 不可變，內容比較用 equals()、== 只比參考。',
+  3:'流程控制：switch 的 case 沒 break 會 fall-through；for/while/do-while（do-while 至少執行一次）；break 跳出整個迴圈、continue 只跳過本次；條件運算式必須是 boolean，不能拿整數當真假。',
+  4:'物件導向：類別是藍圖、物件是實例；封裝用 private 搭 getter/setter；extends 繼承、方法覆寫（override）達成執行期多型；interface 定義行為、abstract 類別不可實例化；static 屬於類別、this 指本物件、super 呼叫父類。',
+  5:'編譯與除錯：語法／型別錯誤在編譯期就擋（缺分號、型別不符、未宣告變數）；執行期才丟例外（NullPointerException、ArrayIndexOutOfBoundsException、ArithmeticException 等）；try/catch/finally 處理例外，finally 一定執行；checked 例外須宣告或捕捉。',
+};
+function feedbackHTML(q,chosen,correct){
+  if(correct) return `<div class="exp ok"><b>答對 ✓</b><br>${esc(q.e)}</div>`;
+  const you=(chosen&&chosen.length)?chosen.map(k=>`${k}「${q.o[k]}」`).join('、'):'（未作答）';
+  const ans=q.a.map(k=>`${k}「${q.o[k]}」`).join('、');
+  const detail=q.ew||q.e;   // 詳盡錯誤解說優先
+  const tip=DOMAIN_TIP[q.d];
+  return `<div class="exp bad"><b>答錯 ✗</b>
+    <div class="fb"><span class="you">你選的</span>${esc(you)}</div>
+    <div class="fb"><span class="ans">正解</span>${esc(ans)}</div>
+    <div class="why">💡 詳解：${esc(detail)}</div>
+    ${tip?`<div class="tip">📌 觀念提醒（領域 ${q.d}）：${esc(tip)}</div>`:''}
+  </div>`;
+}
+
+// ---------- 練習模式 ----------
+const state={};     // id -> {chosen,correct}
+const pending={};   // 複選暫存 id -> [keys]
+let filter=0;
+const fWrap=document.getElementById('filters');
+const fdefs=[{k:0,l:'全部 139'}].concat(domains.map(d=>({k:d.n,l:`D${d.n}·${d.short}`})));
+fWrap.innerHTML=fdefs.map(f=>`<button class="fbtn" data-k="${f.k}" aria-pressed="${f.k===0}">${f.l}</button>`).join('');
+fWrap.onclick=e=>{const b=e.target.closest('.fbtn');if(!b)return;
+  filter=+b.dataset.k; practiceIdx=0;
+  [...fWrap.children].forEach(x=>x.setAttribute('aria-pressed',+x.dataset.k===filter));
+  renderPractice();};
+
+function renderPractice(){
+  const qs=Q.filter(q=>filter===0||q.d===filter);
+  if(!qs.length){ list.innerHTML=''; return; }
+  practiceIdx=Math.max(0,Math.min(practiceIdx,qs.length-1));
+  const q=qs[practiceIdx];
+  const st=state[q.id], done=!!st;
+  const sel=done?[]:(pending[q.id]||[]);
+  const opts=optHTML(q,{chosen:done?st.chosen:[],graded:done,selected:sel});
+  const submit=q.multi&&!done?`<button class="submit" data-submit="${q.id}" ${sel.length?'':'disabled'}>確認作答</button>`:'';
+  const exp=done?feedbackHTML(q,st.chosen,st.correct):'';
+  const pager=pagerHTML(qs,practiceIdx,q2=>{const s=state[q2.id];if(s)return s.correct?'correct':'wrong';return (pending[q2.id]||[]).length?'ans':'';});
+  const nav=navHTML(practiceIdx,qs.length,done);
+  list.innerHTML=pager+cardHTML(q,`<div class="opts">${opts}</div>${submit}${exp}`)+nav;
+  const dn=Object.keys(state).length, right=Object.values(state).filter(s=>s.correct).length;
+  document.getElementById('mDone').textContent=dn;
+  document.getElementById('mRight').textContent=right;
+  document.getElementById('mPct').textContent=dn?Math.round(right/dn*100)+'%':'—';
+  if(dn===Q.length){ showResult(Q,state,'練習 139 題'); resultBox.classList.add('show'); }
+  else if(mode==='practice') resultBox.classList.remove('show');
+}
+function commit(id,chosen){
+  const q=Q.find(x=>x.id===id);
+  state[id]={chosen,correct:eq(chosen,q.a)};
+  delete pending[id];
+  renderPractice();
+}
+document.getElementById('resetBtn').onclick=()=>{
+  for(const k in state)delete state[k];
+  for(const k in pending)delete pending[k];
+  practiceIdx=0;
+  resultBox.classList.remove('show');
+  renderPractice();
+  document.getElementById('quiz').scrollIntoView({behavior:'smooth'});
+};
+
+// ---------- 計時模擬考 ----------
+const MOCK_PLAN={1:4,2:6,3:2,4:5,5:3};   // 依權重 22/28/12/26/12 分配，合計 20
+const MOCK_SECONDS=25*60;
+let mockQs=[], mockSel={}, mockActive=false, mockGraded=false, mockLeft=0, mockTimer=null;
+const mockbar=document.getElementById('mockbar');
+
+function sample(arr,n){
+  const a=arr.slice();
+  for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+  return a.slice(0,n);
+}
+function pickMock(){
+  let picked=[];
+  for(const d in MOCK_PLAN) picked=picked.concat(sample(Q.filter(q=>q.d===+d),MOCK_PLAN[d]));
+  return sample(picked,picked.length);
+}
+function stopTimer(){ if(mockTimer){clearInterval(mockTimer);mockTimer=null;} }
+function mockIntro(){
+  stopTimer(); mockActive=false; mockGraded=false;
+  mockbar.style.display='none'; resultBox.classList.remove('show');
+  list.innerHTML=`<div class="intro">
+    <h3>⏱ 計時模擬考</h3>
+    <ul>
+      <li>從 139 題題庫隨機抽 <b>20 題</b>（依考試權重分配各領域）</li>
+      <li>限時 <b>25 分鐘</b>，時間到自動交卷</li>
+      <li>作答期間<b>不顯示答案</b>，交卷後才評分並揭曉解析</li>
+      <li>通過標準：正確率 ≥ 70%（對應正式考試 700/1000）</li>
+    </ul>
+    <button class="go" id="mkStart">開始模擬考 →</button>
+  </div>`;
+  document.getElementById('mkStart').onclick=startMock;
+}
+function startMock(){
+  mockQs=pickMock(); mockSel={}; mockIdx=0; mockActive=true; mockGraded=false; mockLeft=MOCK_SECONDS;
+  mockbar.style.display=''; mockbar.classList.remove('warn');
+  renderMock(); updateMockTime();
+  mockTimer=setInterval(()=>{
+    mockLeft--; updateMockTime();
+    if(mockLeft<=60) mockbar.classList.add('warn');
+    if(mockLeft<=0) submitMock();
+  },1000);
+}
+function updateMockTime(){
+  const m=Math.max(0,Math.floor(mockLeft/60)), s=Math.max(0,mockLeft%60);
+  document.getElementById('mkTime').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  document.getElementById('mkDone').textContent=Object.keys(mockSel).filter(id=>mockSel[id].length).length;
+}
+function renderMock(){
+  if(!mockQs.length) return;
+  mockIdx=Math.max(0,Math.min(mockIdx,mockQs.length-1));
+  const q=mockQs[mockIdx];
+  const sel=mockSel[q.id]||[];
+  const opts=optHTML(q,{chosen:mockGraded?sel:[],graded:mockGraded,selected:mockGraded?[]:sel});
+  const exp=mockGraded?feedbackHTML(q,sel,eq(sel,q.a)):'';
+  const pager=pagerHTML(mockQs,mockIdx,q2=>{const s2=mockSel[q2.id]||[];if(mockGraded)return eq(s2,q2.a)?'correct':'wrong';return s2.length?'ans':'';});
+  const nav=navHTML(mockIdx,mockQs.length,true);
+  list.innerHTML=pager+cardHTML(q,`<div class="opts">${opts}</div>${exp}`,`${mockIdx+1} / 20`)+nav;
+}
+function submitMock(){
+  if(!mockActive) return;
+  stopTimer(); mockActive=false; mockGraded=true; mockbar.classList.remove('warn');
+  const ans={};
+  mockQs.forEach(q=>{ const sel=mockSel[q.id]||[]; ans[q.id]={chosen:sel,correct:eq(sel,q.a)}; });
+  renderMock();
+  showResult(mockQs,ans,'模擬考 20 題');
+  resultBox.classList.add('show');
+  resultBox.scrollIntoView({behavior:'smooth'});
+}
+document.getElementById('mkSubmit').onclick=submitMock;
+document.getElementById('mkExit').onclick=mockIntro;
+
+// ---------- 作答點擊（委派） ----------
+list.onclick=e=>{
+  const navb=e.target.closest('.navbtn'), jump=e.target.closest('.pnum');
+  if(navb&&!navb.disabled){
+    const step=navb.dataset.nav==='next'?1:-1;
+    if(mode==='practice'){ practiceIdx+=step; renderPractice(); } else { mockIdx+=step; renderMock(); }
+    document.getElementById('quiz').scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  if(jump){
+    const i=+jump.dataset.jump;
+    if(mode==='practice'){ practiceIdx=i; renderPractice(); } else { mockIdx=i; renderMock(); }
+    document.getElementById('quiz').scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  const opt=e.target.closest('.opt'), sub=e.target.closest('.submit');
+  if(mode==='practice'){
+    if(sub){ const id=+sub.dataset.submit; commit(id,[...(pending[id]||[])]); return; }
+    if(opt&&!opt.disabled){
+      const id=+opt.dataset.id,k=opt.dataset.k,q=Q.find(x=>x.id===id);
+      if(q.multi){
+        const set=new Set(pending[id]||[]); set.has(k)?set.delete(k):set.add(k);
+        pending[id]=[...set]; renderPractice();
+      }else commit(id,[k]);
+    }
+    return;
+  }
+  if(mode==='mock'&&mockActive&&!mockGraded&&opt){
+    const id=+opt.dataset.id,k=opt.dataset.k,q=Q.find(x=>x.id===id);
+    if(q.multi){ const set=new Set(mockSel[id]||[]); set.has(k)?set.delete(k):set.add(k); mockSel[id]=[...set]; }
+    else mockSel[id]=[k];
+    renderMock(); updateMockTime();
+  }
+};
+
+// ---------- 模式切換 ----------
+document.getElementById('modebar').onclick=e=>{
+  const b=e.target.closest('.mbtn'); if(!b) return;
+  const m=b.dataset.mode; if(m===mode) return;
+  mode=m;
+  [...document.getElementById('modebar').children].forEach(x=>x.setAttribute('aria-pressed',x.dataset.mode===mode));
+  document.getElementById('practicePane').style.display=mode==='practice'?'':'none';
+  document.getElementById('mockPane').style.display=mode==='mock'?'':'none';
+  resultBox.classList.remove('show');
+  stopTimer();
+  if(mode==='practice'){ mockActive=false; renderPractice(); }
+  else mockIntro();
+};
+
+document.getElementById('mTotal').textContent=Q.length;
+renderPractice();
+</script>
