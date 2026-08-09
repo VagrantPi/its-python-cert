@@ -299,7 +299,7 @@
       <span class="chip">題數 <b>36–43</b> 題</span>
       <span class="chip">時間 <b>50</b> 分鐘</span>
       <span class="chip">通過 <b>700</b>/1000</span>
-      <span class="chip">本站題庫 <b>168</b> 題</span>
+      <span class="chip">本站題庫 <b>183</b> 題</span>
     </div>
     <div class="term" aria-hidden="true">
       <div class="top">
@@ -348,7 +348,7 @@ PASS<span class="cur"></span></pre>
   <section id="quiz">
     <div class="quizhead">
       <div>
-        <span class="eyebrow">Self Test · 168 題</span>
+        <span class="eyebrow">Self Test · 183 題</span>
         <h2>線上自測</h2>
         <p class="lede" style="margin:0"><b>練習模式</b>：選答即時對答看解析。<b>計時模擬考</b>：隨機抽 20 題、限時 25 分鐘、一次交卷評分（模擬真實考試）。</p>
       </div>
@@ -409,8 +409,9 @@ const domains=[
   {n:4,name:'程式文件、結構與函式',w:'15–20%',pct:18,sub:'def、參數與作用域、註解與可讀性'},
   {n:5,name:'除錯與錯誤處理',w:'5–10%',pct:9,sub:'找錯修正、try/except、單元測試'},
   {n:6,name:'模組與工具的使用',w:'1–5%',pct:5,sub:'import、math / random / datetime'},
+  {n:7,name:'補充練習：格式化 / 檔案 I/O / 例外',w:'補充',pct:8,sub:'字串格式化、開檔模式與讀檔、try/except/else/finally'},
 ];
-document.getElementById('domList').innerHTML=domains.map(d=>`
+document.getElementById('domList').innerHTML=domains.filter(d=>d.n<=6).map(d=>`
   <div class="row">
     <div class="h"><span class="n">D${d.n}</span><span class="name">${d.name}</span><span class="w">${d.w}</span></div>
     <div class="track"><div class="fill" style="width:${d.pct*3.4}%"></div></div>
@@ -588,6 +589,22 @@ const Q=[
  {id:166,d:6,stem:"輸出為何？",code:"from datetime import date\nd = date(2024, 12, 25)\nprint(d.month)",o:{A:"25",B:"12",C:"2024",D:"錯誤"},a:["B"],e:"month 屬性為 12。"},
  {id:167,d:6,stem:"輸出為何？",code:"import math\nprint(math.pow(5, 0))",o:{A:"0",B:"1",C:"1.0",D:"5"},a:["C"],e:"任何數 0 次方為 1；math.pow 回 float → 1.0。"},
  {id:168,d:6,stem:"輸出為何？",code:"import math\nprint(2 ** 0.5 == math.sqrt(2))",o:{A:"True",B:"False",C:"錯誤",D:"1.414"},a:["A"],e:"兩種算平方根方式結果相同 → True。"},
+ // ---- D7 補充練習：格式化 / 檔案 I/O / 例外處理（Q169–183）----
+ {id:169,d:7,stem:"輸出為何？",code:"price = 3.14159\nprint(\"{:.2f}\".format(price))",o:{A:"3.14",B:"3.142",C:"3.1",D:"3.14159"},a:["A"],e:".2f 固定小數點 2 位並四捨五入 → 3.14。"},
+ {id:170,d:7,stem:"輸出為何？",code:"print(\"{1}-{0}-{1}\".format(\"A\", \"B\"))",o:{A:"A-B-A",B:"B-A-B",C:"A-B-B",D:"產生 IndexError"},a:["B"],e:"{n} 為位置索引，可重複使用、可跳號 → B-A-B。"},
+ {id:171,d:7,stem:"輸出為何？",code:"name = \"Bob\"\nprint(f\"[{name:>8}]\")",o:{A:"[Bob     ]",B:"[     Bob]",C:"[  Bob   ]",D:"[Bob]"},a:["B"],e:"> 靠右對齊、< 靠左、^ 置中；8 是總寬度，不足補空白。"},
+ {id:172,d:7,stem:"要將 total = 1234567 印成 1,234,567，下列何者正確？",o:{A:'print("{:,}".format(total))',B:'print("{:,d}".format(total))',C:'print(f"{total:,}")',D:"以上皆可"},a:["D"],e:", 為千分位符號，format()、f-string、{:,d} 三種寫法等效。"},
+ {id:173,d:7,stem:"輸出為何？",code:"rate = 0.2567\nprint(\"{:.1%}\".format(rate))",o:{A:"0.3%",B:"25.7%",C:"25.67%",D:"0.2567%"},a:["B"],e:"% 會先乘以 100 再加百分號，.1 控制小數位數 → 25.7%。"},
+ {id:174,d:7,stem:"data.txt 原本已有內容，執行下列程式後，檔案內容為何？",code:"f = open(\"data.txt\", \"w\")\nf.write(\"Hello\")\nf.close()",o:{A:"原內容 + Hello",B:"只剩 Hello（原內容被清除）",C:"拋出 FileExistsError",D:"Hello + 原內容"},a:["B"],e:"w 模式會清空(truncate)既有內容；要保留請用 a。"},
+ {id:175,d:7,stem:"a.txt 內含三行文字。下列 data 的型別與長度為何？",code:"with open(\"a.txt\") as f:\n    data = f.readlines()",o:{A:"str，長度為總字元數",B:"list，長度 3",C:"tuple，長度 3",D:"產生錯誤"},a:["B"],e:"readlines() 回傳 list，每個元素是一行（含換行字元）；read() 才回傳單一字串。"},
+ {id:176,d:7,stem:"使用 with open(...) as f: 的主要好處為何？",o:{A:"讀取速度較快",B:"可同時開啟多個檔案",C:"區塊結束時（含發生例外）會自動關閉檔案",D:"自動將檔案內容轉為 list"},a:["C"],e:"context manager 保證離開區塊時呼叫 close()，例外發生時也會釋放資源。"},
+ {id:177,d:7,stem:"下列程式輸出每行之間多出空白行，原因與修正方式為何？",code:"with open(\"a.txt\") as f:\n    for line in f:\n        print(line)",o:{A:"print 的 bug，改用 sys.stdout.write",B:'line 尾端含換行字元，可改 print(line, end="") 或 print(line.strip())',C:'檔案編碼錯誤，需指定 encoding="utf-8"',D:"需改用 f.readlines()"},a:["B"],e:"逐行迭代得到的字串尾端保留換行，print 再補一個換行。"},
+ {id:178,d:7,stem:'以 "a" 模式開啟檔案時，下列敘述何者正確？',o:{A:"檔案不存在會拋出 FileNotFoundError",B:"寫入位置在檔案開頭，會覆蓋原內容",C:"檔案不存在會自動建立，寫入位置在檔尾",D:"只能讀取，不能寫入"},a:["C"],e:"a = append，檔案不存在則建立，指標固定在檔尾；r 模式檔案不存在才會 FileNotFoundError。"},
+ {id:179,d:7,stem:"輸出順序為何？",code:"try:\n    result = 10 / 0\nexcept ZeroDivisionError:\n    print(\"A\")\nexcept Exception:\n    print(\"B\")\nelse:\n    print(\"C\")\nfinally:\n    print(\"D\")",o:{A:"A D",B:"A C D",C:"B D",D:"A B D"},a:["A"],e:"ZeroDivisionError 攔下印 A；else 只在 try 無例外時執行，故跳過 C；finally 無論如何都執行印 D。"},
+ {id:180,d:7,stem:"輸出為何？",code:"lst = [1, 2, 3]\ntry:\n    print(lst[5])\nexcept ValueError:\n    print(\"V\")\nexcept IndexError:\n    print(\"I\")\nexcept Exception:\n    print(\"E\")",o:{A:"V",B:"I",C:"E",D:"程式中斷並顯示 traceback"},a:["B"],e:"索引超出範圍為 IndexError；except 由上往下比對，第一個相符者執行後即離開。"},
+ {id:181,d:7,stem:"下列程式為何無法如預期捕捉 ValueError 並印出 V？",code:"try:\n    n = int(\"abc\")\nexcept Exception:\n    print(\"E\")\nexcept ValueError:\n    print(\"V\")",o:{A:"int() 不會拋出 ValueError",B:"Exception 是父類別，會先攔截所有例外，具體例外應寫在前面",C:"一個 try 只能有一個 except",D:"需要加上 finally 才會生效"},a:["B"],e:"ValueError 是 Exception 的子類別，被前面的 except Exception 先攔截，順序應由具體到一般。"},
+ {id:182,d:7,stem:"輸出為何？",code:"def test():\n    try:\n        return \"A\"\n    finally:\n        print(\"B\")\n\nprint(test())",o:{A:"A 然後 B",B:"B 然後 A",C:"只有 A",D:"只有 B"},a:["B"],e:"finally 在函式 return 之前執行，因此先印 B，函式回傳後才由外層 print 印出 A。"},
+ {id:183,d:7,stem:"要一次捕捉 ValueError 與 TypeError，並取得例外訊息，正確寫法為何？",o:{A:"except ValueError, TypeError as e:",B:"except (ValueError, TypeError) as e:",C:"except ValueError or TypeError as e:",D:"except [ValueError, TypeError] as e:"},a:["B"],e:"多重例外須用 tuple 包起來；as e 綁定例外物件，可用 str(e) 取得訊息。"},
 ];
 
 // ---------- 共用 ----------
@@ -656,6 +673,7 @@ const DOMAIN_TIP={
   4:'函式：預設參數寫在後面、關鍵字引數依「名稱」對應與順序無關；函式內指派會建立區域變數；沒有 return（或空 return）時回傳 None。',
   5:'錯誤處理：ValueError=值不合理、TypeError=型別不合、IndexError=索引越界、KeyError=鍵不存在、ZeroDivisionError=除以 0、NameError=變數未定義；finally 一定執行。',
   6:'模組：math.pow/sqrt 回傳 float，floor 往 -∞、ceil 往 +∞、trunc 直接截斷；randint(a,b) 含兩端、randrange(a,b) 不含 b；要先 import 才能使用。',
+  7:'補充練習：格式化 {:對齊寬度,.精度型別}（f/d/%/s 常考）；檔案優先用 with，r 唯讀、w 清空、a 附加(檔尾)、x 獨佔建立；例外 except 順序「具體→一般」，else 無例外才跑、finally 一定跑。',
 };
 function feedbackHTML(q,chosen,correct){
   if(correct) return `<div class="exp ok"><b>答對 ✓</b><br>${esc(q.e)}</div>`;
@@ -675,7 +693,7 @@ const state={};     // id -> {chosen,correct}
 const pending={};   // 複選暫存 id -> [keys]
 let filter=0;
 const fWrap=document.getElementById('filters');
-const fdefs=[{k:0,l:'全部 168'}].concat(domains.map(d=>({k:d.n,l:`D${d.n}·領域${d.n}`})));
+const fdefs=[{k:0,l:'全部 183'}].concat(domains.map(d=>({k:d.n,l:`D${d.n}·領域${d.n}`})));
 fWrap.innerHTML=fdefs.map(f=>`<button class="fbtn" data-k="${f.k}" aria-pressed="${f.k===0}">${f.l}</button>`).join('');
 fWrap.onclick=e=>{const b=e.target.closest('.fbtn');if(!b)return;
   filter=+b.dataset.k; practiceIdx=0;
@@ -699,7 +717,7 @@ function renderPractice(){
   document.getElementById('mDone').textContent=dn;
   document.getElementById('mRight').textContent=right;
   document.getElementById('mPct').textContent=dn?Math.round(right/dn*100)+'%':'—';
-  if(dn===Q.length){ showResult(Q,state,'練習 168 題'); resultBox.classList.add('show'); }
+  if(dn===Q.length){ showResult(Q,state,'練習 183 題'); resultBox.classList.add('show'); }
   else if(mode==='practice') resultBox.classList.remove('show');
 }
 function commit(id,chosen){
