@@ -62,6 +62,9 @@
   .toggle{flex:0 0 auto;width:38px;height:32px;border:1px solid var(--border);background:var(--surface);
     border-radius:8px;color:var(--text);cursor:pointer;font-size:1rem;display:grid;place-items:center}
   .toggle:hover{border-color:var(--accent)}
+  .retake{flex:0 0 auto;height:32px;padding:0 10px;border:1px solid var(--border);background:var(--surface);
+    border-radius:8px;color:var(--text);cursor:pointer;font-family:var(--mono);font-size:.78rem;white-space:nowrap}
+  .retake:hover{border-color:var(--bad);color:var(--bad)}
 
   /* hero */
   .hero{padding:52px 0 34px}
@@ -286,6 +289,7 @@
       <a href="#resources">備考資源</a>
       <a href="#quiz">線上自測</a>
     </nav>
+    <button class="retake" id="retakeBtn" title="清除這一科的作答紀錄">↺ 重考</button>
     <button class="toggle" id="themeBtn" aria-label="切換深淺色">◐</button>
   </div>
 </header>
@@ -700,7 +704,25 @@ fWrap.onclick=e=>{const b=e.target.closest('.fbtn');if(!b)return;
   [...fWrap.children].forEach(x=>x.setAttribute('aria-pressed',+x.dataset.k===filter));
   renderPractice();};
 
+// ---------- 作答紀錄存在瀏覽器（每科各自一份，互不影響） ----------
+const STORE_KEY='its-cert:python:practice';
+function savePractice(){
+  try{ localStorage.setItem(STORE_KEY,JSON.stringify({state,pending,filter,practiceIdx})); }catch(e){}
+}
+(function loadPractice(){
+  let d=null;
+  try{ d=JSON.parse(localStorage.getItem(STORE_KEY)||'null'); }catch(e){}
+  if(!d) return;
+  for(const id in d.state||{}){ const q=Q.find(x=>x.id===+id), c=d.state[id].chosen||[];
+    if(q) state[id]={chosen:c,correct:eq(c,q.a)}; }
+  for(const id in d.pending||{}) if(Q.some(x=>x.id===+id)) pending[id]=d.pending[id];
+  if(fdefs.some(x=>x.k===d.filter)) filter=d.filter;
+  practiceIdx=+d.practiceIdx||0;
+  [...fWrap.children].forEach(x=>x.setAttribute('aria-pressed',+x.dataset.k===filter));
+})();
+
 function renderPractice(){
+  savePractice();
   const qs=Q.filter(q=>filter===0||q.d===filter);
   if(!qs.length){ list.innerHTML=''; return; }
   practiceIdx=Math.max(0,Math.min(practiceIdx,qs.length-1));
@@ -726,14 +748,18 @@ function commit(id,chosen){
   delete pending[id];
   renderPractice();
 }
-document.getElementById('resetBtn').onclick=()=>{
+function retake(){
+  if(!confirm('確定要清除這一科的作答紀錄、從頭重考嗎？\n（其他科目的紀錄不受影響）')) return;
+  if(mode!=='practice') document.querySelector('#modebar [data-mode="practice"]').click();
   for(const k in state)delete state[k];
   for(const k in pending)delete pending[k];
   practiceIdx=0;
   resultBox.classList.remove('show');
   renderPractice();
   document.getElementById('quiz').scrollIntoView({behavior:'smooth'});
-};
+}
+document.getElementById('resetBtn').onclick=retake;
+document.getElementById('retakeBtn').onclick=retake;
 
 // ---------- 計時模擬考 ----------
 const MOCK_PLAN={1:5,2:6,3:4,4:3,5:1,6:1};   // 各領域抽題數，合計 20
