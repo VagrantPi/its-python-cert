@@ -153,7 +153,7 @@
   .opt:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft)}
   .opt:disabled{cursor:default}
   .opt .k{font-family:var(--mono);font-weight:700;color:var(--muted);flex:0 0 auto}
-  .opt .tx{flex:1}
+  .opt .tx{flex:1;white-space:pre-wrap}
   .opt .tx code,.opt .tx{font-family:var(--mono);font-size:.9rem}
   .opt.correct{background:var(--good-soft);border-color:var(--good-bd)}
   .opt.correct .k{color:var(--good)}
@@ -529,7 +529,7 @@ const Q=[
  {id:102,d:1,stem:"print(round(3.14159, 2)) 輸出？",o:{A:"3.14",B:"3.1",C:"3.142",D:"3"},a:["A"],e:"round(x,2) 四捨五入到小數 2 位。"},
  {id:103,d:1,stem:'print(5 == 5.0, 5 != "5") 輸出？',o:{A:"True True",B:"False True",C:"True False",D:"False False"},a:["A"],e:"5==5.0 為 True；整數 5≠字串 '5' 為 True。"},
  {id:104,d:1,stem:'print("Hello"[0], "Hello"[-1]) 輸出？',o:{A:"H o",B:"H l",C:"He o",D:"P n"},a:["A"],e:"索引 0 為 H、-1 為最後字元 o。"},
- {id:105,d:3,stem:'print("A", end=" ") 後接 print("B")，輸出為？',o:{A:"A B（同一行）",B:"A 換行 B",C:"AB",D:"A  B"},a:["A"],e:'end=" " 不換行，接著印 B。'},
+ {id:105,d:3,stem:'print("A", end=" ") 後接 print("B")，輸出為？',o:{A:"A B（同一行）",B:"A 換行 B",C:"AB",D:"A  B（中間兩個空白）"},a:["A"],e:'end=" " 不換行、只補一個空白，接著印 B → A B。'},
  {id:106,d:3,stem:'print(3, 4, 5, sep="+") 輸出？',o:{A:"3 4 5",B:"3+4+5",C:"345",D:"12"},a:["B"],e:'sep="+" 以加號分隔。'},
  {id:107,d:3,stem:"輸入 hello，x = input()；print(x.upper()) 輸出？",o:{A:"hello",B:"HELLO",C:"Hello",D:"錯誤"},a:["B"],e:".upper() 轉大寫。"},
  {id:108,d:3,stem:'開檔模式 "w"：若檔案已存在，會？',o:{A:"附加到末端",B:"清空原內容重新寫入",C:"唯讀不可寫",D:"引發錯誤"},a:["B"],e:'"w" 會清空(truncate)原內容再寫入。'},
