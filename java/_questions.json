@@ -6,7 +6,7 @@
     "code": "",
     "o": {
       "A": "public static void main(String[] args)",
-      "B": "public void main(String[] args)",
+      "B": "public static void main(String args)",
       "C": "public static int main(String[] args)",
       "D": "private static void main(String[] args)"
     },
@@ -14,8 +14,8 @@
       "A"
     ],
     "multi": false,
-    "e": "標準進入點必須是 public、static、回傳 void，並接收一個 String[] 參數，這是各版本 Java 與證照一致認定的標準簽名。",
-    "ew": "B 少了 static，不是標準靜態進入點寫法；標準進入點之所以要 static，是為了讓 JVM 無需先建立物件即可直接呼叫，因此 B 不是正確的標準簽名。C 的回傳型別是 int 而非 void，標準進入點被規範為回傳 void，回傳型別不符就不是標準 main。D 使用 private，存取權限不足，JVM 無法從類別外部呼叫它（實測 private static void main 會出現找不到主方法的錯誤）。記住標準入口四要素：public 讓 JVM 可存取、static 免建立物件即可呼叫、void 不回傳值、String[] 用來接命令列引數。"
+    "e": "標準進入點必須是 public、static、回傳 void，並接收一個 String[] 參數，這是傳統且通用的標準簽名（Java 25 起另允許不加 static 的 instance main，但仍以此為標準寫法）。",
+    "ew": "B 的參數型別是 String 而不是 String[]，JVM 找不到符合的 main，無法啟動（實測會出現找不到主要方法的錯誤）。C 的回傳型別是 int 而非 void，標準進入點被規範為回傳 void，回傳型別不符就不是標準 main。D 使用 private，存取權限不足，JVM 無法從類別外部呼叫它（實測 private static void main 會出現找不到主方法的錯誤）。記住標準入口四要素：public 讓 JVM 可存取、static 免建立物件即可呼叫、void 不回傳值、String[] 用來接命令列引數。"
   },
   {
     "id": 2,
@@ -582,7 +582,7 @@
   {
     "id": 33,
     "d": 2,
-    "stem": "下列哪一個變數宣告會導致編譯錯誤，因為區域變數未初始化就被使用？",
+    "stem": "下列程式編譯與執行的結果為何？",
     "code": "public class Main {\n  public static void main(String[] args) {\n    int x;\n    System.out.println(x);\n  }\n}",
     "o": {
       "A": "正常輸出 0",
@@ -2395,8 +2395,8 @@
   {
     "id": 133,
     "d": 5,
-    "stem": "下列程式想在年齡不在 12~65 之間時給予不同費率，但輸出總是 child rate，屬於什麼問題？",
-    "code": "public class Demo {\n  public static void main(String[] a){\n    int age = 20;\n    if (age > 12 || age < 65) System.out.println(\"child rate\");\n    else System.out.println(\"adult rate\");\n  }\n}",
+    "stem": "下列程式想在年齡介於 12~65 之間時給予成人費率，其餘給予優惠費率，但輸出總是 adult rate，屬於什麼問題？",
+    "code": "public class Demo {\n  public static void main(String[] a){\n    int age = 20;\n    if (age > 12 || age < 65) System.out.println(\"adult rate\");\n    else System.out.println(\"child rate\");\n  }\n}",
     "o": {
       "A": "語法錯誤，無法編譯",
       "B": "執行期例外",
