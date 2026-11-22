@@ -535,14 +535,16 @@ const QBY=Object.fromEntries(Q.map(q=>[q.id,q]));
   let d=null;
   try{ d=JSON.parse(localStorage.getItem(STORE_KEY)||'null'); }catch(e){}
   if(d&&Array.isArray(d.order)) order=d.order.filter(id=>QBY[id]);
+  const prev=order.slice();
   const miss=Q.map(q=>q.id).filter(id=>!order.includes(id));   // 第一次進來或題庫新增的題目
-  order=order.concat(sample(miss,miss.length));
+  for(const id of sample(miss,miss.length)) order.splice(Math.floor(Math.random()*(order.length+1)),0,id);   // 新題隨機穿插，不會全排在最後
   if(!d) return;
   for(const id in d.state||{}){ const q=Q.find(x=>x.id===+id), c=d.state[id].chosen||[];
     if(q) state[id]={chosen:c,correct:eq(c,q.a)}; }
   for(const id in d.pending||{}) if(Q.some(x=>x.id===+id)) pending[id]=d.pending[id];
   if(fdefs.some(x=>x.k===d.filter)) filter=d.filter;
-  practiceIdx=Array.isArray(d.order)?(+d.practiceIdx||0):0;
+  const inView=a=>a.filter(id=>filter===0||QBY[id].d===filter);
+  practiceIdx=Array.isArray(d.order)?Math.max(0,inView(order).indexOf(inView(prev)[+d.practiceIdx||0])):0;   // 停在原本那一題
   [...fWrap.children].forEach(x=>x.setAttribute('aria-pressed',+x.dataset.k===filter));
 })();
 
