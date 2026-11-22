@@ -1403,7 +1403,7 @@
 "code": "",
 "o": {
 "A": "<select><option>Apple</option><option selected>Banana</option></select>",
-"B": "<select><option checked>Banana</option></select>",
+"B": "<select><option>Apple</option><option checked>Banana</option></select>",
 "C": "<input type=\"select\"><option>Banana</option></input>",
 "D": "<dropdown><item selected>Banana</item></dropdown>"
 },
@@ -1412,7 +1412,7 @@
 ],
 "multi": false,
 "e": "下拉選單用 <select> 搭配多個 <option>，在要預設選中的 <option> 上加 selected 屬性。",
-"ew": "B 用錯了屬性：預設選中選項要用 selected，checked 是 radio 與 checkbox 專用的，放在 <option> 上無效。C 錯誤，沒有 type=\"select\" 這種輸入，下拉選單是 <select> 元素而非 <input>，且 input 是空元素不能包 <option>。D 錯誤，<dropdown> 與 <item> 都不是有效 HTML 標籤。標準寫法就是 select + option，並用 selected 指定預設值。"
+"ew": "B 用錯了屬性：預設選中選項要用 selected，checked 是 radio 與 checkbox 專用的，放在 <option> 上無效，瀏覽器會忽略它，實際預設選中的是第一個 Apple。C 錯誤，沒有 type=\"select\" 這種輸入，下拉選單是 <select> 元素而非 <input>，且 input 是空元素不能包 <option>。D 錯誤，<dropdown> 與 <item> 都不是有效 HTML 標籤。標準寫法就是 select + option，並用 selected 指定預設值。"
 },
 {
 "id": 79,

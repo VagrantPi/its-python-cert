@@ -153,7 +153,7 @@
   .opt:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft)}
   .opt:disabled{cursor:default}
   .opt .k{font-family:var(--mono);font-weight:700;color:var(--muted);flex:0 0 auto}
-  .opt .tx{flex:1}
+  .opt .tx{flex:1;white-space:pre-wrap}
   .opt .tx code,.opt .tx{font-family:var(--mono);font-size:.9rem}
   .opt.correct{background:var(--good-soft);border-color:var(--good-bd)}
   .opt.correct .k{color:var(--good)}
@@ -660,23 +660,29 @@ fWrap.onclick=e=>{const b=e.target.closest('.fbtn');if(!b)return;
 // ---------- 作答紀錄存在瀏覽器（每科各自一份，互不影響） ----------
 const STORE_KEY='its-cert:java:practice';
 function savePractice(){
-  try{ localStorage.setItem(STORE_KEY,JSON.stringify({state,pending,filter,practiceIdx})); }catch(e){}
+  try{ localStorage.setItem(STORE_KEY,JSON.stringify({state,pending,filter,practiceIdx,order})); }catch(e){}
 }
+// 出題順序（題目 id）：第一次洗牌後就存起來固定，按「重考」才重新洗牌
+let order=[];
+const QBY=Object.fromEntries(Q.map(q=>[q.id,q]));
 (function loadPractice(){
   let d=null;
   try{ d=JSON.parse(localStorage.getItem(STORE_KEY)||'null'); }catch(e){}
+  if(d&&Array.isArray(d.order)) order=d.order.filter(id=>QBY[id]);
+  const miss=Q.map(q=>q.id).filter(id=>!order.includes(id));   // 第一次進來或題庫新增的題目
+  order=order.concat(sample(miss,miss.length));
   if(!d) return;
   for(const id in d.state||{}){ const q=Q.find(x=>x.id===+id), c=d.state[id].chosen||[];
     if(q) state[id]={chosen:c,correct:eq(c,q.a)}; }
   for(const id in d.pending||{}) if(Q.some(x=>x.id===+id)) pending[id]=d.pending[id];
   if(fdefs.some(x=>x.k===d.filter)) filter=d.filter;
-  practiceIdx=+d.practiceIdx||0;
+  practiceIdx=Array.isArray(d.order)?(+d.practiceIdx||0):0;
   [...fWrap.children].forEach(x=>x.setAttribute('aria-pressed',+x.dataset.k===filter));
 })();
 
 function renderPractice(){
   savePractice();
-  const qs=Q.filter(q=>filter===0||q.d===filter);
+  const qs=order.map(id=>QBY[id]).filter(q=>filter===0||q.d===filter);
   if(!qs.length){ list.innerHTML=''; return; }
   practiceIdx=Math.max(0,Math.min(practiceIdx,qs.length-1));
   const q=qs[practiceIdx];
@@ -706,6 +712,7 @@ function retake(){
   if(mode!=='practice') document.querySelector('#modebar [data-mode="practice"]').click();
   for(const k in state)delete state[k];
   for(const k in pending)delete pending[k];
+  order=sample(Q.map(q=>q.id),Q.length);
   practiceIdx=0;
   resultBox.classList.remove('show');
   renderPractice();

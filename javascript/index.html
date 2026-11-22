@@ -153,7 +153,7 @@
   .opt:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft)}
   .opt:disabled{cursor:default}
   .opt .k{font-family:var(--mono);font-weight:700;color:var(--muted);flex:0 0 auto}
-  .opt .tx{flex:1}
+  .opt .tx{flex:1;white-space:pre-wrap}
   .opt .tx code,.opt .tx{font-family:var(--mono);font-size:.9rem}
   .opt.correct{background:var(--good-soft);border-color:var(--good-bd)}
   .opt.correct .k{color:var(--good)}
@@ -497,15 +497,15 @@ const Q=[
  {id:71,d:4,stem:"選取第一個符合 CSS 選擇器 .item 的元素，用？",o:{A:'document.querySelector(".item")',B:'document.querySelectorAll(".item")',C:'document.getElementById(".item")',D:'document.select(".item")'},a:["A"],e:"querySelector 回傳第一個符合的元素。"},
  {id:72,d:4,stem:"選取所有符合 .item 的元素（NodeList），用？",o:{A:'document.querySelector(".item")',B:'document.querySelectorAll(".item")',C:'document.getElement(".item")',D:'document.all(".item")'},a:["B"],e:"querySelectorAll 回傳所有符合的元素集合。"},
  {id:73,d:4,stem:"建立一個新的 div 元素，用？",o:{A:'document.newElement("div")',B:'document.createElement("div")',C:'document.addElement("div")',D:'new Element("div")'},a:["B"],e:"document.createElement 建立新元素。"},
- {id:74,d:4,stem:"把子節點加到父元素的末端，用？",o:{A:"parent.appendChild(child)",B:"parent.addChild(child)",C:"parent.append(child, true)",D:"child.appendTo(parent)"},a:["A"],e:"appendChild 把節點加到父元素子節點末端。"},
- {id:75,d:4,stem:"移除某個子節點，用？",o:{A:"parent.deleteChild(child)",B:"parent.removeChild(child)",C:"child.remove(parent)",D:"parent.delete(child)"},a:["B"],e:"removeChild 從父元素移除指定子節點。"},
+ {id:74,d:4,stem:"把子節點加到父元素的末端，用？",o:{A:"parent.appendChild(child)",B:"parent.addChild(child)",C:"parent.insert(child)",D:"child.appendTo(parent)"},a:["A"],e:"appendChild 把節點加到父元素子節點末端。"},
+ {id:75,d:4,stem:"移除某個子節點，用？",o:{A:"parent.deleteChild(child)",B:"parent.removeChild(child)",C:"child.removeFrom(parent)",D:"parent.delete(child)"},a:["B"],e:"removeChild 從父元素移除指定子節點。"},
  {id:76,d:4,stem:"設定元素的 id 屬性，用？",o:{A:'element.setAttribute("id", "x")',B:'element.attr("id", "x")',C:'element.set("id", "x")',D:'element.addAttr("id", "x")'},a:["A"],e:"setAttribute(名稱, 值) 設定屬性。"},
  {id:77,d:4,stem:"讀取元素的 id 屬性值，用？",o:{A:'element.getAttribute("id")',B:'element.attr("id")',C:'element.readAttribute("id")',D:'element.get("id")'},a:["A"],e:"getAttribute(名稱) 讀取屬性值。"},
  {id:78,d:4,stem:'為元素加一個 CSS class "active"，用？',o:{A:'element.class += "active"',B:'element.classList.add("active")',C:'element.addClass("active")',D:'element.class.add("active")'},a:["B"],e:"classList.add 新增 class。"},
  {id:79,d:4,stem:"只設定純文字（不解析 HTML 標籤），用哪個屬性？",o:{A:"innerHTML",B:"textContent",C:"innerHTML 才安全",D:"value"},a:["B"],e:"textContent 只設純文字；innerHTML 會解析 HTML。"},
  {id:80,d:4,stem:"事件處理函式中，代表「觸發事件的元素」的是？",o:{A:"event.source",B:"event.target",C:"event.element",D:"this.event"},a:["B"],e:"event.target 是實際觸發事件的元素。"},
  {id:81,d:4,stem:"要為同一元素綁定「多個」click 處理函式，應用？",o:{A:"onclick 屬性",B:"addEventListener",C:"element.click()",D:"onclick 可重複指定"},a:["B"],e:"addEventListener 可綁多個；onclick 屬性只會保留最後一個。"},
- {id:82,d:4,stem:"要等整份 HTML 的 DOM 載入完成再執行程式，監聽哪個事件？",o:{A:"load",B:"DOMContentLoaded",C:"ready",D:"start"},a:["B"],e:"DOMContentLoaded 在 DOM 解析完成時觸發（早於圖片等資源的 load）。"},
+ {id:82,d:4,stem:"DOM 解析完成就立即執行程式、不必等圖片等資源載完，要監聽哪個事件？",o:{A:"load",B:"DOMContentLoaded",C:"ready",D:"start"},a:["B"],e:"DOMContentLoaded 在 DOM 解析完成時觸發（早於圖片等資源的 load）。"},
  {id:83,d:4,stem:"取得某元素底下所有子元素集合，用哪個屬性？",o:{A:"element.children",B:"element.nodes",C:"element.sub",D:"element.child"},a:["A"],e:"element.children 回傳子元素集合。"},
  {id:84,d:4,stem:"依 class 名稱取得元素集合，用？",o:{A:'document.getElementsByClassName("x")',B:'document.getClass("x")',C:'document.getElementByClass("x")',D:'document.className("x")'},a:["A"],e:"getElementsByClassName 依 class 取得元素集合。"},
  {id:85,d:5,stem:"取得 checkbox 是否被勾選，讀哪個屬性？",o:{A:"checkbox.value",B:"checkbox.checked",C:"checkbox.selected",D:"checkbox.on"},a:["B"],e:"checked 為布林值，表示是否勾選。"},
@@ -516,7 +516,7 @@ const Q=[
  {id:90,d:5,stem:"事件處理中取得觸發輸入框目前的值，用？",o:{A:"event.value",B:"event.target.value",C:"event.input",D:"this.value.get()"},a:["B"],e:"event.target 是該元素，.value 取其值。"},
  {id:91,d:5,stem:"用 JavaScript 以程式方式送出表單，用？",o:{A:"form.send()",B:"form.submit()",C:"form.post()",D:"form.go()"},a:["B"],e:"form.submit() 送出表單。"},
  {id:92,d:5,stem:"清空/重設表單所有欄位，用？",o:{A:"form.clear()",B:"form.reset()",C:"form.empty()",D:"form.default()"},a:["B"],e:"form.reset() 重設欄位為初始值。"},
- {id:93,d:5,stem:"讓某個輸入框自動取得游標焦點，用？",o:{A:"input.focus()",B:"input.active()",C:"input.select()",D:"input.cursor()"},a:["A"],e:"input.focus() 使欄位取得焦點。"},
+ {id:93,d:5,stem:"讓某個輸入框自動取得游標焦點，用？",o:{A:"input.focus()",B:"input.active()",C:"input.setFocus()",D:"input.cursor()"},a:["A"],e:"input.focus() 使欄位取得焦點。"},
  {id:94,d:5,stem:"一組同名 radio 中，如何判斷某顆是否被選？",o:{A:"radio.value",B:"radio.checked",C:"radio.selected",D:"radio.on"},a:["B"],e:"用被選那顆的 checked 為 true 判斷。"},
  {id:95,d:5,stem:"表單資料附在網址查詢字串送出的 method 是？",o:{A:"GET",B:"POST",C:"PUT",D:"SEND"},a:["A"],e:"GET 把資料放 URL 查詢字串。"},
  {id:96,d:5,stem:"表單資料放在請求主體、較適合大量或敏感資料的 method 是？",o:{A:"GET",B:"POST",C:"HEAD",D:"VIEW"},a:["B"],e:"POST 放請求主體，不顯示於網址。"},
@@ -620,23 +620,29 @@ fWrap.onclick=e=>{const b=e.target.closest('.fbtn');if(!b)return;
 // ---------- 作答紀錄存在瀏覽器（每科各自一份，互不影響） ----------
 const STORE_KEY='its-cert:javascript:practice';
 function savePractice(){
-  try{ localStorage.setItem(STORE_KEY,JSON.stringify({state,pending,filter,practiceIdx})); }catch(e){}
+  try{ localStorage.setItem(STORE_KEY,JSON.stringify({state,pending,filter,practiceIdx,order})); }catch(e){}
 }
+// 出題順序（題目 id）：第一次洗牌後就存起來固定，按「重考」才重新洗牌
+let order=[];
+const QBY=Object.fromEntries(Q.map(q=>[q.id,q]));
 (function loadPractice(){
   let d=null;
   try{ d=JSON.parse(localStorage.getItem(STORE_KEY)||'null'); }catch(e){}
+  if(d&&Array.isArray(d.order)) order=d.order.filter(id=>QBY[id]);
+  const miss=Q.map(q=>q.id).filter(id=>!order.includes(id));   // 第一次進來或題庫新增的題目
+  order=order.concat(sample(miss,miss.length));
   if(!d) return;
   for(const id in d.state||{}){ const q=Q.find(x=>x.id===+id), c=d.state[id].chosen||[];
     if(q) state[id]={chosen:c,correct:eq(c,q.a)}; }
   for(const id in d.pending||{}) if(Q.some(x=>x.id===+id)) pending[id]=d.pending[id];
   if(fdefs.some(x=>x.k===d.filter)) filter=d.filter;
-  practiceIdx=+d.practiceIdx||0;
+  practiceIdx=Array.isArray(d.order)?(+d.practiceIdx||0):0;
   [...fWrap.children].forEach(x=>x.setAttribute('aria-pressed',+x.dataset.k===filter));
 })();
 
 function renderPractice(){
   savePractice();
-  const qs=Q.filter(q=>filter===0||q.d===filter);
+  const qs=order.map(id=>QBY[id]).filter(q=>filter===0||q.d===filter);
   if(!qs.length){ list.innerHTML=''; return; }
   practiceIdx=Math.max(0,Math.min(practiceIdx,qs.length-1));
   const q=qs[practiceIdx];
@@ -666,6 +672,7 @@ function retake(){
   if(mode!=='practice') document.querySelector('#modebar [data-mode="practice"]').click();
   for(const k in state)delete state[k];
   for(const k in pending)delete pending[k];
+  order=sample(Q.map(q=>q.id),Q.length);
   practiceIdx=0;
   resultBox.classList.remove('show');
   renderPractice();
