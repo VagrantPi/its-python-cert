@@ -708,7 +708,7 @@ function renderPractice(){
   const st=state[q.id], done=!!st;
   const sel=done?[]:(pending[q.id]||[]);
   const opts=optHTML(q,{chosen:done?st.chosen:[],graded:done,selected:sel});
-  const submit=q.multi&&!done?`<button class="submit" data-submit="${q.id}" ${sel.length?'':'disabled'}>確認作答</button>`:'';
+  const submit=!done?`<button class="submit" data-submit="${q.id}" ${sel.length?'':'disabled'}>確認作答</button>`:'';
   const exp=done?feedbackHTML(q,st.chosen,st.correct):'';
   const pager=pagerHTML(qs,practiceIdx,q2=>{const s=state[q2.id];if(s)return s.correct?'correct':'wrong';return (pending[q2.id]||[]).length?'ans':'';});
   const nav=navHTML(practiceIdx,qs.length,done);
@@ -829,7 +829,7 @@ list.onclick=e=>{
       if(q.multi){
         const set=new Set(pending[id]||[]); set.has(k)?set.delete(k):set.add(k);
         pending[id]=[...set]; renderPractice();
-      }else commit(id,[k]);
+      }else{ pending[id]=[k]; renderPractice(); }
     }
     return;
   }
